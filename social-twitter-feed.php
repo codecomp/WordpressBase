@@ -5,8 +5,6 @@ $tweets = get_transient('social_twitter_feed');
 //If cache has expired/not found get the tweets
 if( $tweets === false ){
 
-	echo 'Oh no, I need to cache!';
-
 	require_once (get_template_directory().'/inc/codebird/codebird.php');
 	\Codebird\Codebird::setConsumerKey(get_field('twitter_consumer_key', 'option'), get_field('twitter_consumer_secret', 'option')); // static, see 'Using multiple Codebird instances'
 
