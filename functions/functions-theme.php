@@ -28,6 +28,13 @@ function ahoy_enquire()
 
 	wp_enqueue_style('ahoy-style', 					get_template_directory_uri() . '/css/main.css');
 	wp_enqueue_script('ahoy-script', 				get_stylesheet_directory_uri() . '/js/main.js', array( 'jquery' ));
+
+	// Localize site directory data to javascript
+	$url_arr = array(
+		'template_dir' 	=> get_template_directory_uri(),
+		'base_dir' 		=> get_site_url()
+	);
+	wp_localize_script( 'ahoy-script', 'url_data', $url_arr );
 }
 add_action('wp_enqueue_scripts', 'ahoy_enquire');
 
