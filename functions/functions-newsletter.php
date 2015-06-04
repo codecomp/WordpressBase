@@ -15,7 +15,7 @@ function mail_chimp_send( $email ){
 	}
 
 	//Include the mailchimp API
-	require_once '../inc/mailchimp/Mailchimp.php';
+	require_once __DIR__ . '/../inc/mailchimp/Mailchimp.php';
 
 	//Setup the API keys required for this list and client
 	$api_key 	= 'client-id-here';
@@ -26,7 +26,7 @@ function mail_chimp_send( $email ){
 	$replace_interests	= true;
 	$send_welcome		= true;
 
-	$Mailchimp 			= new Mailchimp( $api_key );
+	$Mailchimp 		= new Mailchimp( $api_key );
 	$Mailchimp_Lists 	= new Mailchimp_Lists( $Mailchimp );
 
 
@@ -98,7 +98,7 @@ function campaign_monitor_send( $email, $name ){
 	}
 
 	//Include the bloated campaign monitor API
-	require_once '../inc/campaignmonitor/csrest_subscribers.php';
+	require_once __DIR__ . '/../inc/campaignmonitor/csrest_subscribers.php';
 
 	//If passing string for second variable it assumes it is api key and converts it into array inside class
 	$wrap = new CS_REST_Subscribers('7995f4780511653a8a60d06d0dc47324', 'cd9c428162942fbd500963889067e271a993a22ae0cdac1c');
