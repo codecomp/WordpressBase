@@ -19,11 +19,11 @@ if( $tweets === false ){
 }
 
 ?>
-<div class="tweet-container">
+<div class="social-feed twitter">
 	<?php foreach($tweets as $tweet): ?>
 
 		<?php if($tweet->id ): ?>
-			<div class="tweet-single">
+			<div class="single tweet">
 				<?php
 				$t_content = $tweet->text;
 				$t_content = preg_replace("/(https{0,1}:\/\/([\w\-\.\/#?&=]*))/", "<a href=\"$1\" target=\"_blank\">$2</a>", $t_content);

@@ -4,14 +4,14 @@
  */
 
 //Add extra options pages to ACF
-function my_acf_options_page_settings($settings)
-{
-	$settings['title'] = 'Options';
-	$settings['pages'] = array('Social', 'Site Options', 'Emails');
+if(function_exists('acf_add_options_page')) {
 
-	return $settings;
+    acf_add_options_page();
+    acf_add_options_sub_page('Social');
+    acf_add_options_sub_page('Site Options');
+    acf_add_options_sub_page('Emails');
+
 }
-add_filter('acf/options_page/settings', 'my_acf_options_page_settings');
 
 //Add social Field groups
 if(function_exists("register_field_group"))
