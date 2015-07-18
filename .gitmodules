@@ -1,0 +1,9 @@
+[submodule "components/libs/codebird"]
+	path = components/libs/codebird
+	url = https://github.com/jublonet/codebird-php.git
+[submodule "components/libs/campaignmonitor"]
+	path = components/libs/campaignmonitor
+	url = https://github.com/campaignmonitor/createsend-php.git
+[submodule "components/libs/mailchimp"]
+	path = components/libs/mailchimp
+	url = https://ahoychris@bitbucket.org/mailchimp/mailchimp-api-php.git
