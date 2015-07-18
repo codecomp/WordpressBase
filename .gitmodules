@@ -7,3 +7,24 @@
 [submodule "components/libs/mailchimp"]
 	path = components/libs/mailchimp
 	url = https://ahoychris@bitbucket.org/mailchimp/mailchimp-api-php.git
+[submodule "assets/libs/fontawesome"]
+	path = assets/libs/fontawesome
+	url = https://github.com/FortAwesome/Font-Awesome.git
+[submodule "assets/libs/isInViewport"]
+	path = assets/libs/isInViewport
+	url = https://github.com/zeusdeux/isInViewport
+[submodule "assets/libs/owl-carousel"]
+	path = assets/libs/owl-carousel
+	url = https://github.com/OwlFonk/OwlCarousel
+[submodule "assets/libs/owl-carousel2"]
+	path = assets/libs/owl-carousel2
+	url = https://github.com/smashingboxes/OwlCarousel2
+[submodule "assets/libs/validationEngine"]
+	path = assets/libs/validationEngine
+	url = https://github.com/posabsolute/jQuery-Validation-Engine
+[submodule "assets/libs/wowjs"]
+	path = assets/libs/wowjs
+	url = https://github.com/matthieua/WOW
+[submodule "assets/libs/responsible-height"]
+	path = assets/libs/responsible-height
+	url = https://github.com/Codecomp/ResponsibleHeight.git
