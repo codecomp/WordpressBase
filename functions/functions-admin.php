@@ -1,6 +1,26 @@
 <?php
 
 /**
+ * Setup admin related actions and filters
+ */
+function functions_admin_setup(){
+    //Remove word press version number from theme
+    remove_action('wp_head', 'wp_generator');
+
+    //Return no error upon failed login attempt
+    add_filter('login_errors',create_function('$a', 'return null;'));
+
+    //Remove Welcome panel from dashboard
+    remove_action( 'welcome_panel', 'wp_welcome_panel' );
+
+    // Remove plugin update notifications
+    remove_action('load-update-core.php','wp_update_plugins');
+    add_filter('pre_site_transient_update_plugins','__return_null');
+}
+add_action('after_setup_theme', 'functions_admin_setup');
+
+
+/**
  * Remove dashboard widgets
  */
 function remove_dashboard_widgets() {
@@ -18,11 +38,6 @@ function remove_dashboard_widgets() {
 
 }
 add_action('wp_dashboard_setup', 'remove_dashboard_widgets' );
-
-/**
- * Remove Welcome panel from dashboard
- */
-remove_action( 'welcome_panel', 'wp_welcome_panel' );
 
 /**
  * Remove unused admin sections, uncomment to remove this for relevant users
@@ -96,12 +111,6 @@ function remove_core_updates()
 	add_filter('pre_site_transient_update_core','__return_null');
 }
 add_action('after_setup_theme','remove_core_updates');
-
-/**
- * Remove plugin update notifications
- */
-remove_action('load-update-core.php','wp_update_plugins');
-add_filter('pre_site_transient_update_plugins','__return_null');
 
 /**
  * Only allow certain roles into admin section
