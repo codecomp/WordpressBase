@@ -27,7 +27,8 @@ function ahoy_enquire()
 	wp_enqueue_script('modernise-modernizr', 		get_template_directory_uri() . '/assets/js/fallback/modernizr.2.8.3.js', array( 'jquery' ), false, true);
 
 	wp_enqueue_style('ahoy-style', 					get_template_directory_uri() . '/assets/css/main.css');
-	wp_enqueue_script('ahoy-script', 				get_stylesheet_directory_uri() . '/assets/js/main.js', array( 'jquery' ));
+	wp_enqueue_script('ahoy-script-includes', 		get_stylesheet_directory_uri() . '/assets/js/includes.js', array( 'jquery' ));
+	wp_enqueue_script('ahoy-script', 				get_stylesheet_directory_uri() . '/assets/js/main.js', array( 'jquery', 'ahoy-script-includes' ));
 
 	// Localize site directory data to javascript
 	$url_arr = array(
