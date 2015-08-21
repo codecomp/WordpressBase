@@ -37,6 +37,9 @@ var Site = (function($) {
 
 			// Add browser detection
 			this.detectBrowser();
+
+			// Cookie popup
+			helper.check('.cookie-notice', this.cookieNoticeControl);
 		},
 
 		handlers: {
@@ -150,6 +153,25 @@ var Site = (function($) {
 		detectBrowser: function(){
 			document.documentElement.setAttribute('data-ua', navigator.userAgent);
 			document.documentElement.setAttribute('data-nav', navigator.sayswho.toLowerCase());
+		},
+
+		// Open and close cookie popup
+		cookieNoticeControl: function() {
+			// Double check the cookie notice hasn't been previously removed
+			if( helper.getCookie('cookie-notice') )
+				return false;
+
+			var $notice = $('.cookie-notice');
+
+			$notice.children('.agree').on('click', function(e){
+				e.preventDefault();
+
+				// Remove the notice
+				$notice.remove();
+
+				// Set the cookie notice so we don't get bugged again
+				helper.setCookie('cookie-notice', true);
+			});
 		}
 
 	};
