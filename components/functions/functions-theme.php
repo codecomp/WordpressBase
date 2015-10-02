@@ -47,6 +47,7 @@ function ahoy_init()
     //Register theme supports
     add_theme_support('post-thumbnails');
     add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption' ) );
+    load_theme_textdomain( 'tmp', TEMPLATEPATH.'/components/languages' );
 
 	//Register navigation menus
 	/*

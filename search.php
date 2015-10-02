@@ -3,7 +3,7 @@
     <main role="main" id="<?php echo get_post_type(); ?>-archive" class="clearfix">
         <div class="wrap">
             <?php if (have_posts()) : ?>
-                <h2>Search results for <?php the_search_query(); ?></h2>
+                <h2><?php printf(__('Search results for %s', 'tmp'), get_search_query()); ?></h2>
                 <?php while (have_posts()) : the_post(); ?>
 
                     <article>
@@ -11,12 +11,12 @@
                             <h1><?php the_title(); ?></h1>
                         </header>
                         <?php the_excerpt(); ?>
-                        <a href="<?php the_permalink(); ?>" class="button">View More</a>
+                        <a href="<?php the_permalink(); ?>" class="button"><?php _e('View More', 'tmp'); ?></a>
                     </article>
 
                 <?php endwhile; ?>
             <?php else: ?>
-                <h2>Sorry no results for <?php the_search_query(); ?></h2>
+                <h2><?php printf(__('Sorry, no results for %s', 'tmp'), get_search_query()); ?></h2>
             <?php endif; ?>
         </div>
     </main>
@@ -31,8 +31,8 @@
             'total'     => $wp_query->max_num_pages,
             'mid_size'  => 2,
             'prev_next' => true,
-            'prev_text' => 'Previous',
-            'next_text' => 'Next'
+            'prev_text' => __('Previous', 'tmp'),
+            'next_text' => __('Next', 'tmp')
         ));
         if ($paginate_links) {
             echo '<nav class="pagination">';

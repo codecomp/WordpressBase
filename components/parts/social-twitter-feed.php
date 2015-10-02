@@ -34,9 +34,9 @@ if( $tweets === false ){
 				<p class="tweet"><?php echo $t_content; ?></p>
 				<div class="tweet-controls">
 					<p class="post"><?php echo date_timeago( $tweet->created_at ); ?></p>
-					<a class="replyIcon" href="https://twitter.com/intent/tweet?in_reply_to=<?php echo $tweet->id; ?>" target="_blank">Reply</a>
-					<a class="retweetIcon" href="https://twitter.com/intent/retweet?tweet_id=<?php echo $tweet->id;  ?>" target="_blank">Retweet</a>
-					<a class="faveIcon" href="https://twitter.com/intent/favorite?tweet_id=<?php echo $tweet->id; ?>" target="_blank">Favourite</a>
+					<a class="replyIcon" href="https://twitter.com/intent/tweet?in_reply_to=<?php echo $tweet->id; ?>" target="_blank"><?php _e('Reply', 'tmp'); ?></a>
+					<a class="retweetIcon" href="https://twitter.com/intent/retweet?tweet_id=<?php echo $tweet->id;  ?>" target="_blank"><?php _e('Retweet', 'tmp'); ?>'</a>
+					<a class="faveIcon" href="https://twitter.com/intent/favorite?tweet_id=<?php echo $tweet->id; ?>" target="_blank"><?php _e('Favourite', 'tmp'); ?>'</a>
 				</div>
 			</div>
 		<?php endif; ?>

@@ -10,8 +10,8 @@ function mail_chimp_send( $email ){
 	//TODO Test on live server, local host throwing [Uncaught exception 'Mailchimp_HttpError' with message 'API call to lists/subscribe failed: SSL certificate problem: unable to get local issuer certificate']
 
 	//Setup the returns we will use
-	$success_data 	= array('success' => true, 'message' => 'Thank you');
-	$error_data 	= array('success' => false, 'message' => 'There has been an error, Please try again later');
+	$success_data 	= array('success' => true, 'message' => __('Thank you', 'tmp'));
+	$error_data 	= array('success' => false, 'message' => __('There has been an error, Please try again later', 'tmp'));
 
 	//Check the nonce not invalid and return the error if it is
 	if( !check_ajax_referer( 'mail-chimp-ajax-nonce', 'security', false ) || !filter_var($email, FILTER_VALIDATE_EMAIL) ){
@@ -100,8 +100,8 @@ add_action('wp_ajax_nopriv_mail_chimp', 'mail_chimp_ajax'); // if user not logge
 function campaign_monitor_send( $email, $name ){
 
 	//Setup the returns we will use
-	$success_data 	= array('success' => true, 'message' => 'Thank you');
-	$error_data 	= array('success' => false, 'message' => 'There has been an error, Please try again later');
+	$success_data 	= array('success' => true, 'message' => __('Thank you', 'tmp'));
+	$error_data 	= array('success' => false, 'message' => __('There has been an error, Please try again later', 'tmp'));
 
 	//Check the nonce not invalid and return the error if it is
 	if( !check_ajax_referer( 'campaign-monitor-ajax-nonce', 'security', false ) || !filter_var($email, FILTER_VALIDATE_EMAIL) ){

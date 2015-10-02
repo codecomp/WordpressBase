@@ -10,13 +10,13 @@
 							<h1><?php the_title(); ?></h1>
 						</header>
 						<?php the_excerpt(); ?>
-						<a href="<?php the_permalink(); ?>" class="button">View More</a>
+                        <a href="<?php the_permalink(); ?>" class="button"><?php _e('View More', 'tmp'); ?></a>
 					</article>
 
 				<?php endwhile; ?>
 			<?php else: ?>
 				<?php if($post_type = get_post_type_object( get_query_var('post_type') )): ?>
-					<h2>Sorry no <?php echo $post_type->labels->name; ?> found</h2>
+                    <h2><?php printf(__('Sorry, no %s found', 'tmp'), $post_type->labels->name); ?></h2>
 				<?php endif; ?>
 			<?php endif; ?>
 		</div>
@@ -32,8 +32,8 @@
 			'total'     => $wp_query->max_num_pages,
 			'mid_size'  => 2,
 			'prev_next' => true,
-			'prev_text' => 'Previous',
-			'next_text' => 'Next'
+            'prev_text' => __('Previous', 'tmp'),
+            'next_text' => __('Next', 'tmp')
 		));
 		if ($paginate_links) {
 			echo '<nav class="pagination">';

@@ -6,8 +6,8 @@
 				<article>
 					<header>
 						<h1><?php the_title(); ?></h1>
-						<p>Time posted: <?php the_time(); ?></p>
-						<p>This post was written by <?php the_author(); ?></p>
+						<p><?php printf(__('Time posted: %s', 'tmp'), get_the_time()); ?></p>
+						<p><?php printf(__('This post was written by %s', 'tmp'), get_the_author()); ?></p>
 					</header>
 					<?php the_content(); ?>
 				</article>

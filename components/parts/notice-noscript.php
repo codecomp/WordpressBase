@@ -1,1 +1,1 @@
-<noscript>JavaScript is off. Please enable to view full site.</noscript>
+<noscript><?php _e('JavaScript is off. Please enable to view full site.', 'tmp'); ?></noscript>

@@ -2,9 +2,9 @@
 
 	<main role="main" id="four-oh-four" class="clearfix">
 
-		<h1>This is somewhat embarrassing, isn&rsquo;t it?</h1>
+		<h1><?php _e('This is somewhat embarrassing, isn\'t it?', 'tmp'); ?></h1>
 
-		<p>It seems we can&rsquo;t find what you&rsquo;re looking for.</p>
+		<p><?php _e('It seems we can\'t find what you\'re looking for.', 'tmp'); ?></p>
 
 	</main>
 
