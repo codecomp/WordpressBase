@@ -7,8 +7,6 @@
  */
 function mail_chimp_send( $email ){
 
-	//TODO Test on live server, local host throwing [Uncaught exception 'Mailchimp_HttpError' with message 'API call to lists/subscribe failed: SSL certificate problem: unable to get local issuer certificate']
-
 	//Setup the returns we will use
 	$success_data 	= array('success' => true, 'message' => __('Thank you', 'tmp'));
 	$error_data 	= array('success' => false, 'message' => __('There has been an error, Please try again later', 'tmp'));
@@ -22,40 +20,41 @@ function mail_chimp_send( $email ){
 	require_once __DIR__ . '/../libs/mailchimp/src/Mailchimp.php';
 
 	//Setup the API keys required for this list and client
-	$api_key 	= 'client-id-here';
+	$api_key 	= 'client-api-key-here';
 	$list_id 	= 'list-id-here';
 
-	$double_optin		= true;
-	$update_existing	= false;
-	$replace_interests	= true;
-	$send_welcome		= true;
+    $double_opt_in		= false;
+    $update_existing	= true;
+    $replace_interests	= false;
+    $send_welcome		= false;
 
-	$Mailchimp 		    = new Mailchimp( $api_key );
-	$Mailchimp_Lists 	= new Mailchimp_Lists( $Mailchimp );
+    $Mailchimp 			= new Mailchimp( $api_key );
 
+    try{
+        $subscriber 	= $Mailchimp->lists->subscribe(
+            $list_id,
+            array(
+                'email' => htmlentities( $email )
+            ),
+            array(
+                //'FNAME'	=> htmlentities( $first_name ),
+                //'LNAME'	=> htmlentities( $last_name )
+            ),
+            'html',
+            $double_opt_in,
+            $update_existing,
+            $replace_interests,
+            $send_welcome
+        );
 
-	try{
-		$subscriber 		= $Mailchimp_Lists->subscribe(
-			$list_id,
-			array(
-				'email' => htmlentities( $email )
-			),
-			null,
-			'html',
-			$double_optin,
-			$update_existing,
-			$replace_interests,
-			$send_welcome
-		);
-
-		//If everything has worked return the JSON success
+        //If everything has worked return the JSON success
         wp_send_json($success_data);
-	}
-	catch (Exception $e){
-		//Add the error to the returned JSON
-		$error_data['error'] = $e;
+    }
+    catch (Exception $e){
+        //Add the error to the returned JSON
+        $error_data['error'] = $e;
         wp_send_json($error_data);
-	}
+    }
 }
 
 /**
