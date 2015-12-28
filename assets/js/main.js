@@ -106,14 +106,28 @@ var Site = (function($) {
 			},
 
 			// Set cookie
-			setCookie: function(cname, cvalue, exdays) {
-				if (exdays === undefined) {
-					exdays = 360;
+			setCookie: function(cname, cvalue, expires, path, domain) {
+				var cookie = cname + "=" + encodeURI(cvalue) + ";";
+
+				if (expires) {
+					// If it's a date
+					if(expires instanceof Date) {
+						// If it isn't a valid date
+						if (isNaN(expires.getTime()))
+							expires = new Date();
+					}
+					else
+						expires = new Date(new Date().getTime() + parseInt(expires) * 1000 * 60 * 60 * 24);
+
+					cookie += "expires=" + expires.toGMTString() + ";";
 				}
-				var d = new Date();
-				d.setTime(d.getTime() + (exdays*86400000));
-				var expires = "expires="+d.toUTCString();
-				document.cookie = cname + "=" + cvalue + "; " + expires;
+
+				if (path)
+					cookie += "path=" + path + ";";
+				if (domain)
+					cookie += "domain=" + domain + ";";
+
+				document.cookie = cookie;
 			},
 
 			// Get cookie
@@ -170,7 +184,7 @@ var Site = (function($) {
 				$notice.remove();
 
 				// Set the cookie notice so we don't get bugged again
-				helper.setCookie('cookie-notice', true);
+				helper.setCookie('cookie-notice', true, 30, '/', url_data.clean_url);
 			});
 		}
 

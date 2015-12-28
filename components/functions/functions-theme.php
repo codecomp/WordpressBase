@@ -33,7 +33,8 @@ function ahoy_enquire()
 	// Localize site directory data to javascript
 	$url_arr = array(
 		'template_dir' 	=> get_template_directory_uri(),
-		'base_dir' 		=> get_site_url()
+		'base_dir' 		=> get_site_url(),
+        'clean_url'		=> clean_site_url()
 	);
 	wp_localize_script( 'ahoy-script', 'url_data', $url_arr );
 }
