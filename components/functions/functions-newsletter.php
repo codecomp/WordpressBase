@@ -77,3 +77,26 @@ function ajax_newsletter_signup(){
 }
 add_action('wp_ajax_newsletter_signup', 		'ajax_newsletter_signup');
 add_action('wp_ajax_nopriv_newsletter_signup', 	'ajax_newsletter_signup');
+
+/**
+ * @param $tabs
+ * @return mixed
+ */
+function theme_options_tabs_newsletter( $tabs ) {
+
+    $tabs['Newsletter API'] = array(
+        array (
+            'name' => 'API Key',
+            'key'  => 'newsletter_api_key',
+            'type' => 'text',
+        ),
+        array (
+            'name' => 'List ID',
+            'key'  => 'newsletter_list_id',
+            'type' => 'text',
+        )
+    );
+
+    return $tabs;
+}
+add_filter( 'theme_options_tabs', 'theme_options_tabs_newsletter' );
