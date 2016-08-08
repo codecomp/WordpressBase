@@ -1,6 +1,6 @@
 <?php
 //Generate a GET friendly URL
-$url = preg_replace( '/\?.*/', '', curPageURL() );
+$url = preg_replace( '/\?.*/', '', current_page_url() );
 
 //Work out the page title
 if( is_home() ){
