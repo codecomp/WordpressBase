@@ -1,186 +1,71 @@
 <?php
 
-/**
- * Adds a email address to a Mail Chimp list
- *
- * @param $email
- */
-function mail_chimp_send( $email ){
+function newsletter_signup($email, $name, $custom_fields=array()){
 
-	//Setup the returns we will use
-	$success_data 	= array('success' => true, 'message' => __('Thank you', 'tmp'));
-	$error_data 	= array('success' => false, 'message' => __('There has been an error, Please try again later', 'tmp'));
+    $api_key = get_field('newsletter_api_key', 'options');
+    $list_id = get_field('newsletter_list_id', 'options');
 
-	//Check the nonce not invalid and return the error if it is
-	if( !check_ajax_referer( 'mail-chimp-ajax-nonce', 'security', false ) || !filter_var($email, FILTER_VALIDATE_EMAIL) ){
-        wp_send_json($error_data);
-	}
+    if (!isset($email))
+        respond_and_close(false, 'Email Address Required');
 
-	//Include the mailchimp API
-	require_once __DIR__ . '/../libs/mailchimp/src/Mailchimp.php';
+    if (!check_ajax_referer( 'ajax-nonce', 'security', false ))
+        respond_and_close(false, 'Security Incorrect');
 
-	//Setup the API keys required for this list and client
-	$api_key 	= 'client-api-key-here';
-	$list_id 	= 'list-id-here';
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+        respond_and_close(false, 'Email Address Invalid');
 
-    $double_opt_in		= false;
-    $update_existing	= true;
-    $replace_interests	= false;
-    $send_welcome		= false;
+    $is_mailchimp = strpos('-', $list_id);
 
-    $Mailchimp 			= new Mailchimp( $api_key );
+    if ( !$is_mailchimp ) {
+        // CampaignMonitor
 
-    try{
-        $subscriber 	= $Mailchimp->lists->subscribe(
-            $list_id,
-            array(
-                'email' => htmlentities( $email )
-            ),
-            array(
-                //'FNAME'	=> htmlentities( $first_name ),
-                //'LNAME'	=> htmlentities( $last_name )
-            ),
-            'html',
-            $double_opt_in,
-            $update_existing,
-            $replace_interests,
-            $send_welcome
+        $fields = array(
+            'EmailAddress' 	=> $email,
+            'Name' 			=> $name,
+            'Resubscribe'   => true,
+            'customFields'  => $custom_fields
         );
 
-        //If everything has worked return the JSON success
-        wp_send_json($success_data);
+        $api = 'https://api.createsend.com/api/v3.1/subscribers/' . $list_id .'.json?pretty=true';
+    } else {
+        // MailChimp
+        $name = explode(' ', $name);
+
+        $fields = array(
+            'email_address' => $email,
+            'status' => 'subscribed',
+            'merge_fields' => array(
+                'FNAME' => $name[0],
+                'LNAME' => isset($name[1]) ? $name[1] : ''
+            ),
+        );
+
+        foreach( $custom_fields as $k => $v ){
+            $fields['merge_fields'][$k] =$v;
+        }
+
+        $api_region = explode('-', $list_id);
+
+        $api = 'https://' . $api_region[1] . '.api.mailchimp.com/3.0/lists/' . $list_id .'/members/';
     }
-    catch (Exception $e){
-        //Add the error to the returned JSON
-        $error_data['error'] = $e;
-        wp_send_json($error_data);
-    }
+
+    $json_data = json_encode($fields);
+
+    if ( !$is_mailchimp )
+        $response = curl_fetch($api, $api_key, 'x', $json_data);
+    else
+        $response = curl_fetch($api, 'x', $api_key, $json_data);
+
+    respond_and_close(true, $response);
 }
 
-/**
- * Ajax response for adding email address to Mail Chimp list
- */
-function mail_chimp_ajax(){
-	/****************************************
-	 *Sample jQuery ajax use of this function
-	 ****************************************
-        $.ajax({
-            url: base_dir+"/wp-admin/admin-ajax.php",
-            type:'POST',
-            data: {
-                action: 	'mail_chimp',
-                email: 		$('email field').val(),
-                security: 	'<?php echo wp_create_nonce( "mail-chimp-ajax-nonce" ); ?>'
-            },
-            dataType: 'json',
-            success: function(data){
-                //Access the returned JSON
-                console.log(data.message);
-            }
-        });
-	*/
 
-	//Call the function to end the data
-	mail_chimp_send( sanitize_email($_POST['email']) );
+function ajax_newsletter_signup(){
+    $email = sanitize_email($_POST['email-address']);
+    $name  = isset($_POST['full-name']) ? sanitize_text_field($_POST['full-name']) : '';
 
-	//Stop further processing
-	exit;
-}
-add_action('wp_ajax_mail_chimp', 		'mail_chimp_ajax'); // for logged in user
-add_action('wp_ajax_nopriv_mail_chimp', 'mail_chimp_ajax'); // if user not logged in
-
-
-/**
- * Adds a email address (and extra fields) to a Campaign monitor list
- *
- * @param $email
- * @param $name
- */
-function campaign_monitor_send( $email, $name ){
-
-	//Setup the returns we will use
-	$success_data 	= array('success' => true, 'message' => __('Thank you', 'tmp'));
-	$error_data 	= array('success' => false, 'message' => __('There has been an error, Please try again later', 'tmp'));
-
-	//Check the nonce not invalid and return the error if it is
-	if( !check_ajax_referer( 'campaign-monitor-ajax-nonce', 'security', false ) || !filter_var($email, FILTER_VALIDATE_EMAIL) ){
-        wp_send_json($error_data);
-	}
-
-    //Setup the API keys required for this list and client
-    $api_key 	= 'client-id-here';
-    $list_id 	= 'list-id-here';
-
-	//Include the bloated campaign monitor API
-	require_once __DIR__ . '/../libs/campaignmonitor/csrest_subscribers.php';
-
-	//If passing string for second variable it assumes it is api key and converts it into array inside class
-	$wrap   = new CS_REST_Subscribers($list_id, $api_key);
-	$result = $wrap->add(array(
-		'EmailAddress' 	=> $email,
-		'Name' 			=> $name,
-		/*
-		'CustomFields' => array(
-			array(
-				'Key' => 'Field 1 Key',
-				'Value' => 'Field Value'
-			),
-			array(
-				'Key' => 'Field 2 Key',
-				'Value' => 'Field Value'
-			),
-			array(
-				'Key' => 'Multi Option Field 1',
-				'Value' => 'Option 1'
-			),
-			array(
-				'Key' => 'Multi Option Field 1',
-				'Value' => 'Option 2'
-			)
-		),
-		*/
-		'Resubscribe' => true
-	));
-
-	//Return the JSON Data depending on the result
-	if($result->was_successful()) {
-        wp_send_json($success_data);
-	} else {
-		//Add the error to the returned JSON
-		$error_data['error'] = $result->response->Message;
-        wp_send_json($error_data);
-	}
+    newsletter_signup( $email, $name );
 }
 
-/**
- * Ajax response for adding email (and extra fields) address to Campaign Monitor list
- */
-function campaign_monitor_ajax(){
-	/****************************************
-	 *Sample jQuery ajax use of this function
-	 ****************************************
-        $.ajax({
-            url: base_dir+"/wp-admin/admin-ajax.php",
-            type:'POST',
-            data: {
-                action: 	'campaign_monitor',
-                email: 		$('email field').val(),
-                name: 		$('name field').val(),
-                security: 	'<?php echo wp_create_nonce( "campaign-monitor-ajax-nonce" ); ?>'
-            },
-            dataType: 'json',
-            success: function(data){
-                //Access the returned JSON
-                console.log(data.message);
-            }
-        });
-	*/
-
-	//Call the function to end the data
-	campaign_monitor_send( sanitize_email($_POST['email']), sanitize_text_field($_POST['name']) );
-
-	//Stop further processing
-	exit;
-}
-add_action('wp_ajax_campaign_monitor', 			'campaign_monitor_ajax'); // for logged in user
-add_action('wp_ajax_nopriv_campaign_monitor', 	'campaign_monitor_ajax'); // if user not logged in
+add_action('wp_ajax_newsletter_signup', 		'ajax_newsletter_signup');
+add_action('wp_ajax_nopriv_newsletter_signup', 	'ajax_newsletter_signup');
