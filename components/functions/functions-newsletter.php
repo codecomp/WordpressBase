@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Newsletter sign up function for Campaign monitor and Mail chimp
+ *
+ * @param $email
+ * @param $name
+ * @param array $custom_fields
+ */
 function newsletter_signup($email, $name, $custom_fields=array()){
 
     $api_key = get_field('newsletter_api_key', 'options');
@@ -59,13 +66,14 @@ function newsletter_signup($email, $name, $custom_fields=array()){
     respond_and_close(true, $response);
 }
 
-
+/**
+ * Ajax hook function for newsletter forms
+ */
 function ajax_newsletter_signup(){
     $email = sanitize_email($_REQUEST['email-address']);
     $name  = isset($_REQUEST['full-name']) ? sanitize_text_field($_REQUEST['full-name']) : '';
 
     newsletter_signup( $email, $name );
 }
-
 add_action('wp_ajax_newsletter_signup', 		'ajax_newsletter_signup');
 add_action('wp_ajax_nopriv_newsletter_signup', 	'ajax_newsletter_signup');
