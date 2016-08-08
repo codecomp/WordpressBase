@@ -26,7 +26,7 @@ add_action('after_setup_theme', 'functions_admin_setup');
 function remove_dashboard_widgets() {
 	global $wp_meta_boxes;
 
-	unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity']);
+	//unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity']);
     unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_right_now']);
     unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_recent_comments']);
     unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_incoming_links']);
@@ -34,15 +34,14 @@ function remove_dashboard_widgets() {
     unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_primary']);
     unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary']);
     unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press']);
-    unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_recent_drafts']);
-
+    //unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_recent_drafts']);
 }
 add_action('wp_dashboard_setup', 'remove_dashboard_widgets' );
 
 /**
  * Remove unused admin sections, uncomment to remove this for relevant users
  */
-function remove_menus(){
+function remove_admin_menu(){
 
     //Remove these menu pages for all users
 	//remove_menu_page( 'index.php' );					//Dashboard
@@ -60,7 +59,7 @@ function remove_menus(){
 
     //Add all super admins to this array
 	$admins = array(
-		'admin'
+		'ahoycreative'
 	);
 	$current_user = wp_get_current_user();
 
@@ -96,7 +95,45 @@ function remove_menus(){
 	}
 
 }
-add_action('admin_menu', 'remove_menus', 999);
+add_action('admin_menu', 'remove_admin_menu', 999);
+
+/**
+ * Modify Wordpress admin bar menu
+ */
+function remove_admin_bar_menu() {
+	global $wp_admin_bar;
+
+	//$wp_admin_bar->remove_node( 'new-content' );
+	//$wp_admin_bar->remove_node( 'edit' );
+	$wp_admin_bar->remove_node( 'comments' );
+	//$wp_admin_bar->remove_node( 'new-post' );
+	//$wp_admin_bar->remove_node( 'new-page' );
+	$wp_admin_bar->remove_node( 'new-media' );
+	$wp_admin_bar->remove_node( 'new-user' );
+	$wp_admin_bar->remove_node( 'wp-logo' );
+	$wp_admin_bar->remove_node( 'search' );
+	$wp_admin_bar->remove_node( 'customize' );
+
+	// $new_content_node = $wp_admin_bar->get_node('new-content');
+	// $new_content_node->href = admin_url( 'post-new.php?post_type=page');
+	// $wp_admin_bar->add_node($new_content_node);
+}
+add_action( 'admin_bar_menu', 'remove_admin_bar_menu', 999 );
+
+/**
+ * Remove the Screen options tab from admin pages
+ *
+ * @param $old_help
+ * @param $screen_id
+ * @param $screen
+ * @return mixed
+ */
+function remove_help_tabs($old_help, $screen_id, $screen){
+	$screen->remove_help_tabs();
+	return $old_help;
+}
+add_filter('screen_options_show_screen', '__return_false');
+add_filter('contextual_help', 'remove_help_tabs', 999, 3 );
 
 /**
  * Remove Update notifications
@@ -121,8 +158,7 @@ function restrict_admin(){
 		exit;
 	}
 }
-add_action('init', 'restrict_admin', 0);
-
+//add_action('init', 'restrict_admin', 0);
 
 /**
  * Customises the wordpress admin footer
@@ -131,3 +167,64 @@ function modify_footer_admin () {
     echo 'Created by <a target="_blank" href="http://ahoy.co.uk" title="Visit Ahoy">Ahoy</a>. Powered by <a target="_blank" href="http://www.wordpress.org" title="Visit WordPress">WordPress</a>';
 }
 add_filter('admin_footer_text', 'modify_footer_admin');
+
+/**
+ * Add buttons to TinyMCE toolbar
+ *
+ * @param $buttons
+ * @return array
+ */
+function add_tinymce_buttons($buttons) {
+	$buttons[] = 'formatselect';
+
+	return $buttons;
+}
+add_filter('mce_buttons','add_tinymce_buttons');
+
+/**
+ * Remove TinyMCE Buttons from mce_buttons hook
+ *
+ * @param $buttons
+ * @return array
+ */
+function remove_tinymce_buttons_1($buttons) {
+	$remove = array(
+		'wp_adv',
+		'strikethrough',
+		'hr',
+		'wp_more',
+		'fullscreen'
+	);
+
+	return array_diff($buttons,$remove);
+}
+add_filter('mce_buttons','remove_tinymce_buttons_1');
+
+/**
+ * Remove TinyMCE Buttons from mce_buttons_2 hook
+ *
+ * @param $buttons
+ * @return array
+ */
+function remove_tinymce_buttons_2($buttons) {
+	$remove = array(
+		'underline',
+		'justifyfull',
+		'forecolor',
+		'|',
+		'pastetext',
+		'pasteword',
+		'removeformat',
+		'charmap',
+		'outdent',
+		'indent',
+		'undo',
+		'alignjustify',
+		'redo',
+		'wp_help',
+		'formatselect'
+	);
+
+	return array_diff($buttons,$remove);
+}
+add_filter('mce_buttons_2','remove_tinymce_buttons_2');
