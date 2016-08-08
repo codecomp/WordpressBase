@@ -61,8 +61,8 @@ function newsletter_signup($email, $name, $custom_fields=array()){
 
 
 function ajax_newsletter_signup(){
-    $email = sanitize_email($_POST['email-address']);
-    $name  = isset($_POST['full-name']) ? sanitize_text_field($_POST['full-name']) : '';
+    $email = sanitize_email($_REQUEST['email-address']);
+    $name  = isset($_REQUEST['full-name']) ? sanitize_text_field($_REQUEST['full-name']) : '';
 
     newsletter_signup( $email, $name );
 }
