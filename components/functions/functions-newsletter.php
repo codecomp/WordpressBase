@@ -13,13 +13,13 @@ function newsletter_signup($email, $name, $custom_fields=array()){
     $list_id = get_field('newsletter_list_id', 'options');
 
     if (!isset($email))
-        respond_and_close(false, 'Email Address Required');
+        respond_and_close(false, __('Email Address Required', 'tmp'));
 
     if (!check_ajax_referer( 'ajax-nonce', 'security', false ))
-        respond_and_close(false, 'Security Incorrect');
+        respond_and_close(false, __('Security Incorrect', 'tmp'));
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL))
-        respond_and_close(false, 'Email Address Invalid');
+        respond_and_close(false, __('Email Address Invalid', 'tmp'));
 
     $is_mailchimp = strpos('-', $list_id);
 
