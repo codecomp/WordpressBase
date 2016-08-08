@@ -79,6 +79,8 @@ add_action('wp_ajax_newsletter_signup', 		'ajax_newsletter_signup');
 add_action('wp_ajax_nopriv_newsletter_signup', 	'ajax_newsletter_signup');
 
 /**
+ * Add newsletter ACF options tabs
+ *
  * @param $tabs
  * @return mixed
  */
