@@ -92,7 +92,7 @@ function init_theme_acf_options(){
 			$field_key = ($f['key'] ? $f['key'] : strtolower(str_replace(' ', '_', $f['name'])));
 
 			$field = array (
-				'key' => 'social_options_' . $field_key,
+				'key' => 'site_options_' . $field_key,
 				'label' => $f['name'],
 				'name' => $field_key
 			);
