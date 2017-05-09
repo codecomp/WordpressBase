@@ -16,11 +16,13 @@ function theme_options_tabs_newsletter( $tabs ) {
         array (
             'name' => 'API Key',
             'key'  => 'newsletter_api_key',
+            'instructions' => __('API key for the Campaign Monitor or Mailchimp user', 'tmp'),
             'type' => 'text',
         ),
         array (
             'name' => 'List ID',
             'key'  => 'newsletter_list_id',
+            'instructions' => __('ID of the list the email address should be added to', 'tmp'),
             'type' => 'text',
         )
     );
