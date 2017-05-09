@@ -36,13 +36,13 @@ Function  | Use
 ------------- | -------------
 get_bh | Check specified date against UK bank holiday
 escape_id | Convert string into non spaced alphanumeric only format fr use in unique ID's
-curPageURL | Get the current page url
+current_page_url | Get the current page url
 get_attachment_id_from_src | Return the attachment ID of a attachment from the URL (Avoid use if possible)
-get_the_image_thumbnail | Build a fully attributed image tag from an attachment ID and attachment size (Only works for images obviously)
-the_image_thumbnail | Echo image built with get_the_image_thumbnail
 template_part | Runs get_template_part from the components/parts directory with optional passing of variables
 get_theme_image | Returns a child theme overwritable image path
-the_theme_svg | Includes a child theme overwritable SVG
+the_theme_svg | Echos a child theme overwritable SVG
+the_theme_svg | Returns a child theme overwritable SVG
+the_icon | Echo a SVG sprite definition
 user_has_role | Check if a user has a specific role
 is_role | Check if current user has a specific role
 clean_site_url | Return clean site url without www. or http:// or https://
@@ -56,6 +56,11 @@ dump_hook | First function deals with interpreting and formatting single hook, n
 list_hooks | When called this function will output current state of all hooks in alphabetized order. If passed string as argument it will only list hooks that have that string in name
 list_hook_details | Whenever hook with this function added gets executed it will output details right in place
 list_live_hooks | This will list live details on all hooks or specific hook, passed as argument
+curl_fetch | Fetch data from a page with sent post data and authentication
+file_get_contents_curl | cURL replacement for file_get_contents
+respond_and_close | Dumps formatted json response to user and ends processing
+is_json | Check to see if a string is JSON formatted
+is_plugin_activated | Special check to see if certain plugins are activated (WooCommerce, ACF) in a way that can be easily maintained
 
 ## Further Reading
 
@@ -86,7 +91,7 @@ Chris morris [http://codecomposer.co.uk]
 
 The MIT License (MIT)
 
-Copyright (c) 2014 Chris Morris
+Copyright (c) 2017 Chris Morris
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
