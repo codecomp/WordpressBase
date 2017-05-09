@@ -21,7 +21,7 @@ function newsletter_signup($email, $name, $custom_fields=array()){
     if (!filter_var($email, FILTER_VALIDATE_EMAIL))
         respond_and_close(false, __('Email Address Invalid', 'tmp'));
 
-    $is_mailchimp = strpos('-', $list_id);
+    $is_mailchimp = strpos('-', $api_key);
 
     if ( !$is_mailchimp ) {
         // CampaignMonitor
@@ -51,7 +51,7 @@ function newsletter_signup($email, $name, $custom_fields=array()){
             $fields['merge_fields'][$k] =$v;
         }
 
-        $api_region = explode('-', $list_id);
+        $api_region = explode('-', $api_key);
 
         $api = 'https://' . $api_region[1] . '.api.mailchimp.com/3.0/lists/' . $list_id .'/members/';
     }
