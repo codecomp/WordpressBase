@@ -5,6 +5,141 @@
  *********************************************************************/
 
 /**
+ * Add social links ACF options tabs
+ *
+ * @param $tabs
+ * @return mixed
+ */
+function theme_options_tabs_social_links( $tabs ) {
+
+    $tabs['Social Links'] = array(
+        array (
+            'name' => 'Twitter Page',
+            'type' => 'text',
+            'instructions' => 'Full URL (including http://...) to your Twitter page.',
+            'required' => 0,
+            'default' => 'http://twitter.com/',
+        ),
+        array (
+            'name' => 'Facebook Page',
+            'type' => 'text',
+            'instructions' => 'Full URL (including http://...) to your Facebook page.',
+            'required' => 0,
+            'default' => 'http://facebook.com/',
+        ),
+        array (
+            'name' => 'Instagram Page',
+            'type' => 'text',
+            'instructions' => 'Full URL (including http://...) to your Instagram page.',
+            'required' => 0,
+            'default' => 'http://instagram.com/',
+        ),
+        array (
+            'name' => 'YouTube Page',
+            'type' => 'text',
+            'instructions' => 'Full URL (including http://...) to your YouTube page.',
+            'required' => 0,
+            'default' => 'http://youtube.com/',
+        )
+    );
+
+    return $tabs;
+}
+add_filter( 'theme_options_tabs', 'theme_options_tabs_social_links' );
+
+/**
+ * Add social api ACF options tabs
+ *
+ * @param $tabs
+ * @return mixed
+ */
+function theme_options_tabs_social_api( $tabs ) {
+
+    $tabs['Social API'] = array(
+        array (
+            'name' => 'Twitter API',
+            'type' => 'message',
+            'instructions' => '',
+        ),
+        array (
+            'name' => 'Twitter Consumer Key',
+            'type' => 'text',
+            'required' => 0,
+        ),
+        array (
+            'name' => 'Twitter Consumer Secret',
+            'type' => 'text',
+            'required' => 0,
+        ),
+        array (
+            'name' => 'Twitter Username',
+            'type' => 'text',
+            'required' => 0,
+        ),
+        array (
+            'name' => 'Facebook API',
+            'type' => 'message',
+            'instructions' => '',
+        ),
+        array (
+            'name' => 'Facebook App ID',
+            'type' 	=> 'text',
+            'required' => 0,
+        ),
+        array (
+            'name' => 'Facebook App Secret',
+            'type' 	=> 'text',
+            'required' => 0,
+        ),
+        array (
+            'name' => 'Facebook Profile ID',
+            'type' 	=> 'text',
+            'required' => 0,
+        ),
+        array (
+            'name' => 'Instagram API',
+            'type' => 'message',
+            'instructions' => '',
+        ),
+        array (
+            'name' => 'Instagram Client ID',
+            'type' 	=> 'text',
+            'required' => 0,
+        ),
+        array (
+            'name' => 'Instagram Access Token',
+            'type'	=> 'text',
+            'required' => 0,
+        ),
+        array (
+            'name' => 'YouTube API',
+            'type' => 'message',
+            'instructions' => '',
+        ),
+        array (
+            'name' => 'YouTube API Key',
+            'type'	=> 'text',
+            'required' => 0,
+        ),
+        array (
+            'name' => 'YouTube Username',
+            'type'	=> 'text',
+            'required' => 0,
+        ),
+
+        // SPACER
+        array (
+            'name' => '',
+            'type' => 'message',
+            'instructions' => '<br>',
+        )
+    );
+
+    return $tabs;
+}
+add_filter( 'theme_options_tabs', 'theme_options_tabs_social_api' );
+
+/**
  * Global function to pull in social posts from various sources
  *
  * @param $args
@@ -390,138 +525,3 @@ function fetch_posts( $count = 3, $offset = 0, $post_type = 'post' )
 
 	return $posts;
 }
-
-/**
- * Add social links ACF options tabs
- *
- * @param $tabs
- * @return mixed
- */
-function theme_options_tabs_social_links( $tabs ) {
-
-	$tabs['Social Links'] = array(
-		array (
-			'name' => 'Twitter Page',
-			'type' => 'text',
-			'instructions' => 'Full URL (including http://...) to your Twitter page.',
-			'required' => 0,
-			'default' => 'http://twitter.com/',
-		),
-		array (
-			'name' => 'Facebook Page',
-			'type' => 'text',
-			'instructions' => 'Full URL (including http://...) to your Facebook page.',
-			'required' => 0,
-			'default' => 'http://facebook.com/',
-		),
-		array (
-			'name' => 'Instagram Page',
-			'type' => 'text',
-			'instructions' => 'Full URL (including http://...) to your Instagram page.',
-			'required' => 0,
-			'default' => 'http://instagram.com/',
-		),
-		array (
-			'name' => 'YouTube Page',
-			'type' => 'text',
-			'instructions' => 'Full URL (including http://...) to your YouTube page.',
-			'required' => 0,
-			'default' => 'http://youtube.com/',
-		)
-	);
-
-	return $tabs;
-}
-add_filter( 'theme_options_tabs', 'theme_options_tabs_social_links' );
-
-/**
- * Add social api ACF options tabs
- *
- * @param $tabs
- * @return mixed
- */
-function theme_options_tabs_social_api( $tabs ) {
-
-	$tabs['Social API'] = array(
-		array (
-			'name' => 'Twitter API',
-			'type' => 'message',
-			'instructions' => '',
-		),
-		array (
-			'name' => 'Twitter Consumer Key',
-			'type' => 'text',
-			'required' => 0,
-		),
-		array (
-			'name' => 'Twitter Consumer Secret',
-			'type' => 'text',
-			'required' => 0,
-		),
-		array (
-			'name' => 'Twitter Username',
-			'type' => 'text',
-			'required' => 0,
-		),
-		array (
-			'name' => 'Facebook API',
-			'type' => 'message',
-			'instructions' => '',
-		),
-		array (
-			'name' => 'Facebook App ID',
-			'type' 	=> 'text',
-			'required' => 0,
-		),
-		array (
-			'name' => 'Facebook App Secret',
-			'type' 	=> 'text',
-			'required' => 0,
-		),
-		array (
-			'name' => 'Facebook Profile ID',
-			'type' 	=> 'text',
-			'required' => 0,
-		),
-		array (
-			'name' => 'Instagram API',
-			'type' => 'message',
-			'instructions' => '',
-		),
-		array (
-			'name' => 'Instagram Client ID',
-			'type' 	=> 'text',
-			'required' => 0,
-		),
-		array (
-			'name' => 'Instagram Access Token',
-			'type'	=> 'text',
-			'required' => 0,
-		),
-		array (
-			'name' => 'YouTube API',
-			'type' => 'message',
-			'instructions' => '',
-		),
-		array (
-			'name' => 'YouTube API Key',
-			'type'	=> 'text',
-			'required' => 0,
-		),
-		array (
-			'name' => 'YouTube Username',
-			'type'	=> 'text',
-			'required' => 0,
-		),
-
-		// SPACER
-		array (
-			'name' => '',
-			'type' => 'message',
-			'instructions' => '<br>',
-		)
-	);
-
-	return $tabs;
-}
-add_filter( 'theme_options_tabs', 'theme_options_tabs_social_api' );
