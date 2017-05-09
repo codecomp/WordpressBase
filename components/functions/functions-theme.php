@@ -5,6 +5,33 @@
  *********************************************************************/
 
 /**
+ * Add misc scripts fields
+ *
+ * @param $tabs
+ * @return mixed
+ */
+function theme_options_tabs_scripts( $tabs ) {
+
+    $tabs['Misc Scripts & Analytics'] = array(
+        array (
+            'name' => 'Header Scripts',
+            'key'  => 'custom_header_scripts',
+            'instructions' => __('Add any code here that needs to be output in the website header', 'tmp'),
+            'type' => 'textarea',
+        ),
+        array (
+            'name' => 'Footer Scripts',
+            'key'  => 'custom_footer_scripts',
+            'instructions' => __('Add any code here that needs to be output in the website footer', 'tmp'),
+            'type' => 'textarea',
+        ),
+    );
+
+    return $tabs;
+}
+add_filter( 'theme_options_tabs', 'theme_options_tabs_scripts' );
+
+/**
  * Include theme required css and javascript files and localise
  * php variables for JavaScript use
  */
@@ -30,7 +57,6 @@ function theme_enqueue()
 		'assets' 	=> get_template_directory_uri() . '/assets/',
 		'site' 		=> get_site_url(),
 		'ajax'		=> admin_url('admin-ajax.php'),
-
 		'nonce'		=> wp_create_nonce('ajax-nonce'),
 	);
 
@@ -143,3 +169,19 @@ function browser_body_class($classes) {
 	return $classes;
 }
 add_filter('body_class','browser_body_class');
+
+/**
+ * Add custom header scripts to the header
+ */
+function custom_header_scripts(){
+    the_field('custom_header_scripts', 'option');
+}
+add_action('wp_head', 'custom_header_scripts');
+
+/**
+ * Add custom footer scripts to the footer
+ */
+function custom_footer_scripts(){
+    the_field('custom_footer_scripts', 'option');
+}
+add_action('wp_head', 'custom_footer_scripts');
