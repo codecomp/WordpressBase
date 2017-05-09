@@ -1,1 +1,1 @@
-<?php/** * Include any Woocommerce customisation here */?>
+<?php/********************************************************************* * WooCommerce functions, hooks and filters *********************************************************************/

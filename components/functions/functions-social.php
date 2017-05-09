@@ -1,5 +1,9 @@
 <?php
 
+/*********************************************************************
+ * Social related actions and menus
+ *********************************************************************/
+
 /**
  * Global function to pull in social posts from various sources
  *

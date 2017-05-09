@@ -1,5 +1,9 @@
 <?php
 
+/*********************************************************************
+ * Newsletter subscriptions
+ *********************************************************************/
+
 /**
  * Newsletter sign up function for Campaign monitor and Mail chimp
  *

@@ -1,5 +1,5 @@
 <?php
 
-/**
- * Add custom post types here
- */
+/*********************************************************************
+ * Custom Post Type declaration and Taxonomy declarations
+ *********************************************************************/

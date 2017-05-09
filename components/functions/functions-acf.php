@@ -1,7 +1,8 @@
 <?php
-/**
- * Include any Options page setup or field set installations here
- */
+
+/*********************************************************************
+ * Options page setup or field set installations here
+ *********************************************************************/
 
 /**
  * Add Join to search query
