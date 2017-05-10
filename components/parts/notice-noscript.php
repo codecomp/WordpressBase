@@ -1,1 +1,1 @@
-<noscript><?php _e('JavaScript is off. Please enable to view full site.', 'tmp'); ?></noscript>
+<noscript><?php _e('JavaScript is disabled. While you may be able to browse the website some elements may be unusable', 'tmp'); ?></noscript>
