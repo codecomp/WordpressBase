@@ -1,0 +1,47 @@
+/*=================================== !VARIABLES*/
+
+/* =================== !COLOURS */
+$c--primary:    #000000;
+$c--secondary:  #000000;
+$c--tertiary:   #000000;
+$c--quaternary: #000000;
+$c--quinary:    #000000;
+$c--senary:     #000000;
+$c--septenary:  #000000;
+$c--octonary:   #000000;
+$c--nonary:     #000000;
+$c--denary:     #000000;
+
+$c--white:      #fff;
+$c--black:      #000;
+$c--error:      #b00;
+$c--background: $c--white;
+
+/* =================== !GRID */
+$g--width:      131.1rem;
+$g--space:      5.7rem;
+
+/* =================== !MEDIA-QUERIES  */
+$m--max-tablet--wide: (max-width: 1024px);
+$m--min-tablet--wide: (min-width: 1024px);
+
+$m--max-tablet--slim: (max-width: 768px);
+$m--min-tablet--slim: (min-width: 768px);
+
+$m--max-mobile--wide: (max-width: 480px);
+$m--min-mobile--wide: (min-width: 480px);
+
+$m--max-mobile--slim: (max-width: 360px);
+$m--min-mobile--slim: (min-width: 360px);
+
+/* =================== !SPEEDS */
+$s--fast:       .3s;
+$s--slow:       .6s;
+
+/* =================== !EASINGS */
+$e--in:         cubic-bezier(0.600, 0.040, 0.980, 0.335); /* easeInCirc */
+$e--out:        cubic-bezier(0.075, 0.820, 0.165, 1.000); /* easeOutCirc */
+
+/* =================== !FONT-STACKS */
+$f--primary:    serif;
+$f--secondary:  sans-serif;

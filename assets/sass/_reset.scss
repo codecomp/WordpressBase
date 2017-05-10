@@ -1,0 +1,47 @@
+/* ================================ !RESETS */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-size: 62.5%; -webkit-font-smoothing: antialiased; }
+body { line-height: 1; background: #fff }
+blockquote { quotes: none }
+abbr[title] { border-bottom: 1px dotted; }
+pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
+small { font-size: 80%; }
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+ul { list-style-type: none; }
+address { font-style: normal; }
+
+a:hover, a:active, input, textarea, select, button { outline: 0; }
+
+svg { width: 100%; height: 100%; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; max-width: 100%; height: auto; }
+
+input:first-line, select:first-line { display: inline-block; }
+html, button, input, select, textarea { font-family: inherit; color: #222; font-size: 100%; line-height: 1; }
+label, button, input, select, textarea, option { vertical-align: baseline; *vertical-align: middle; cursor: pointer; border-radius: 0; }
+button, input[type="button"], input[type="reset"], input[type="submit"] { -webkit-appearance: button; *overflow: visible; }
+input[type="text"]:active, input[type="text"]:focus, textarea:active, textarea:focus{ cursor:text; }
+input[type="text"], input[type="tel"], input[type="email"], input[type="password"], textarea { background-clip: padding-box; }
+button[disabled], input[disabled] { cursor: default; }
+textarea { overflow: auto; vertical-align: top; resize: vertical; }
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+[hidden] { display: none; }
+
+main, article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary { display: block; }
+
+.broser-outdated { margin: 1em 0; background-color: #b00; color: #fff; padding: 1em 0; text-align: center; }
+.broser-outdated a { color: #fff; }
+
+@media print {
+* { background: transparent !important; color: #000 !important; box-shadow: none !important; text-shadow: none !important; -webkit-filter: none !important; filter: none !important; -ms-filter: none !important; }
+a, a:visited { text-decoration: underline }
+a[href]:after { content: " (" attr(href) ")" }
+a[href^="#"]:after { content: "" }
+img { max-width: 100% !important }
+}
