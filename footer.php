@@ -5,6 +5,7 @@
 
 	</div><!--End #site-wrap-->
 
+    <?php template_part('notice', 'old-browser'); ?>
     <?php template_part('notice', 'noscript'); ?>
     <?php template_part('notice', 'cookie'); ?>
 
