@@ -151,17 +151,6 @@ function remove_core_updates()
 add_action('after_setup_theme','remove_core_updates');
 
 /**
- * Only allow certain roles into admin section
- */
-function restrict_admin(){
-	if ( is_admin() && (!is_role('super_admin') && !is_role('administrator') && !is_role('editor') && !is_role('author') && !is_role('contributor')) && !(defined('DOING_AJAX') && DOING_AJAX) ) {
-		wp_redirect(home_url());
-		exit;
-	}
-}
-//add_action('init', 'restrict_admin', 0);
-
-/**
  * Customises the wordpress admin footer
  */
 function modify_footer_admin () {
@@ -229,3 +218,11 @@ function remove_tinymce_buttons_2($buttons) {
 	return array_diff($buttons,$remove);
 }
 add_filter('mce_buttons_2','remove_tinymce_buttons_2');
+
+/**
+ * Add admin theme CSS to admin UI
+ */
+function theme_editor_styles() {
+    add_editor_style( get_template_directory_uri() . '/assets/css/admin-editor-styles.css' );
+}
+add_action( 'admin_init', 'theme_editor_styles' );
