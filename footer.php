@@ -1,5 +1,5 @@
 		</div> <!--End #page-wrap-->
-		<footer role="contentinfo ">
+		<footer class="footer" role="contentinfo">
 
 		</footer>
 
