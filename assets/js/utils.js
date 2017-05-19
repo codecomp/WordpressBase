@@ -515,6 +515,9 @@ Site.autoInits = (function($, ui, u){
                         dataType: 'json',
                         success: function(data){
 
+                            if(data !== null && typeof data !== 'object')
+                                data = JSON.parse(data);
+
                             if (data.success) {
                                 $this.html('<p class="form-sent">' + $this.data('thanks') + '</p>');
                             } else {
