@@ -16,24 +16,24 @@ if( is_home() ){
 }
 ?>
 
-<ul class="social-share">
-	<li>
-		<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $url; ?>" title="Share on Facebook">
+<ul class="social-share js-share">
+	<li class="social-share__item social-share__item--facebook">
+		<a class="social-share__link" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $url; ?>" title="Share on Facebook">
             <?php _e('Share on Facebook', 'tmp'); ?>
         </a>
 	</li>
-	<li>
-		<a href="https://twitter.com/home?status=<?php echo $url; ?> <?php echo $title; ?>" title="Share on Twitter">
+	<li class="social-share__item social-share__item--twitter">
+		<a class="social-share__link" href="https://twitter.com/home?status=<?php echo $url; ?> <?php echo $title; ?>" title="Share on Twitter">
             <?php _e('Share on Twitter', 'tmp'); ?>
         </a>
 	</li>
-	<li>
-		<a href="https://plus.google.com/share?url=<?php echo $url; ?>" title="Share on Google plus">
+	<li class="social-share__item social-share__item--google">
+		<a class="social-share__link" href="https://plus.google.com/share?url=<?php echo $url; ?>" title="Share on Google plus">
             <?php _e('Share on google+', 'tmp'); ?>
         </a>
 	</li>
-	<li>
-		<a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo $url; ?>&title=<?php echo $title; ?>&summary=&source="<?php echo get_site_url(); ?> title="Share on LinkedIn">
+	<li class="social-share__item social-share__item--linked-in">
+		<a class="social-share__link" href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo $url; ?>&title=<?php echo $title; ?>&summary=&source="<?php echo get_site_url(); ?> title="Share on LinkedIn">
             <?php _e('Share on LinkedIn', 'tmp'); ?>
         </a>
 	</li>
