@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/Codecomp/WordpressBase/issues"
   },
-  "homepage": "https://github.com/Codecomp/WordpressBase#readme"
+  "homepage": "https://github.com/Codecomp/WordpressBase#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.13",
+    "gulp": "^3.9.1"
+  }
 }
