@@ -1,0 +1,22 @@
+{
+  "name": "WordPress Base",
+  "version": "1.0.0",
+  "description": "Streamlined WordPress base theme",
+  "type": "wordpress-theme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://Codecomp@github.com/Codecomp/WordpressBase.git"
+  },
+  "keywords": [
+    "WordPress"
+  ],
+  "author": "Chris Morris",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Codecomp/WordpressBase/issues"
+  },
+  "homepage": "https://github.com/Codecomp/WordpressBase#readme"
+}
