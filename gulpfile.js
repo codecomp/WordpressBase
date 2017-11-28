@@ -12,14 +12,15 @@ var gulp         = require('gulp'),
     };
 
 // Browser sync tasks
-gulp.task('browser:sync', function() {
+gulp.task('browser:sync', function(done) {
     browserSync.init({
         proxy: "localhost:8888"
-    });
+    }, done);
 });
 
-gulp.task('browser:reload', function(){
+gulp.task('browser:reload', function(done){
     browserSync.reload();
+    done();
 });
 
 // CSS tasks
@@ -59,12 +60,13 @@ gulp.task('watch', ['browser:sync'], function () {
         .on('change', browserSync.reload);
 });
 
-gulp.task('deploy', function(){
+gulp.task('deploy', function(done){
     gulpSequence(
         'browser:sync',
         [
             'optimise:css'
         ],
-        'browser:reload'
+        'browser:reload',
+        done
     );
 });
