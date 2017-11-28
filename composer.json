@@ -1,0 +1,13 @@
+{
+    "name": "chrismorris/wordpress-base",
+    "description": "Streamlined WordPress base theme",
+    "type": "wordpress-theme",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Chris Morris",
+            "email": "chris@codecompoer.co.uk"
+        }
+    ],
+    "require": {}
+}
