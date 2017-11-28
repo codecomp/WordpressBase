@@ -9,5 +9,13 @@
             "email": "chris@codecompoer.co.uk"
         }
     ],
-    "require": {}
+    "repositories": [
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org"
+        }
+    ],
+    "require-dev": {
+        "kint-php/kint": "^2.2"
+    }
 }
