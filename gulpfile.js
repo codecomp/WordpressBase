@@ -4,6 +4,7 @@ var gulp         = require('gulp'),
     scssLint     = require('gulp-scss-lint'),
     sourceMaps   = require('gulp-sourcemaps'),
     cssNano      = require('gulp-cssnano'),
+    autoPrefixer = require('gulp-autoprefixer'),
     browserSync  = require('browser-sync').create(),
     del          = require('del'),
     paths        = {
@@ -35,7 +36,11 @@ gulp.task('sass', ['scss-lint'], function () {
         .pipe(sass({
             errLogToConsole: true
         }))
-        .pipe(sourceMaps.write(''))
+        .pipe(autoPrefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
+        .pipe(sourceMaps.write('.'))
         .pipe(gulp.dest(paths.buildCss));
 });
 

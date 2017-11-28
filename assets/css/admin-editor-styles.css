@@ -20,6 +20,7 @@
 /* =================== !FONT-STACKS */
 /* ================================ !RESETS */
 * {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   margin: 0;
   padding: 0; }
@@ -141,6 +142,7 @@ main, article, aside, details, figcaption, figure, footer, header, hgroup, nav, 
   * {
     background: transparent !important;
     color: #000 !important;
+    -webkit-box-shadow: none !important;
     box-shadow: none !important;
     text-shadow: none !important;
     -webkit-filter: none !important;
@@ -259,6 +261,7 @@ a {
   color: #000000;
   text-decoration: none;
   outline: 0;
+  -webkit-transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
   transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1); }
   a:hover, a:focus {
     color: #1a1a1a; }
