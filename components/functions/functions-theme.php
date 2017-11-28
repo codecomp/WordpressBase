@@ -178,7 +178,7 @@ add_filter('body_class','browser_body_class');
  * Add custom header scripts to the header
  */
 function custom_header_scripts(){
-    //the_field('custom_header_scripts', 'option');
+    the_field('custom_header_scripts', 'option');
 }
 add_action('wp_head', 'custom_header_scripts');
 
@@ -186,6 +186,6 @@ add_action('wp_head', 'custom_header_scripts');
  * Add custom footer scripts to the footer
  */
 function custom_footer_scripts(){
-    //the_field('custom_footer_scripts', 'option');
+    the_field('custom_footer_scripts', 'option');
 }
 add_action('wp_head', 'custom_footer_scripts');
