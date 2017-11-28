@@ -14,32 +14,46 @@ function theme_options_tabs_social_links( $tabs ) {
 
     $tabs['Social Links'] = array(
         array (
-            'name' => 'Twitter Page',
+            'name' => 'Twitter ID',
             'type' => 'text',
-            'instructions' => 'Full URL (including http://...) to your Twitter page.',
+            'instructions' => 'The unique user id for this account',
             'required' => 0,
-            'default' => 'http://twitter.com/',
         ),
         array (
-            'name' => 'Facebook Page',
+            'name' => 'Facebook ID',
             'type' => 'text',
-            'instructions' => 'Full URL (including http://...) to your Facebook page.',
+            'instructions' => 'The unique user id for this account',
             'required' => 0,
-            'default' => 'http://facebook.com/',
         ),
         array (
-            'name' => 'Instagram Page',
+            'name' => 'Instagram ID',
             'type' => 'text',
-            'instructions' => 'Full URL (including http://...) to your Instagram page.',
+            'instructions' => 'The unique user id for this account',
             'required' => 0,
-            'default' => 'http://instagram.com/',
         ),
         array (
-            'name' => 'YouTube Page',
+            'name' => 'Google Plus ID',
             'type' => 'text',
-            'instructions' => 'Full URL (including http://...) to your YouTube page.',
+            'instructions' => 'The unique user id for this account',
             'required' => 0,
-            'default' => 'http://youtube.com/',
+        ),
+        array (
+            'name' => 'Pinterest ID',
+            'type' => 'text',
+            'instructions' => 'The unique user id for this account',
+            'required' => 0,
+        ),
+        array (
+            'name' => 'Tumblr ID',
+            'type' => 'text',
+            'instructions' => 'The unique user id for this account',
+            'required' => 0,
+        ),
+        array (
+            'name' => 'YouTube ID',
+            'type' => 'text',
+            'instructions' => 'The unique user id for this account',
+            'required' => 0,
         )
     );
 
