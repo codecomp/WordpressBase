@@ -1,9 +1,5 @@
 <?php
 
-/*********************************************************************
- * Options page setup or field set installations here
- *********************************************************************/
-
 /**
  * Add Join to search query
  * Part 1 of 3 part functions to add ACF fields to search page results
@@ -64,74 +60,93 @@ function acf_search_distinct( $where ) {
 add_filter( 'posts_distinct', 'acf_search_distinct' );
 
 /**
- * Created ACF options page based on content passed into
- * 'theme_options_tab' hook
+ * Created ACF options page based on content passed into 'theme_options_tab' hook
  */
 function init_theme_acf_options(){
-	// Only run if we have the available ACF functions
-	if( !function_exists('acf_add_options_page') || !function_exists('acf_add_local_field_group') )
-		return;
+    // Only run if we have the available ACF functions
+    if( !function_exists('acf_add_options_page') || !function_exists('acf_add_local_field_group') )
+        return;
 
-	// Setup arrays to create options page
-	$options_tabs = array();
-	$tmp_tabs 	  = apply_filters('theme_options_tabs', array());
+    // Setup arrays to create options page
+    $options_tabs = array();
+    $tmp_tabs 	  = apply_filters('theme_options_tabs', array());
 
-	foreach( $tmp_tabs as $name => $fields ){
-		//Setup tab
-		$tab = array(
-			'key' => 'site_options_tab_' . strtolower(str_replace(' ', '_', $name)),
-			'label' => $name,
-			'type' => 'tab',
-			'placement' => 'left',
-			'endpoint' => 0,
-		);
-		array_push($options_tabs, $tab);
+    foreach( $tmp_tabs as $name => $fields ){
+        //Setup tab
+        $tab = array(
+            'key' => 'site_options_tab_' . strtolower(str_replace(' ', '_', $name)),
+            'label' => $name,
+            'type' => 'tab',
+            'placement' => 'left',
+            'endpoint' => 0,
+        );
+        array_push($options_tabs, $tab);
 
-		//Add fields to tabs
-		foreach ($fields as $f) {
-			$field_key = ($f['key'] ? $f['key'] : strtolower(str_replace(' ', '_', $f['name'])));
+        //Add fields to tabs
+        foreach ($fields as $field) {
+            array_push($options_tabs, format_acf_field($field));
+        }
+    }
 
-			$field = array (
-				'key' => 'site_options_' . $field_key,
-				'label' => $f['name'],
-				'name' => $field_key
-			);
+    // Create settings page
+    acf_add_options_page('Site Settings');
 
-			foreach ($f as $k => $v) {
-				if ($k !== 'name') {
-					$field[$k] = $v;
-				}
-			}
-
-			array_push($options_tabs, $field);
-		}
-	}
-
-	// Create settings page
-	acf_add_options_page('Site Settings');
-
-	// Create field group based on tabs created previously
-	acf_add_local_field_group(array(
-		'key' => 'site_options',
-		'title' => 'Site Options',
-		'fields' => $options_tabs,
-		'location' => array(
-			array(
-				array(
-					'param' => 'options_page',
-					'operator' => '==',
-					'value' => 'acf-options-site-settings',
-				),
-			),
-		),
-		'menu_order' => 0,
-		'position' => 'normal',
-		'style' => 'seamless',
-		'label_placement' => 'top',
-		'instruction_placement' => 'label',
-		'hide_on_screen' => '',
-		'active' => 1,
-		'description' => '',
-	));
+    // Create field group based on tabs created previously
+    acf_add_local_field_group(array(
+        'key' => 'site_options',
+        'title' => 'Site Options',
+        'fields' => $options_tabs,
+        'location' => array(
+            array(
+                array(
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'acf-options-site-settings',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'seamless',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => 1,
+        'description' => '',
+    ));
 }
 add_action('init', 'init_theme_acf_options', 9999);
+
+/**
+ * Format array for use in back end acf option page
+ *
+ * @param $f
+ * @return array
+ */
+function format_acf_field($f){
+    $field_key = (isset($f['key']) ? $f['key'] : strtolower(str_replace(' ', '_', $f['name'])));
+
+    $field = array (
+        'label' => $f['name'],
+        'name' => $field_key
+    );
+
+    if(!isset($f['key'])){
+        $field['key'] = $field_key;
+    }
+
+    foreach ($f as $k => $v) {
+        if ($k !== 'name' && $k !== 'sub_field') {
+            $field[$k] = $v;
+        }
+        if( isset($f['sub_fields']) ){
+            $sub_fields = array();
+            foreach($f['sub_fields'] as $sub_field){
+                $sub_fields[] = format_acf_field($sub_field);
+            }
+            $field['sub_fields'] = $sub_fields;
+        }
+    }
+
+    return $field;
+}
