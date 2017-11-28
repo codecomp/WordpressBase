@@ -48,8 +48,13 @@ gulp.task('optimise:css', function () {
 
 // Environment tasks
 gulp.task('watch', ['browser:sync'], function () {
-    gulp.watch(paths.sass + '/**/*.scss', ['sass'])
-        .on('change', browserSync.reload);
+    gulp.watch(paths.sass + '/**/*.scss', ['sass']);
+
+    gulp.watch(paths.buildCss + '/*', function(file){
+        gulp.src(file.path)
+            .pipe(browserSync.stream());
+    });
+
     gulp.watch("*.php")
         .on('change', browserSync.reload);
 });
