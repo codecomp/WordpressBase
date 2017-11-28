@@ -1,0 +1,37 @@
+/**
+ * Get a value from the $map-color-palette map.
+
+ * @param $color {string}  The desired color from the map.
+ * @param $tone {string}   The desired tone of the color (Default value: base).
+
+ * @return string          The value of requested index.
+ */
+@function palette( $color, $tone: 'base' ) {
+
+    $map-color-palette: (
+        background: (
+            base: #FFFFFF
+        ),
+        brand: (
+            base: #000000
+        ),
+        type: (
+            base: #000000
+        ),
+        attention: (
+          base: #FF1100
+        )
+    );
+
+    @if map-has-key($map-color-palette, $color) {
+
+        @return map-get(map-get($map-color-palette, $color), $tone);
+
+    } @else {
+
+        @warn '`#{index}` is not a valid index in Map: $map-color-palette.';
+        @return null;
+
+    }
+
+}

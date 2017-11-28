@@ -1,31 +1,31 @@
-/* ================================= !CONTENTS
-
-	!FONTS 				(@font-face, icon-fonts, etc.)
-
-	!RESET 	 			(Print Styles, Normalize, Chrome Prompt, etc.)
-
-	!UTILITY 			(Clearfix, Alignment, Containers, etc.)
-
-	!PLUGINS 			(Plugin overwrite CSS)
-
-	!TYPE 				(Links, Selection, Headings, Body, etc.)
-
-	!OBJECTS 			(Buttons, forms, re-usable parts, etc.)
-		!HEADER
-		!NAVIGATION
-		!FOOTER
-
-	!PAGES    			(Body, HTML, wrappers, page specific, etc.)
-		!HOME
-
- =========================================== */
-
-
-/* ================================ !IMPORTS */
-
+// Normalise import handled by NPM
 @import "normalize";
-@import '_variables';
-@import '_utility';
-@import '_plugins';
-@import '_typography';
-@import '_pages';
+
+// Helper mixins
+@import "helpers/cascase";
+@import "helpers/clearfix";
+@import "helpers/cover";
+@import "helpers/nocollapse";
+@import "helpers/range";
+@import "helpers/reset";
+@import "helpers/visuallyhidden";
+
+// Modules
+@import 'modules/color';
+@import "modules/easing";
+@import 'modules/font-family';
+@import 'modules/font-size';
+@import 'modules/media-queries';
+@import 'modules/typography';
+@import 'modules/variables';
+@import 'modules/z-index';
+
+// Block level objects & distinct content chunks
+@import 'objects/selection';
+
+// Page specific content & overrides
+@import 'pages/base';
+
+// Misc
+@import 'misc/plugins';
+@import 'misc/wordpress';

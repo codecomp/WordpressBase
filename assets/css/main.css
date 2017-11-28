@@ -1,25 +1,3 @@
-/* ================================= !CONTENTS
-
-	!FONTS 				(@font-face, icon-fonts, etc.)
-
-	!RESET 	 			(Print Styles, Normalize, Chrome Prompt, etc.)
-
-	!UTILITY 			(Clearfix, Alignment, Containers, etc.)
-
-	!PLUGINS 			(Plugin overwrite CSS)
-
-	!TYPE 				(Links, Selection, Headings, Body, etc.)
-
-	!OBJECTS 			(Buttons, forms, re-usable parts, etc.)
-		!HEADER
-		!NAVIGATION
-		!FOOTER
-
-	!PAGES    			(Body, HTML, wrappers, page specific, etc.)
-		!HOME
-
- =========================================== */
-/* ================================ !IMPORTS */
 /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -415,51 +393,109 @@ template {
 [hidden] {
   display: none; }
 
-/*=================================== !VARIABLES*/
-/* =================== !COLOURS */
+/**
+ * Mixin to help create transitions that cascade
+ * down/up a given set of elements
+ *
+ */
+/**
+ * De-Collapse Floated content within
+ * element
+ *
+ */
+/**
+ * Cover a parent element
+ *
+ */
+/**
+ * De-Collapse Margins
+ *
+ * Prevent Margins within element
+ * from collapsing
+ */
+/**
+ * Convenience mixin to
+ * help style input
+ * type range
+ * track
+ *
+ */
+/**
+ * Convenience mixin to
+ * help style input
+ * type range
+ * "thumb" grip
+ *
+ */
+/**
+* Clear the visuallyhidden styles from
+* an element given by the visuallyhidden
+* mixin
+*
+*/
+/**
+ * Hide only visually, but have it available
+ * for screenreaders: h5bp.com/v
+ *
+ */
+/**
+ * Get a value from the $map-color-palette map.
+
+ * @param $color {string}  The desired color from the map.
+ * @param $tone {string}   The desired tone of the color (Default value: base).
+
+ * @return string          The value of requested index.
+ */
+/**
+ * Returns robert penners easing curves
+ * for use in css3 transitions and animations
+ *
+ * @src <https://github.com/matthewlein/Ceaser/blob/master/developer/ceaser-easings.scss>
+ *
+ * @param $easing {string}
+ *
+ * @return string
+ */
+/**
+ * Helper to make it easier to print font families
+ *
+ * @param $fontfamily {string}  The desired family from the map.
+ *
+ * @return string               The requested fontsize index
+ */
+/**
+ * Helper to make it easier to print font sizes
+ *
+ * @param $fontsize {string}  The desired size from the map.
+ *
+ * @return strong             The requested fontsize index
+ */
+html {
+  font-size: 62.5%; }
+
+body {
+  font-size: 1.6rem; }
+
 /* =================== !GRID */
-/* =================== !MEDIA-QUERIES  */
 /* =================== !SPEEDS */
-/* =================== !EASINGS */
-/* easeInCirc */
-/* easeOutCirc */
-/* =================== !FONT-STACKS */
+/**
+* Get a value from the $map-z-index map.
+*
+* @param  String $index  The desired index from the map. (Default value: base)
+*
+* @return Number         The value of requested index.
+*/
+::-moz-selection {
+  background: #000000;
+  color: #FFFFFF;
+  text-shadow: none; }
+
+::selection {
+  background: #000000;
+  color: #FFFFFF;
+  text-shadow: none; }
+
 /* ================================ !UTILITY */
-/* =================== !CLEARS */
-.cf:before, .cf:after {
-  content: "";
-  display: table; }
-
-.cf:after {
-  clear: both; }
-
-.clear {
-  clear: both; }
-
-.clear-left {
-  clear: left; }
-
-.clear-right {
-  clear: right; }
-
-/* =================== !ALIGNMENT */
-.text-left {
-  text-align: left; }
-
-.text-right {
-  text-align: right; }
-
-.text-center {
-  text-align: center; }
-
-.justify {
-  text-align: justify; }
-  .justify:after {
-    content: "";
-    display: inline-block;
-    height: 0;
-    width: 100%; }
-
 .alignleft {
   float: left; }
   .alignleftimg {
@@ -475,143 +511,5 @@ template {
   margin: 0 auto; }
   .aligncenterimg {
     margin: 0.5rem auto 5.7rem; }
-
-/* =================== !GRID */
-.w12 {
-  width: 12.5%; }
-
-.w25 {
-  width: 25%; }
-
-.w33 {
-  width: 33.33%; }
-
-.w50 {
-  width: 50%; }
-
-.w66 {
-  width: 66.66%; }
-
-.w75 {
-  width: 75%; }
-
-.w100 {
-  width: 100%; }
-
-.container {
-  max-width: 136.8rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 2.85rem;
-  padding-right: 2.85rem; }
-  .container--no-pad, .container.g {
-    padding-left: 0;
-    padding-right: 0; }
-
-.g {
-  font-size: 0; }
-  .g--pulled {
-    margin-left: -2.85rem;
-    margin-right: -2.85rem; }
-  .g > * {
-    font-size: medium; }
-  .g__col {
-    display: inline-block;
-    vertical-align: top; }
-    .g__col--pad {
-      padding-left: 2.85rem;
-      padding-right: 2.85rem; }
-
-/* ================================ !PLUGIN-NAME */
-/* ================================ //  */
-/* ================================ !TYPOGRAPHY */
-/* =================== !LINKS */
-a {
-  color: #000000;
-  text-decoration: none;
-  outline: 0;
-  -webkit-transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
-  transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1); }
-  a:hover, a:focus {
-    color: #1a1a1a; }
-
-/* =================== !BASE-TYPE */
-html {
-  font-size: 62.5%; }
-
-body {
-  font-family: sans-serif;
-  color: #000000;
-  font-size: 1.4rem; }
-
-/* =================== !HEADINGS */
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1.2;
-  font-family: serif;
-  margin-bottom: 2.85rem;
-  font-weight: normal; }
-
-h1,
-.h1 {
-  font-size: 3.5rem; }
-
-h2,
-.h2 {
-  font-size: 3rem; }
-
-h3,
-.h3 {
-  font-size: 2.4rem; }
-
-h4,
-.h4 {
-  font-size: 2rem; }
-
-h5,
-.h5 {
-  font-size: 1.6rem; }
-
-p {
-  line-height: 1.6; }
-
-/* =================== !ARTICLES */
-article p {
-  margin-bottom: 5.7rem; }
-
-article blockquote {
-  font-style: italic;
-  padding: 5.7rem;
-  margin-bottom: 5.7rem; }
-  article blockquote > p {
-    margin-bottom: 0; }
-
-article ul,
-article ol {
-  padding-left: 5.7rem;
-  margin: 5.7rem 0;
-  list-style-position: outside;
-  list-style-type: disc; }
-
-article ol {
-  list-style-type: decimal; }
-
-article li {
-  margin: 2.85rem 0; }
-
-/* =================== !WORDPRESS */
-.wp-caption {
-  max-width: 100% !important;
-  margin-bottom: 5.7rem; }
-  .wp-caption > a {
-    display: block; }
-
-.wp-caption-text {
-  text-align: center;
-  font-size: 80%;
-  margin: .5rem 0; }
-
-/* =================== !WYSIWYG */
-/* ================================ !PAGES */
-/* =================== !HOME */
 
 /*# sourceMappingURL=main.css.map */

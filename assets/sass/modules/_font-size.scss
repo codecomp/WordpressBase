@@ -1,0 +1,31 @@
+/**
+ * Helper to make it easier to print font sizes
+ *
+ * @param $fontsize {string}  The desired size from the map.
+ *
+ * @return strong             The requested fontsize index
+ */
+@function font-size( $index: base ) {
+
+    $map-font-size: (
+        heading-large: 4rem,
+        heading: 3.6rem,
+        heading-small: 2.2rem,
+        large: 3rem,
+        medium: 2rem,
+        base: 1.6rem,
+        small: 1.4rem,
+    );
+
+    @if map-has-key($map-font-size, $index) {
+
+        @return map-get($map-font-size, $index);
+
+    } @else {
+
+        @warn '`#{index}` is not a valid index in Map: $map-font-size.';
+        @return null;
+
+    }
+
+}
