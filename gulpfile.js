@@ -34,6 +34,7 @@ gulp.task('sass', ['scss-lint'], function () {
     return gulp.src(paths.sass + '/**/*.scss')
         .pipe(sourceMaps.init())
         .pipe(sass({
+            includePaths: require('node-normalize-scss').includePaths,
             errLogToConsole: true
         }))
         .pipe(autoPrefixer({
