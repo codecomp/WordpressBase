@@ -5,10 +5,12 @@
 @import "helpers/cascase";
 @import "helpers/clearfix";
 @import "helpers/cover";
-@import "helpers/nocollapse";
+@import "helpers/no-collapse";
+@import "helpers/pseudo";
 @import "helpers/range";
 @import "helpers/reset";
-@import "helpers/visuallyhidden";
+@import "helpers/responsive-ratio";
+@import "helpers/visually-hidden";
 
 // Modules
 @import 'modules/color';

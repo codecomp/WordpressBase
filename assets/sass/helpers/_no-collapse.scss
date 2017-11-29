@@ -4,7 +4,7 @@
  * Prevent Margins within element
  * from collapsing
  */
-@mixin nocollapse {
+@mixin no-collapse {
     &:before,
     &:after {
         content: "\00a0"; /* No-break space character */

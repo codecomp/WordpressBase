@@ -4,7 +4,7 @@
 * mixin
 *
 */
-@mixin clearVisuallyhidden {
+@mixin clear-visually-hidden {
     clip: auto;
     height: auto;
     margin: 0;
@@ -20,7 +20,7 @@
  * for screenreaders: h5bp.com/v
  *
  */
-@mixin visuallyhidden($args: '') {
+@mixin visually-hidden($args: '') {
     border: 0;
     clip: rect(0 0 0 0);
     height: 1px;
