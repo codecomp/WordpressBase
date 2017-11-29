@@ -2,7 +2,7 @@
     "name": "chrismorris/wordpress-base",
     "description": "Streamlined WordPress base theme",
     "type": "wordpress-theme",
-    "license": "GPL-3.0",
+    "license": "MIT",
     "authors": [
         {
             "name": "Chris Morris",
