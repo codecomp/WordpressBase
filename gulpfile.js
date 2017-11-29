@@ -25,12 +25,12 @@ gulp.task('browser:reload', function(done){
 });
 
 // CSS tasks
-gulp.task('scss-lint', function () {
+gulp.task('css:lint', function () {
     return gulp.src(paths.sass + '/**/*.scss')
         .pipe(scssLint());
 });
 
-gulp.task('sass', ['scss-lint'], function () {
+gulp.task('css:compile', ['css:lint'], function () {
     return gulp.src(paths.sass + '/**/*.scss')
         .pipe(sourceMaps.init())
         .pipe(sass({
@@ -55,7 +55,7 @@ gulp.task('optimise:css', function () {
 
 // Environment tasks
 gulp.task('watch', ['browser:sync'], function () {
-    gulp.watch(paths.sass + '/**/*.scss', ['sass']);
+    gulp.watch(paths.sass + '/**/*.scss', ['css:compile']);
 
     gulp.watch(paths.buildCss + '/*', function(file){
         gulp.src(file.path)
