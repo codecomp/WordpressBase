@@ -35,7 +35,6 @@ assets/webfonts | Theme specific webfonts
 components/ | Folders to contain content for the website backend
 components/functions | Separate Function files for utility and plugin
 components/languages | Theme translation files .po, .mo, .pot
-components/libs | Eternal libraries for back end use eg. API Classes
 components/parts | Template parts accessed via template_part() function
 
 ## Helper functions
