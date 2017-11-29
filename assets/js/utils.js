@@ -504,28 +504,47 @@ Site.autoInits = (function($, ui, u){
 
                 e.preventDefault();
 
+                formData = new FormData($this[0]);
+                formData.append('action', $this.attr('action'));
+                formData.append('security', WP.nonce);
+
+                if( $this.hasClass('loading') )
+                    return false;
+
+                $this.addClass('loading');
+
                 if ($this.valid()) {
                     $.ajax({
                         url: WP.ajax,
                         type:'POST',
-                        data: $.extend({
-                            action:    $this.attr('action'),
-                            security: WP.nonce
-                        }, $this.serializeObject()),
+                        data: formData,
                         dataType: 'json',
+                        contentType:false,
+                        processData: false,
+                        beforeSend: function(){
+                            start = new Date().getTime();
+                        },
                         success: function(data){
 
-                            if(data !== null && typeof data !== 'object')
-                                data = JSON.parse(data);
+                            setTimeout(function(){
 
-                            if (data.success) {
-                                $this.html('<p class="form-sent">' + $this.data('thanks') + '</p>');
-                            } else {
-                                $this.html('<p class="form-sent">' + data.data + '</p>');
-                            }
+                                if(data !== null && typeof data !== 'object')
+                                    data = JSON.parse(data);
+
+                                if (data.success) {
+                                    $this.html('<p class="form-sent">' + $this.data('thanks') + '</p>');
+                                } else {
+                                    $this.html('<p class="form-sent">' + data.data + '</p>');
+                                }
+
+                                $this.removeClass('loading');
+
+                            }, 1000 - (new Date().getTime() - start));
 
                         }
                     });
+                } else {
+                    $this.removeClass('loading');
                 }
             }
 
