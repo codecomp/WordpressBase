@@ -177,7 +177,6 @@ function load_social($args) {
 	$args = array_replace_recursive($defaults, $args);
 
 	// Check if we have cached version of this data
-	delete_transient('social_data_' . $args['offset']);
 	$data = get_transient('social_data_' . $args['offset']);
 
 	if ( $data === false ) {
