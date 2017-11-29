@@ -140,13 +140,6 @@ function theme_options_tabs_social_api( $tabs ) {
             'type'	=> 'text',
             'required' => 0,
         ),
-
-        // SPACER
-        array (
-            'name' => '',
-            'type' => 'message',
-            'instructions' => '<br>',
-        )
     );
 
     return $tabs;
