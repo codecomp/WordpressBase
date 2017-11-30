@@ -1,25 +1,24 @@
-/* ================================ !UTILITY */
-
-
 .alignleft {
     float: left;
 
     &img {
-        margin: .5rem $g--space $g--space/2 0;
+        margin: 0.5rem $g--space $g--space / 2 0;
     }
 }
+
 .alignright {
     float: right;
 
     &img {
-        margin: .5rem 0 $g--space/2 $g--space;
+        margin: 0.5rem 0 $g--space / 2 $g--space;
     }
 }
+
 .aligncenter {
     display: block;
     margin: 0 auto;
 
     &img {
-        margin: .5rem auto $g--space;
+        margin: 0.5rem auto $g--space;
     }
 }

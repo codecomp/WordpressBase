@@ -1,4 +1,3 @@
-
 html {
     font-size: 62.5%;
 }
@@ -7,41 +6,59 @@ body {
     font-size: font-size(base);
 }
 
-.wysiwyg{
-    h1{
+::selection {
+    background: palette(brand);
+    color: palette(background);
+    text-shadow: none;
+}
 
+.wysiwyg {
+
+    h1 {
+        //lint-fix
     }
-    h2{
 
+    h2 {
+        //lint-fix
     }
-    h3{
 
+    h3 {
+        //lint-fix
     }
-    h4{
 
+    h4 {
+        //lint-fix
     }
-    h5{
 
+    h5 {
+        //lint-fix
     }
-    h6{
 
+    h6 {
+        //lint-fix
     }
-    a{
 
+    a {
+        //lint-fix
     }
-    p{
 
+    p {
+        //lint-fix
     }
-    ul{
 
+    ul {
+        //lint-fix
     }
-    ol{
 
+    ol {
+        //lint-fix
     }
-    li{
 
+    li {
+        //lint-fix
     }
-    blockquote{
 
+    blockquote {
+        //lint-fix
     }
 }

@@ -1,20 +1,20 @@
 // Normalise import handled by NPM
-@import "normalize";
+@import 'normalize';
 
 // Helper mixins
-@import "helpers/cascase";
-@import "helpers/clearfix";
-@import "helpers/cover";
-@import "helpers/no-collapse";
-@import "helpers/pseudo";
-@import "helpers/range";
-@import "helpers/reset";
-@import "helpers/responsive-ratio";
-@import "helpers/visually-hidden";
+@import 'helpers/cascase';
+@import 'helpers/clearfix';
+@import 'helpers/cover';
+@import 'helpers/no-collapse';
+@import 'helpers/pseudo';
+@import 'helpers/range';
+@import 'helpers/reset';
+@import 'helpers/responsive-ratio';
+@import 'helpers/visually-hidden';
 
 // Modules
 @import 'modules/color';
-@import "modules/easing";
+@import 'modules/easing';
 @import 'modules/font-family';
 @import 'modules/font-size';
 @import 'modules/media-queries';
@@ -23,7 +23,6 @@
 @import 'modules/z-index';
 
 // Block level objects & distinct content chunks
-@import 'objects/selection';
 
 // Page specific content & overrides
 @import 'pages/base';

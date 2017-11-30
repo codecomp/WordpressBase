@@ -1,17 +1,5 @@
-/* ================================= !CONTENTS
-
-	CSS Used for the wordpress Editor, uses the themes base styles
-	add anything extra/missing to the overrides section.
-
-	!RESET 	 			(Print Styles, Normalize, Chrome Prompt, etc.)
-	!UTILITY 			(Clearfix, Alignment, Containers, etc.)
-	!TYPE 				(Links, Selection, Headings, Body, etc.)
-
-=========================================== */
-
-/* ================================ !IMPORTS */
-
-
-
-/* ================================ !OVERRIDES */
-
+// Modules
+@import 'modules/color';
+@import 'modules/font-family';
+@import 'modules/font-size';
+@import 'modules/typography';

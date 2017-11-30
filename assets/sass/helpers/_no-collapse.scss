@@ -1,15 +1,10 @@
-/**
- * De-Collapse Margins
- *
- * Prevent Margins within element
- * from collapsing
- */
+// @desc De-Collapse Margins, Prevent Margins within element from collapsing
 @mixin no-collapse {
-    &:before,
-    &:after {
-        content: "\00a0"; /* No-break space character */
+    &::before,
+    &::after {
+        content: '\00a0'; // No-break space character
         display: block;
-        overflow: hidden;
         height: 0;
+        overflow: hidden;
     }
 }

@@ -1,9 +1,4 @@
-/**
- * Mixin to help create transitions that cascade
- * down/up a given set of elements
- *
- */
-
+// @ desc Mixin to help create transitions that cascade down/up a given set of elements
 @mixin cascade-down($number, $base: 0s, $factor: 0.1s) {
     @for $i from 1 through $number {
         &:nth-child(#{$i}) {

@@ -1,18 +1,14 @@
-/**
- * De-Collapse Floated content within
- * element
- *
- */
+// @desc De-Collapse Floated content within element
 @mixin clearfix {
-    *zoom: 1;
+    zoom: 1;
 
-    &:before,
-    &:after {
-        content: " ";
+    &::before,
+    &::after {
+        content: ' ';
         display: table;
     }
 
-    &:after {
+    &::after {
         clear: both;
     }
 }

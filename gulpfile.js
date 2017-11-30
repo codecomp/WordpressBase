@@ -26,8 +26,8 @@ gulp.task('browser:reload', function(done){
 
 // CSS tasks
 gulp.task('css:lint', function () {
-    return gulp.src(paths.sass + '/**/*.scss')
-        .pipe(scssLint());
+    return gulp.src([paths.sass + '/**/*.scss', '!' + paths.sass + '/modules/_media-queries.scss'])
+        .pipe(scssLint({'config': 'scss-lint.yml'}));
 });
 
 gulp.task('css:compile', ['css:lint'], function () {

@@ -1,9 +1,4 @@
-/**
-* Clear the visuallyhidden styles from
-* an element given by the visuallyhidden
-* mixin
-*
-*/
+// @desc Clear the visually hidden styles from an element given by the visually hidden mixin
 @mixin clear-visually-hidden {
     clip: auto;
     height: auto;
@@ -15,11 +10,7 @@
     @content;
 }
 
-/**
- * Hide only visually, but have it available
- * for screenreaders: h5bp.com/v
- *
- */
+//@param Hide only visually, but have it available for screen readers: h5bp.com/v
 @mixin visually-hidden($args: '') {
     border: 0;
     clip: rect(0 0 0 0);
@@ -32,7 +23,7 @@
 
     @if index($args, no-js) {
         .no-js & {
-            @include clearVisuallyhidden {
+            @include clear-visually-hidden {
                 @content;
             }
         }
@@ -40,15 +31,16 @@
 
     @if index($args, js) {
         .js & {
-            @include clearVisuallyhidden {
+            @include clear-visually-hidden {
                 @content
             }
         }
     }
 
     @if index($args, focusable) {
-        &:active, &:focus {
-            @include clearVisuallyhidden {
+        &:active,
+        &:focus {
+            @include clear-visually-hidden {
                 @content;
             }
         }
