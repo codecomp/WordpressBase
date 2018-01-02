@@ -16,6 +16,8 @@ var gulp         = require('gulp'),
 gulp.task('browser:sync', function(done) {
     browserSync.init({
         proxy: "localhost:8888"
+        proxy: "localhost:8888",
+        open: false
     }, done);
 });
 
