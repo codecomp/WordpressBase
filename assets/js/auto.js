@@ -172,7 +172,7 @@ var $ = jQuery,
             if (window.initMap) {
                 window.initMap();
                 return false;
-            };
+            }
 
             window.initMap = function(){
                 var maps = document.getElementsByClassName('js-map');
@@ -206,7 +206,7 @@ var $ = jQuery,
 
                     marker.setMap(map);
                 }
-            }
+            };
 
             var src = '//maps.googleapis.com/maps/api/js?v=3&callback=initMap',
                 protocol = ('https:' == doc.location.protocol ? 'https:' : 'http:'),

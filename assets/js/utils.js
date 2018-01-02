@@ -256,7 +256,7 @@ var utils ={
 
     trigger: function(eventName, node) {
         // Make sure we use the ownerDocument from the provided node to avoid cross-window problems
-        var doc;
+        var doc, event;
         if (node.ownerDocument) {
             doc = node.ownerDocument;
         } else if (node.nodeType == 9) {
@@ -289,9 +289,8 @@ var utils ={
 
                 default:
                     throw "fireEvent: Couldn't find an event class for event '" + eventName + "'.";
-                    break;
             }
-            var event = doc.createEvent(eventClass);
+            event = doc.createEvent(eventClass);
 
             var bubbles = eventName == "change" ? false : true;
             event.initEvent(eventName, bubbles, true); // All events created as bubbling and cancelable.
@@ -301,14 +300,14 @@ var utils ={
             node.dispatchEvent(event, true);
         } else if (node.fireEvent) {
             // IE-old school style
-            var event = doc.createEventObject();
+            event = doc.createEventObject();
             event.synthetic = true; // allow detection of synthetic events
             node.fireEvent("on" + eventName, event);
         }
     },
 
     setCookie: function(name, value, days){
-        var d = new Date;
+        var d = new Date();
         d.setTime(d.getTime() + 24*60*60*1000*days);
         document.cookie = name + "=" + value + ";path=/;expires=" + d.toGMTString();
     },
@@ -381,14 +380,10 @@ var utils ={
         }
     },
 
-    getSiblings: function(el, filter) {
-        var siblings = [];
-        el = el.parentNode.firstChild;
-        do {
-            if (el.nodeType === 3) continue; // text node
-            if (!filter || filter(el)) siblings.push(el);
-        } while (el = el.nextSibling);
-        return siblings;
+    getSiblings: function(el) {
+        return Array.prototype.filter.call(el.parentNode.children, function(child){
+            return child !== el;
+        });
     },
 
     isInViewport: function(el) {

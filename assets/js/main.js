@@ -68,6 +68,10 @@ var Site = (function($) {
     // Example Module
     m.example = function(){
         // Do stuff, the m.example module gets auto initialized.
+
+        var el = document.getElementsByClassName('tst')[0];
+        console.log( el );
+        console.log( u.getSiblings(el) );
     };
 
     // Document loaded class
