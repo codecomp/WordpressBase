@@ -13,14 +13,16 @@
 @import 'helpers/visually-hidden';
 
 // Modules
+@import 'modules/media-queries';
+@import 'modules/variables';
 @import 'modules/color';
 @import 'modules/easing';
 @import 'modules/font-family';
 @import 'modules/font-size';
-@import 'modules/media-queries';
-@import 'modules/typography';
-@import 'modules/variables';
+@import 'modules/image-url';
+@import 'modules/spacing';
 @import 'modules/z-index';
+@import 'modules/typography';
 
 // Block level objects & distinct content chunks
 
