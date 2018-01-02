@@ -6,6 +6,7 @@ var gulp         = require('gulp'),
     scssLint     = require('gulp-scss-lint'),
     sourceMaps   = require('gulp-sourcemaps'),
     cssNano      = require('gulp-cssnano'),
+    jshint       = require('gulp-jshint'),
     browserify   = require('browserify'),
     uglify       = require('gulp-uglify'),
     autoPrefixer = require('gulp-autoprefixer'),
@@ -58,10 +59,12 @@ gulp.task('css:compile', ['css:lint'], function () {
 
 // JS tasks
 gulp.task('js:lint', function () {
-    // TODO
+    return gulp.src([paths.js + '/**/*.js'])
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
 });
 
-gulp.task('js:compile', function () {
+gulp.task('js:compile', ['js:lint'], function () {
     return browserify({
             entries: paths.js + '/main.js',
             debug: true
