@@ -1,21 +1,26 @@
 var gulp         = require('gulp'),
     gulpSequence = require('gulp-sequence'),
+    source       = require('vinyl-source-stream'),
+    buffer       = require('vinyl-buffer'),
     sass         = require('gulp-sass'),
     scssLint     = require('gulp-scss-lint'),
     sourceMaps   = require('gulp-sourcemaps'),
     cssNano      = require('gulp-cssnano'),
+    browserify   = require('browserify'),
+    uglify       = require('gulp-uglify'),
     autoPrefixer = require('gulp-autoprefixer'),
     browserSync  = require('browser-sync').create(),
     del          = require('del'),
     paths        = {
         sass: 'assets/sass',
-        buildCss: 'assets/css'
+        buildCss: 'dist/css',
+        js: 'assets/js',
+        buildJs: 'dist/js'
     };
 
 // Browser sync tasks
 gulp.task('browser:sync', function(done) {
     browserSync.init({
-        proxy: "localhost:8888"
         proxy: "localhost:8888",
         open: false
     }, done);
@@ -33,12 +38,16 @@ gulp.task('css:lint', function () {
 });
 
 gulp.task('css:compile', ['css:lint'], function () {
-    return gulp.src(paths.sass + '/**/*.scss')
+    return gulp.src([paths.sass + '/main.scss', paths.sass + '/admin-editor-styles.scss'])
         .pipe(sourceMaps.init())
         .pipe(sass({
-            includePaths: require('node-normalize-scss').includePaths,
-            errLogToConsole: true
+            includePaths: require('node-normalize-scss').includePaths
         }))
+        .on('error', function (err) {
+            console.log(err.toString());
+
+            this.emit('end');
+        })
         .pipe(autoPrefixer({
             browsers: ['last 2 versions'],
             cascade: false
@@ -47,12 +56,34 @@ gulp.task('css:compile', ['css:lint'], function () {
         .pipe(gulp.dest(paths.buildCss));
 });
 
+// JS tasks
+gulp.task('js:lint', function () {
+    // TODO
+});
+
+gulp.task('js:compile', function () {
+    return browserify({
+            entries: paths.js + '/main.js',
+            debug: true
+        })
+        .bundle()
+        .pipe(source('main.js'))
+        .pipe(buffer())
+        .pipe(gulp.dest(paths.buildJs));
+});
+
 // Optimisation tasks
 gulp.task('optimise:css', function () {
     del(paths.buildCss + '/*.map');
     return gulp.src(paths.buildCss + '/*.css')
         .pipe(cssNano())
         .pipe(gulp.dest(paths.buildCss));
+});
+
+gulp.task('optimise:js', function() {
+    return gulp.src(paths.buildJs + '/*.js')
+        .pipe(uglify())
+        .pipe(gulp.dest(paths.buildJs));
 });
 
 // Environment tasks
@@ -64,7 +95,12 @@ gulp.task('watch', ['browser:sync'], function () {
             .pipe(browserSync.stream());
     });
 
-    gulp.watch("*.php")
+    gulp.watch(paths.js + '/**/*.js', ['js:compile']);
+
+    gulp.watch(paths.buildJs + '/*')
+        .on('change', browserSync.reload);
+
+    gulp.watch(['*.php', 'templates/**/*.twig'])
         .on('change', browserSync.reload);
 });
 
@@ -72,7 +108,12 @@ gulp.task('deploy', function(done){
     gulpSequence(
         'browser:sync',
         [
-            'optimise:css'
+            'css:compile',
+            'js:compile'
+        ],
+        [
+            'optimise:css',
+            'optimise:js'
         ],
         'browser:reload',
         done

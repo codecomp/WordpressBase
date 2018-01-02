@@ -37,11 +37,11 @@ add_filter( 'theme_options_tabs', 'theme_options_tabs_scripts' );
  */
 function theme_enqueue()
 {
-	$assets = array(
-		'js' 	=> get_template_directory_uri() . '/assets/js/',
-		'libs' 	=> get_template_directory_uri() . '/assets/libs/',
-		'css' 	=> get_template_directory_uri() . '/assets/css/'
-	);
+    $assets = array(
+        'js' 	=> get_template_directory_uri() . '/dist/js/',
+        'libs' 	=> get_template_directory_uri() . '/assets/libs/',
+        'css' 	=> get_template_directory_uri() . '/dist/css/'
+    );
 
 	// Libraries
 	wp_enqueue_script('jquery');
@@ -52,8 +52,7 @@ function theme_enqueue()
 
 	// Theme
 	wp_enqueue_style('site-styles', 	$assets['css'] . 'main.css');
-	wp_enqueue_script('site-utils', 	$assets['js'] . 'utils.js', array( 'jquery', 'tweenmax'));
-	wp_enqueue_script('site-scripts', 	$assets['js'] . 'main.js', array( 'jquery', 'site-utils', 'tweenmax' ), false, true);
+	wp_enqueue_script('site-scripts', 	$assets['js'] . 'main.js', array( 'jquery', 'tweenmax' ), false, true);
 
 	// Localize site directory data to javascript
 	$localisation = array(

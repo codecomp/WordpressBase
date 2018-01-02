@@ -1,133 +1,74 @@
-jQuery(document).ready(function($) {
-    Site.init();
-});
+var utils ={
 
-
-var Site = (function($) {
-
-    // DOM caching
-    var win = window;
-
-    // Globals
-    var w = {
-        width: 	win.innerWidth,
-        height: win.innerHeight,
-        scroll: win.pageYOffset
-    };
-
-    var ui = {
-        fast: 0.2,
-        slow: 0.4,
-        step: 0.03,
-        easeout: Power4.easeOut,
-        easein: Power4.easeIn
-    };
-
-
-    function updateGlobals(){
-        w.width  = win.innerWidth;
-        w.height = win.innerHeight;
-        w.scroll = win.pageYOffset;
-    }
-
-    win.addEventListener('resize', updateGlobals, true);
-    win.addEventListener('scroll', updateGlobals, true);
-    win.addEventListener('load', updateGlobals, true);
-
-
-    document.documentElement.setAttribute('data-ua',  navigator.userAgent);
-
-
-    return {
-        init: function(){
-
-            for (var prop in this.modules) {
-                if ( this.modules.hasOwnProperty(prop) ) {
-                    this.modules[prop]();
-                }
-            }
-
-            for (var props in this.autoInits) {
-                if ( this.autoInits.hasOwnProperty(props) ) {
-                    var $selector = $(props);
-
-                    if ($selector.length) {
-                        this.autoInits[props]($selector);
-                    }
-                }
-            }
-        },
-        ui: ui,
-        w: w
-    };
-
-})(jQuery);
-
-
-
-(function(u){
-
-    function _handleResponse(request, success) {
-        request.onload = function() {
-            if (request.status >= 200 && request.status < 400) {
-
-                if (typeof request.responseText == 'string') {
-                    data = request.responseText;
-                } else {
-                    data = JSON.parse(request.responseText);
-                }
-
-                success(data);
-
-            } else {
-                return request.status + ' failed request: '+ JSON.parse(request.responseText);
-            }
-        };
-
-        request.onerror = function() {
-            return request.status + ' failed request: '+ JSON.parse(request.responseText);
-        };
-
-        request.send();
-    }
-
-    u.hasClass = function(el, cls) {
-
+    hasClass: function(el, cls) {
         return el.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
-    };
+    },
 
-    u.addClass = function(el, cls) {
+    addClass: function(el, cls) {
         if (!this.hasClass(el, cls)) {
             el.className += " " + cls;
         }
-    };
+    },
 
-    u.removeClass = function(el, cls) {
+    removeClass: function(el, cls) {
         if (this.hasClass(el, cls)) {
 
             var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
             el.className = el.className.replace(reg,' ');
         }
-    };
+    },
 
-    u.is_touch = Modernizr.touchevents;
+    toggleClass: function(el, cls) {
+        if (!this.hasClass(el, cls)) {
+            el.className += " " + cls;
+        } else {
+            var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
+            el.className = el.className.replace(reg,' ');
+        }
+    },
 
-    u.maxWidth = function(width){
+    is_touch: Modernizr.touchevents,
+
+    maxWidth: function(width){
 
         return Modernizr.mq('(max-width: '+width+'px)');
-    };
-    u.minWidth = function(width){
+    },
+    minWidth: function(width){
 
         return Modernizr.mq('(min-width: '+width+'px)');
-    };
+    },
 
-    u.jax = {
+    jax: {
+        _handleResponse: function(request, success) {
+            request.onload = function() {
+                if (request.status >= 200 && request.status < 400) {
+
+                    if (typeof request.responseText == 'string') {
+                        data = request.responseText;
+                    } else {
+                        data = JSON.parse(request.responseText);
+                    }
+
+                    success(data);
+
+                } else {
+                    return request.status + ' failed request: '+ JSON.parse(request.responseText);
+                }
+            };
+
+            request.onerror = function() {
+                return request.status + ' failed request: '+ JSON.parse(request.responseText);
+            };
+
+            request.send();
+        },
+
         get: function(url, success) {
             var request = new XMLHttpRequest();
 
             request.open('GET', url, true);
 
-            _handleResponse(request, success);
+            this.jax._handleResponse(request, success);
 
         },
         post: function(url, data, success) {
@@ -137,11 +78,11 @@ var Site = (function($) {
             request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
             request.send(data);
 
-            _handleResponse(request, success);
+            this.jax._handleResponse(request, success);
         }
-    };
+    },
 
-    u.serialize = function(form) {
+    serialize: function(form) {
         var field, s = [];
 
         if (typeof form == 'object' && form.nodeName == "FORM") {
@@ -175,9 +116,9 @@ var Site = (function($) {
         }
 
         return s.join('&').replace(/%20/g, '+');
-    };
+    },
 
-    u.extend = function(out) {
+    extend: function(out) {
         out = out || {};
 
         for (var i = 1; i < arguments.length; i++) {
@@ -193,9 +134,9 @@ var Site = (function($) {
         }
 
         return out;
-    };
+    },
 
-    u.throttle = function(func, wait, options) {
+    throttle: function(func, wait, options) {
         var context, args, result,
 
             timeout = null,
@@ -249,9 +190,9 @@ var Site = (function($) {
 
             return result;
         };
-    };
+    },
 
-    u.debounce = function(func, wait, immediate) {
+    debounce: function(func, wait, immediate) {
         var timeout, args, context, timestamp, result;
 
         var later = function() {
@@ -294,9 +235,9 @@ var Site = (function($) {
 
             return result;
         };
-    };
+    },
 
-    u.position = function(el){
+    position: function(el){
         var box = el.getBoundingClientRect();
 
         var docEl = document.documentElement;
@@ -311,11 +252,9 @@ var Site = (function($) {
         var left = box.left + scrollLeft - clientLeft;
 
         return { top: Math.round(top), left: Math.round(left) };
-    };
+    },
 
-
-
-    u.trigger = function(eventName, node) {
+    trigger: function(eventName, node) {
         // Make sure we use the ownerDocument from the provided node to avoid cross-window problems
         var doc;
         if (node.ownerDocument) {
@@ -366,367 +305,103 @@ var Site = (function($) {
             event.synthetic = true; // allow detection of synthetic events
             node.fireEvent("on" + eventName, event);
         }
-    };
+    },
 
-})(Site.utils = Site.utils || {});
+    setCookie: function(name, value, days){
+        var d = new Date;
+        d.setTime(d.getTime() + 24*60*60*1000*days);
+        document.cookie = name + "=" + value + ";path=/;expires=" + d.toGMTString();
+    },
 
+    getCookie: function(name) {
+        var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+        return v ? v[2] : null;
+    },
 
+    docReady: function(callback, context) {
+        var readyList = [];
+        var readyFired = false;
+        var readyEventHandlersInstalled = false;
 
-(function(a, ui){
-    a.to = TweenMax.to;
-    a.stagger = TweenMax.staggerTo;
+        if (typeof callback !== "function") {
+            throw new TypeError("callback for docReady(fn) must be a function");
+        }
+        // if ready has already fired, then just schedule the callback
+        // to fire asynchronously, but right away
+        if (readyFired) {
+            setTimeout(function() {callback(context);}, 1);
+            return;
+        } else {
+            // add the function and context to the list
+            readyList.push({fn: callback, ctx: context});
+        }
+        // if document already ready to go, schedule the ready function to run
+        // IE only safe when readyState is "complete", others safe when readyState is "interactive"
+        if (document.readyState === "complete" || (!document.attachEvent && document.readyState === "interactive")) {
+            setTimeout(ready, 1);
+        } else if (!readyEventHandlersInstalled) {
+            // otherwise if we don't have event handlers installed, install them
+            if (document.addEventListener) {
+                // first choice is DOMContentLoaded event
+                document.addEventListener("DOMContentLoaded", ready, false);
+                // backup is window load event
+                window.addEventListener("load", ready, false);
+            } else {
+                // must be IE
+                document.attachEvent("onreadystatechange", readyStateChange);
+                window.attachEvent("onload", ready);
+            }
+            readyEventHandlersInstalled = true;
+        }
 
-    a.fx = {
-        fadeIn: { opacity: 1, display: 'block', ease: ui.easing },
-        fadeOut: { opacity: 0, display: 'none', ease: ui.easing },
+        // call this when the document is ready
+        // this function protects itself against being called more than once
+        function ready() {
+            if (!readyFired) {
+                // this must be set to true before we start calling callbacks
+                readyFired = true;
+                for (var i = 0; i < readyList.length; i++) {
+                    // if a callback here happens to add new ready handlers,
+                    // the docReady() function will see that it already fired
+                    // and will schedule the callback to run right after
+                    // this event loop finishes so all handlers will still execute
+                    // in order and no new ones will be added to the readyList
+                    // while we are processing the list
+                    readyList[i].fn.call(window, readyList[i].ctx);
+                }
+                // allow any closures held by these functions to free
+                readyList = [];
+            }
+        }
 
-        fadeIn_left: { opacity: 1, x: '0px', display: 'block', ease: ui.easing },
-        fadeOut_left: { opacity: 0, x: '-40px', display: 'none', ease: ui.easing },
+        function readyStateChange() {
+            if ( document.readyState === "complete" ) {
+                ready();
+            }
+        }
+    },
 
-        fadeIn_right: { opacity: 1, x: '0px', display: 'block', ease: ui.easing },
-        fadeOut_right: { opacity: 0, x: '40px', display: 'none', ease: ui.easing },
+    getSiblings: function(el, filter) {
+        var siblings = [];
+        el = el.parentNode.firstChild;
+        do {
+            if (el.nodeType === 3) continue; // text node
+            if (!filter || filter(el)) siblings.push(el);
+        } while (el = el.nextSibling);
+        return siblings;
+    },
 
-        fadeIn_up: { opacity: 1, y: '0px', display: 'block', ease: ui.easing },
-        fadeIn_down: { opacity: 1, y: '0px', display: 'block', ease: ui.easing },
-
-        fadeOut_up: { opacity: 0, y: '-40px', display: 'none', ease: ui.easing },
-        fadeOut_down: { opacity: 0, y: '40px', display: 'none', ease: ui.easing },
-    };
-
-    // TODO: THIS, Crossbrowser
-    function prepFadeIn(el) {
-        el.style.opacity = 0;
-        el.style.display = 'none';
+    isInViewport: function(el) {
+        var rect = el.getBoundingClientRect();
+        var html = document.documentElement;
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || html.clientHeight) &&
+            rect.right <= (window.innerWidth || html.clientWidth)
+        );
     }
 
-    a.fadeIn = function(el){
-        a.to(el, ui.slow, a.fx.fadeIn);
-    };
+};
 
-    a.fadeOut = function(el){
-        a.to(el, ui.fast, a.fx.fadeIn);
-    };
-
-    a.fadeInUp = function(el){
-        a.to(el, ui.slow, a.fx.fadeIn_up);
-    };
-
-    a.fadeInDown = function(el){
-        a.to(el, ui.slow, a.fx.fadeIn_down);
-    };
-
-    a.fadeOutUp = function(el){
-        a.to(el, ui.fast, a.fx.fadeOut_down);
-    };
-
-    a.fadeOutDown = function(el){
-        a.to(el, ui.fast, a.fx.fadeOut_down);
-    };
-
-    a.fadeInLeft = function(el){
-        a.to(el, ui.slow, a.fx.fadeIn_left);
-    };
-
-    a.fadeOutLeft = function(el){
-        a.to(el, ui.fast, a.fx.fadeOut_left);
-    };
-
-    a.fadeInRight = function(el){
-        a.to(el, ui.slow, a.fx.fadeIn_right);
-    };
-
-    a.fadeOutRight = function(el){
-        a.to(el, ui.fast, a.fx.fadeOut_right);
-    };
-
-    a.stepFadeIn = function(el) {
-        a.stagger(el, ui.fast, a.fx.fadeIn_down, ui.step);
-    };
-
-})(Site.anim = Site.anim || {}, Site.ui);
-
-
-Site.autoInits = (function($, ui, u){
-    return {
-
-        // Auto fade form field lables
-        '.field': function($fields){
-            var $field = $fields.find('input, textarea');
-
-            $field.on({
-                focus: function(){
-                    if (!this.value) {
-                        $(this).prev().addClass('is-focused');
-                    }
-                },
-                blur: function(){
-                    if (!this.value) {
-                        $(this).prev().removeClass('is-focused');
-                    } else {
-                        $(this).prev().addClass('is-focused');
-                    }
-                },
-                load: function(){
-                    if (this.value) {
-                        $(this).prev().addClass('is-focused');
-                    } else {
-                        $(this).prev().removeClass('is-focused');
-                    }
-                }
-            });
-
-            window.addEventListener('load', function(){
-                $field.trigger('load');
-            });
-        },
-
-        // Auto process forms
-        '.js-process-form': function($forms){
-
-            $forms.each(function(){
-                $(this).validate({
-                    ignore: '',
-                    rules: {
-                        upload: {
-                            required: false,
-                            extension: "doc|docx|txt|rtf|pdf|jpg|gif|jpeg|png|tiff|bmp"
-                        }
-                    },
-                    onfocusout: function(element) {
-                        this.element(element);
-                    },
-                    onkeyup: false
-                });
-            });
-
-            function processForm(e){
-                var $this = $(this);
-
-                e.preventDefault();
-
-                formData = new FormData($this[0]);
-                formData.append('action', $this.attr('action'));
-                formData.append('security', WP.nonce);
-
-                if( $this.hasClass('loading') )
-                    return false;
-
-                $this.addClass('loading');
-
-                if ($this.valid()) {
-                    $.ajax({
-                        url: WP.ajax,
-                        type:'POST',
-                        data: formData,
-                        dataType: 'json',
-                        contentType:false,
-                        processData: false,
-                        beforeSend: function(){
-                            start = new Date().getTime();
-                        },
-                        success: function(data){
-
-                            setTimeout(function(){
-
-                                if(data !== null && typeof data !== 'object')
-                                    data = JSON.parse(data);
-
-                                if (data.success) {
-                                    $this.html('<p class="form-sent">' + $this.data('thanks') + '</p>');
-                                } else {
-                                    $this.html('<p class="form-sent">' + data.data + '</p>');
-                                }
-
-                                $this.removeClass('loading');
-
-                            }, 1000 - (new Date().getTime() - start));
-
-                        }
-                    });
-                } else {
-                    $this.removeClass('loading');
-                }
-            }
-
-            $forms.on('submit', processForm);
-        },
-
-        // Auto popup share windows
-        '.js-share': function($share){
-            $share.on('click', 'a', function(){
-
-                if ($(this).attr('href').indexOf('http') === 0) {
-                    var new_window = window.open($(this).attr('href'), '', 'height=450, width=700');
-
-                    if (window.focus) {
-                        new_window.focus();
-                    }
-
-                    return false;
-
-                }
-            });
-        },
-
-        // Auto Scroll to section
-        '.js-scroll-to': function($link) {
-            $link.on('click', function(e){
-                var href = $(this).attr('href');
-
-                if (href.indexOf('#') == -1) return;
-
-                e.preventDefault();
-
-                var target = document.getElementById(href.substr(1, href.length-1));
-
-                if (!target) return false;
-
-                var pos = Site.utils.position(target).top - 100;
-
-                TweenMax.to(window, 0.8, {scrollTo: {y: pos}, ease: ui.enter});
-            });
-        },
-
-        // Auto Generate Google Maps
-        '.js-map': function($map) {
-
-            if (window.initMap) {
-                window.initMap();
-                return false;
-            };
-
-            window.initMap = function(){
-                var maps = document.getElementsByClassName('js-map');
-
-                if (maps.length == 0) return false;
-
-                for (var i = 0; i < maps.length; i++) {
-                    var lat = maps[i].getAttribute('data-lat'),
-                        lng = maps[i].getAttribute('data-lng');
-
-
-                    var map,
-                        mapOptions = {
-                            zoom: 14,
-                            scrollwheel: false,
-                            mapTypeControl: false,
-                            streetViewControl: false,
-                            zoomControl: false,
-                            draggable: false,
-                            mapTypeId: google.maps.MapTypeId.ROADMAP,
-                            center: new google.maps.LatLng(lat,lng)
-                        };
-
-                    map = new google.maps.Map(maps[i], mapOptions);
-
-                    var marker = new google.maps.Marker({
-                        position: mapOptions.center,
-                        map: map[i],
-                        draggable: false,
-                    });
-
-                    marker.setMap(map);
-                }
-            }
-
-            var src = '//maps.googleapis.com/maps/api/js?v=3&callback=initMap',
-                protocol = ('https:' == doc.location.protocol ? 'https:' : 'http:'),
-                script = doc.createElement('script');
-
-            script.type = 'text/javascript';
-            script.async = true;
-            script.src = protocol + src;
-
-            doc.getElementsByTagName("head")[0].appendChild(script);
-        },
-
-        // Move element depending on screen width
-        '.js-move': function($el) {
-            var els = doc.getElementsByClassName('js-move');
-            els = [].slice.call(els);
-
-            els.forEach(function(el){
-                repos(el);
-            })
-
-            function repos(el) {
-                var width = el.getAttribute('data-width'),
-                    selector = el.getAttribute('data-target'),
-                    position = el.getAttribute('data-position');
-
-                var targetEl = doc.querySelector(selector);
-
-                var has_moved = false;
-
-                var placeholder = doc.createElement('div');
-                placeholder.setAttribute('class', 'js-move-placeholder');
-                placeholder.style.display = 'none';
-
-                el.parentNode.insertBefore(placeholder, el);
-
-                function insert(el, target, position){
-                    switch (true) {
-                        case position == 'append':
-                            target.appendChild(el);
-                            break;
-                        case position == 'prepend':
-                            target.insertBefore(el, target.firstChild);
-                            break;
-                        case position == 'before':
-                            target.parentNode.insertBefore(el, target);
-                            break;
-                        case position == 'after':
-                            target.parentNode.insertBefore(el, target.nextSibling);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-
-
-                function checkPos(){
-                    if (!has_moved && u.maxWidth(width)) {
-                        insert(el, targetEl, position);
-                        has_moved = true;
-                    }
-
-                    if (has_moved && !u.maxWidth(width)) {
-                        insert(el, placeholder, 'after');
-                        has_moved = false;
-                    }
-                }
-
-                window.addEventListener('resize', u.debounce(checkPos, 300));
-                checkPos();
-
-            }
-        },
-    };
-})(jQuery, Site.ui, Site.utils);
-
-
-/* ==========================================================================
- Mini plugins
- ========================================================================== */
-
-jQuery.noConflict();
-(function($) {
-
-    // Serialized Form Data
-    $.fn.serializeObject = function(){
-        var o = {};
-        var a = this.serializeArray();
-        $.each(a, function() {
-            if (o[this.name] !== undefined) {
-                if (!o[this.name].push) {
-                    o[this.name] = [o[this.name]];
-                }
-                o[this.name].push(this.value || '');
-            } else {
-                o[this.name] = this.value || '';
-            }
-        });
-        return o;
-    };
-
-})(jQuery);
+module.exports = utils;
