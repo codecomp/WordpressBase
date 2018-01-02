@@ -4,12 +4,12 @@
 @function font-family($index: base) {
 
     $map-font-family: (
-        base: serif
+        base: 'sans-serif'
     );
 
     @if map-has-key($map-font-family, $index) {
 
-        @return map-get($map-font-family, $index);
+        @return unquote(map-get($map-font-family, $index));
 
     } @else {
 
