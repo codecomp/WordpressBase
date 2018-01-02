@@ -393,109 +393,36 @@ template {
 [hidden] {
   display: none; }
 
-/**
- * Mixin to help create transitions that cascade
- * down/up a given set of elements
- *
- */
-/**
- * De-Collapse Floated content within
- * element
- *
- */
-/**
- * Cover a parent element
- *
- */
-/**
- * De-Collapse Margins
- *
- * Prevent Margins within element
- * from collapsing
- */
-/**
- * Convenience mixin to
- * help style input
- * type range
- * track
- *
- */
-/**
- * Convenience mixin to
- * help style input
- * type range
- * "thumb" grip
- *
- */
-/**
-* Clear the visuallyhidden styles from
-* an element given by the visuallyhidden
-* mixin
-*
-*/
-/**
- * Hide only visually, but have it available
- * for screenreaders: h5bp.com/v
- *
- */
-/**
- * Get a value from the $map-color-palette map.
-
- * @param $color {string}  The desired color from the map.
- * @param $tone {string}   The desired tone of the color (Default value: base).
-
- * @return string          The value of requested index.
- */
-/**
- * Returns robert penners easing curves
- * for use in css3 transitions and animations
- *
- * @src <https://github.com/matthewlein/Ceaser/blob/master/developer/ceaser-easings.scss>
- *
- * @param $easing {string}
- *
- * @return string
- */
-/**
- * Helper to make it easier to print font families
- *
- * @param $fontfamily {string}  The desired family from the map.
- *
- * @return string               The requested fontsize index
- */
-/**
- * Helper to make it easier to print font sizes
- *
- * @param $fontsize {string}  The desired size from the map.
- *
- * @return strong             The requested fontsize index
- */
 html {
-  font-size: 62.5%; }
+  font-size: 62.5%;
+  -webkit-font-smoothing: antialiased; }
 
 body {
   font-size: 1.6rem; }
 
-/* =================== !GRID */
-/* =================== !SPEEDS */
-/**
-* Get a value from the $map-z-index map.
-*
-* @param  String $index  The desired index from the map. (Default value: base)
-*
-* @return Number         The value of requested index.
-*/
 ::-moz-selection {
   background: #000000;
-  color: #FFFFFF;
+  color: #ffffff;
   text-shadow: none; }
 
 ::selection {
   background: #000000;
-  color: #FFFFFF;
+  color: #ffffff;
   text-shadow: none; }
 
-/* ================================ !UTILITY */
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit; }
+
+.site-wrap {
+  overflow: hidden; }
+
 .alignleft {
   float: left; }
   .alignleftimg {

@@ -1,14 +1,18 @@
-/* ================================= !CONTENTS
+html {
+  font-size: 62.5%;
+  -webkit-font-smoothing: antialiased; }
 
-	CSS Used for the wordpress Editor, uses the themes base styles
-	add anything extra/missing to the overrides section.
+body {
+  font-size: 1.6rem; }
 
-	!RESET 	 			(Print Styles, Normalize, Chrome Prompt, etc.)
-	!UTILITY 			(Clearfix, Alignment, Containers, etc.)
-	!TYPE 				(Links, Selection, Headings, Body, etc.)
+::-moz-selection {
+  background: #000000;
+  color: #ffffff;
+  text-shadow: none; }
 
-=========================================== */
-/* ================================ !IMPORTS */
-/* ================================ !OVERRIDES */
+::selection {
+  background: #000000;
+  color: #ffffff;
+  text-shadow: none; }
 
 /*# sourceMappingURL=admin-editor-styles.css.map */
