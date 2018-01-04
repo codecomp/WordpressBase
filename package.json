@@ -1,5 +1,5 @@
 {
-  "name": "WordPress Base",
+  "name": "WordPressBase",
   "version": "1.0.0",
   "description": "Streamlined WordPress base theme",
   "type": "wordpress-theme",
@@ -20,23 +20,22 @@
   },
   "homepage": "https://github.com/Codecomp/WordpressBase#readme",
   "devDependencies": {
+    "browserify": "^14.5.0",
     "browser-sync": "^2.18.13",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-cssnano": "^2.1.2",
+    "gulp-jshint": "^2.1.0",
     "gulp-sass": "^3.1.0",
     "gulp-scss-lint": "^0.5.0",
     "gulp-sequence": "^0.4.6",
     "gulp-sourcemaps": "^2.6.1",
-    "node-normalize-scss": "^3.0.0"
-  },
-  "dependencies": {
-    "browserify": "^14.5.0",
-    "gulp-jshint": "^2.1.0",
     "gulp-uglify": "^3.0.0",
     "jshint": "^2.9.5",
+    "node-normalize-scss": "^3.0.0",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
-  }
+  },
+  "dependencies": {}
 }
