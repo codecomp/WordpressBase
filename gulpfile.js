@@ -6,8 +6,9 @@ var gulp         = require('gulp'),
     scssLint     = require('gulp-scss-lint'),
     sourceMaps   = require('gulp-sourcemaps'),
     cssNano      = require('gulp-cssnano'),
-    jshint       = require('gulp-jshint'),
+    eslint       = require('gulp-eslint'),
     browserify   = require('browserify'),
+    babelify     = require('babelify'),
     uglify       = require('gulp-uglify'),
     autoPrefixer = require('gulp-autoprefixer'),
     browserSync  = require('browser-sync').create(),
@@ -60,15 +61,18 @@ gulp.task('css:compile', ['css:lint'], function () {
 // JS tasks
 gulp.task('js:lint', function () {
     return gulp.src([paths.js + '/**/*.js'])
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'));
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
 });
 
 gulp.task('js:compile', ['js:lint'], function () {
     return browserify({
             entries: paths.js + '/main.js',
-            debug: true
+            debug: true,
+            transform: [["babelify", { "presets": ["es2015"] }]]
         })
+        .transform(babelify)
         .bundle()
         .pipe(source('main.js'))
         .pipe(buffer())

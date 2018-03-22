@@ -1,6 +1,5 @@
-jQuery(document).ready(function($) {
-    Site.init();
-});
+import auto from './auto';
+import utils from './utils';
 
 var Site = (function($) {
 
@@ -35,7 +34,7 @@ var Site = (function($) {
     document.documentElement.setAttribute('data-ua',  navigator.userAgent);
 
     return {
-        autoInits: require('./auto'),
+        autoInits: auto,
         init: function(){
 
             for (var prop in this.modules) {
@@ -54,7 +53,7 @@ var Site = (function($) {
                 }
             }
         },
-        utils: require('./utils'),
+        utils: utils,
         ui: ui,
         w: w
     };
@@ -68,6 +67,16 @@ var Site = (function($) {
     // Example Module
     m.example = function(){
         // Do stuff, the m.example module gets auto initialized.
+
+        var materials = [
+            'Hydrogen',
+            'Helium',
+            'Lithium',
+            'Beryllium'
+        ];
+
+        console.log(materials.map(material => material.length));
+        console.log( u.hasClass(document.body, 'home') );
     };
 
     // Document loaded class
@@ -76,3 +85,7 @@ var Site = (function($) {
     };
 
 })(Site.modules = Site.modules || {}, Site.utils, Site.ui, Site.w, Site.anim, jQuery);
+
+jQuery(document).ready(function($) {
+    Site.init();
+});

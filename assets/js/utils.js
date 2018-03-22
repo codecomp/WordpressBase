@@ -1,7 +1,10 @@
 var utils ={
 
     hasClass: function(el, cls) {
-        return el.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
+        if (el.classList)
+            return el.classList.contains(cls);
+        else
+            return new RegExp('(^| )' + cls + '( |$)', 'gi').test(el.cls);
     },
 
     addClass: function(el, cls) {
@@ -322,6 +325,32 @@ var utils ={
         var readyFired = false;
         var readyEventHandlersInstalled = false;
 
+        // call this when the document is ready
+        // this function protects itself against being called more than once
+        function ready() {
+            if (!readyFired) {
+                // this must be set to true before we start calling callbacks
+                readyFired = true;
+                for (var i = 0; i < readyList.length; i++) {
+                    // if a callback here happens to add new ready handlers,
+                    // the docReady() function will see that it already fired
+                    // and will schedule the callback to run right after
+                    // this event loop finishes so all handlers will still execute
+                    // in order and no new ones will be added to the readyList
+                    // while we are processing the list
+                    readyList[i].fn.call(window, readyList[i].ctx);
+                }
+                // allow any closures held by these functions to free
+                readyList = [];
+            }
+        }
+
+        function readyStateChange() {
+            if ( document.readyState === "complete" ) {
+                ready();
+            }
+        }
+
         if (typeof callback !== "function") {
             throw new TypeError("callback for docReady(fn) must be a function");
         }
@@ -351,32 +380,6 @@ var utils ={
                 window.attachEvent("onload", ready);
             }
             readyEventHandlersInstalled = true;
-        }
-
-        // call this when the document is ready
-        // this function protects itself against being called more than once
-        function ready() {
-            if (!readyFired) {
-                // this must be set to true before we start calling callbacks
-                readyFired = true;
-                for (var i = 0; i < readyList.length; i++) {
-                    // if a callback here happens to add new ready handlers,
-                    // the docReady() function will see that it already fired
-                    // and will schedule the callback to run right after
-                    // this event loop finishes so all handlers will still execute
-                    // in order and no new ones will be added to the readyList
-                    // while we are processing the list
-                    readyList[i].fn.call(window, readyList[i].ctx);
-                }
-                // allow any closures held by these functions to free
-                readyList = [];
-            }
-        }
-
-        function readyStateChange() {
-            if ( document.readyState === "complete" ) {
-                ready();
-            }
         }
     },
 
