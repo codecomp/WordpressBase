@@ -23,7 +23,7 @@ var gulp         = require('gulp'),
 // Browser sync tasks
 gulp.task('browser:sync', function(done) {
     browserSync.init({
-        proxy: "localhost:8888",
+        proxy: "wordpress-base.local",
         open: false
     }, done);
 });

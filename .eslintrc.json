@@ -129,7 +129,7 @@
     "eol-last": 0,                    // enforce newline at the end of file, with no multiple empty lines
     "func-names": 0,                  // require function expressions to have a name (off by default)
     "func-style": 0,                  // enforces use of function declarations or expressions (off by default)
-    "indent": ["error", 4, {
+    "indent": ["warn", 4, {
       "SwitchCase": 1
     }],                               // this option sets a specific tab width for your code (off by default)
     "key-spacing": 0,                 // enforces spacing between keys and values in object literal properties
@@ -184,7 +184,10 @@
     ////////// Legacy //////////
 
     "max-depth": 1,       // specify the maximum depth that blocks can be nested (off by default)
-    "max-len": 1,         // specify the maximum length of a line in your program (off by default)
+    "max-len": ["warn", {
+      "code": 120,
+      "ignoreComments": true
+    }],                   // specify the maximum length of a line in your program (off by default)
     "max-params": 0,      // limits the number of parameters that can be used in the function declaration. (off by default)
     "max-statements": 0,  // specify the maximum number of statement allowed in a function (off by default)
     "no-bitwise": 0,      // disallow use of bitwise operators (off by default)
