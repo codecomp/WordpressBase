@@ -44,7 +44,7 @@ function theme_enqueue()
 
 	// Theme
 	wp_enqueue_style('site-styles', 	$assets['css'] . 'main.css');
-	wp_enqueue_script('site-scripts', 	$assets['js'] . 'main.js', array( 'jquery', 'tweenmax' ), false, true);
+	wp_enqueue_script('site-scripts', 	$assets['js'] . 'main.js', array(), false, true);
 
 	// Localize site directory data to javascript
 	$localisation = array(
@@ -56,6 +56,10 @@ function theme_enqueue()
 	);
 
 	wp_localize_script( 'site-scripts', 'WP', $localisation );
+
+	// Remove emoji includes
+    remove_action('wp_head', 'print_emoji_detection_script', 7);
+    remove_action('wp_print_styles', 'print_emoji_styles');
 }
 add_action('wp_enqueue_scripts', 'theme_enqueue');
 
