@@ -1,4 +1,4 @@
-import * as utils from './utils';
+import utils from './modules';
 import throttle from 'throttle-debounce/throttle';
 import debounce from 'throttle-debounce/debounce';
 import request from 'request';
