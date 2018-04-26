@@ -7,7 +7,6 @@ var gulp         = require('gulp'),
     sourceMaps   = require('gulp-sourcemaps'),
     cssNano      = require('gulp-cssnano'),
     eslint       = require('gulp-eslint'),
-    createIndex  = require('create-index'),
     browserify   = require('browserify'),
     babelify     = require('babelify'),
     uglify       = require('gulp-uglify'),
@@ -67,17 +66,14 @@ gulp.task('js:lint', function () {
         .pipe(eslint.failAfterError());
 });
 
-gulp.task('js:index', function() {
-    createIndex.writeIndex([paths.js + '/modules'])
-});
-
-gulp.task('js:compile', ['js:lint', 'js:index'], function () {
+gulp.task('js:compile', ['js:lint'], function () {
     return browserify({
             entries: paths.js + '/main.js',
-            debug: true,
-            transform: [["babelify", { "presets": ["es2015"] }]]
+            debug: true
         })
-        .transform(babelify)
+        .transform("babelify", {
+            global: true
+        })
         .bundle()
         .pipe(source('main.js'))
         .pipe(buffer())
