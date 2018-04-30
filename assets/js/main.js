@@ -1,7 +1,9 @@
-import utils from './modules';
+import * as utils from './modules/utils';
+import ValidForm from '@pageclip/valid-form';
 import throttle from 'throttle-debounce/throttle';
 import debounce from 'throttle-debounce/debounce';
 import request from 'request';
+import serialize from 'form-serialize';
 import bowser from 'bowser';
 
 const moduleRegistration = function(m, u, ui, win, doc){
@@ -112,6 +114,60 @@ const moduleRegistration = function(m, u, ui, win, doc){
         script.src = protocol + src;
 
         doc.getElementsByTagName("head")[0].appendChild(script);
+    };
+
+    // Process forms into WP Admin Requests
+    m.processForms = () => {
+        for(const form of doc.getElementsByClassName('js-process-form')) {
+            ValidForm(form, {errorPlacement: 'after'});
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // Stop repeated submissions
+                if( u.hasClass(form, 'is-loading') ) {
+                    return false;
+                }
+
+                u.addClass(form, 'is-loading');
+
+                // Serialise the form data and append WP variables
+                const formData = serialize(form, { hash: true });
+                formData.action = form.getAttribute('action');
+                formData.security = WP.nonce;
+
+                // Send the request
+                const start = new Date().getTime();
+                request.post({url:WP.ajax, form: formData}, (err, response, body) => {
+                    setTimeout(() => {
+                        let message;
+
+                        if(err){
+                            console.warn(err);
+                            message = WP.translate.error;
+                        } else if(u.isJsonString(body)){
+                            const info = JSON.parse(body);
+
+                            if(info.data.message){
+                                message = info.data.message
+                            } else {
+                                message = WP.translate.thanks;
+                            }
+                        } else {
+                            message = WP.translate.thanks;
+                        }
+
+                        console.log( message );
+
+                        const thanks = doc.createElement('div');
+                        u.addClass(thanks, 'response');
+                        thanks.innerHTML = `<p class="response__thanks">${message}</p>`;
+
+                        form.parentNode.replaceChild(thanks, form);
+                    }, 1000 - (new Date().getTime() - start));
+                });
+            });
+        }
     };
 
 };

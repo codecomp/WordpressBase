@@ -230,3 +230,18 @@ export function getPosition (el) {
 
     return { top: Math.round(top), left: Math.round(left) };
 }
+
+/**
+ * Determine weather a given string is valid JSON
+ *
+ * @param str
+ * @returns {boolean}
+ */
+export function isJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}

@@ -36,7 +36,7 @@
 
     <button>Button</button>
 
-    <form class="form">
+    <form action="contact_email" class="form js-process-form">
         <div class="form__field">
             <label class="form_label" for="input1">Text Field</label>
             <input class="form__input" type="text" name="text" id="input1"/>

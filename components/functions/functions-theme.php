@@ -53,6 +53,10 @@ function theme_enqueue()
 		'site' 		=> get_site_url(),
 		'ajax'		=> admin_url('admin-ajax.php'),
 		'nonce'		=> wp_create_nonce('ajax-nonce'),
+        'translate' => array(
+            'error' => __('There appears to have been a problem please try again later', 'tmp'),
+            'thanks' => __('Thank you', 'tmp')
+        )
 	);
 
 	wp_localize_script( 'site-scripts', 'WP', $localisation );

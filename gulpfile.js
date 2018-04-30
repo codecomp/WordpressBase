@@ -72,7 +72,8 @@ gulp.task('js:compile', ['js:lint'], function () {
             debug: true
         })
         .transform("babelify", {
-            global: true
+            //global: true,
+            presets: [ 'env' ]
         })
         .bundle()
         .pipe(source('main.js'))
