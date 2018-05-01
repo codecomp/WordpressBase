@@ -11,13 +11,16 @@ var gulp         = require('gulp'),
     babelify     = require('babelify'),
     browserify   = require('browserify'),
     uglify       = require('gulp-uglify'),
+    imagemin      = require('gulp-imagemin'),
     autoPrefixer = require('gulp-autoprefixer'),
     browserSync  = require('browser-sync').create(),
     del          = require('del'),
     paths        = {
+        image: 'assets/images',
         sass: 'assets/sass',
-        buildCss: 'dist/css',
         js: 'assets/js',
+        buildImage: 'dist/images',
+        buildCss: 'dist/css',
         buildJs: 'dist/js'
     };
 
@@ -97,6 +100,22 @@ gulp.task('optimise:js', function() {
         .pipe(gulp.dest(paths.buildJs));
 });
 
+gulp.task('optimise:images', function() {
+    return gulp.src(paths.image + '/**.*')
+        .pipe(imagemin([
+            imagemin.gifsicle({interlaced: true}),
+            imagemin.jpegtran({progressive: true}),
+            imagemin.optipng({optimizationLevel: 5}),
+            imagemin.svgo({
+                plugins: [
+                    {removeViewBox: true},
+                    {cleanupIDs: false}
+                ]
+            })
+        ]))
+        .pipe(gulp.dest(paths.buildImage));
+});
+
 // Environment tasks
 gulp.task('watch', ['browser:sync'], function () {
     gulp.watch(paths.sass + '/**/*.scss', ['css:compile']);
@@ -124,7 +143,8 @@ gulp.task('deploy', function(done){
         ],
         [
             'optimise:css',
-            'optimise:js'
+            'optimise:js',
+            'optimise:images'
         ],
         'browser:reload',
         done
