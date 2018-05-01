@@ -37,16 +37,9 @@ add_filter( 'theme_options_tabs', 'theme_options_tabs_scripts' );
  */
 function theme_enqueue()
 {
-    $assets = array(
-        'js' 	=> get_template_directory_uri() . '/dist/js/',
-        'css' 	=> get_template_directory_uri() . '/dist/css/'
-    );
+	wp_enqueue_style('site-styles', get_template_directory_uri() . '/dist/js/main.js', array(), filemtime(get_template_directory() . '/dist/css/main.css'));
+	wp_enqueue_script('site-scripts', get_template_directory_uri() . '/dist/js/main.js', array(), filemtime(get_template_directory() . '/dist/js/main.js'), true);
 
-	// Theme
-	wp_enqueue_style('site-styles', 	$assets['css'] . 'main.css');
-	wp_enqueue_script('site-scripts', 	$assets['js'] . 'main.js', array(), false, true);
-
-	// Localize site directory data to javascript
 	$localisation = array(
 		'template' 	=> get_template_directory_uri(),
 		'assets' 	=> get_template_directory_uri() . '/assets/',
@@ -54,18 +47,24 @@ function theme_enqueue()
 		'ajax'		=> admin_url('admin-ajax.php'),
 		'nonce'		=> wp_create_nonce('ajax-nonce'),
         'translate' => array(
-            'error' => __('There appears to have been a problem please try again later', 'tmp'),
-            'thanks' => __('Thank you', 'tmp')
+            'error'     => __('There appears to have been a problem please try again later', 'tmp'),
+            'thanks'    => __('Thank you', 'tmp')
         )
 	);
 
 	wp_localize_script( 'site-scripts', 'WP', $localisation );
+}
+add_action('wp_enqueue_scripts', 'theme_enqueue');
 
-	// Remove emoji includes
+/**
+ * Remove enqueued scripts and css files
+ */
+function theme_dequeue()
+{
     remove_action('wp_head', 'print_emoji_detection_script', 7);
     remove_action('wp_print_styles', 'print_emoji_styles');
 }
-add_action('wp_enqueue_scripts', 'theme_enqueue');
+add_action('wp_enqueue_scripts', 'theme_dequeue');
 
 /**
  * Register theme support
