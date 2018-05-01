@@ -1,5 +1,5 @@
 {
-  "name": "WordPressBase",
+  "name": "wordpress-base",
   "version": "1.0.0",
   "description": "Streamlined WordPress base theme",
   "type": "wordpress-theme",
@@ -20,14 +20,15 @@
   },
   "homepage": "https://github.com/Codecomp/WordpressBase#readme",
   "devDependencies": {
-    "babel-core": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-es2015-for-of": "^6.23.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babelify": "^8.0.0",
     "browser-sync": "^2.23.7",
-    "browserify": "^14.5.0",
+    "browserify": "^16.2.0",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.1.0",
@@ -46,8 +47,8 @@
   "dependencies": {
     "@pageclip/valid-form": "^1.0.2",
     "bowser": "^1.9.3",
-    "form-serialize": "^0.7.2",
-    "request": "^2.85.0",
-    "throttle-debounce": "^1.0.1"
+    "core-js": "^2.5.5",
+    "throttle-debounce": "^1.0.1",
+    "whatwg-fetch": "^2.0.4"
   }
 }

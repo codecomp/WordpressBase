@@ -1,10 +1,10 @@
 import * as utils from './modules/utils';
+import 'core-js/fn/symbol/iterator';
+import 'whatwg-fetch';
+import bowser from 'bowser';
 import ValidForm from '@pageclip/valid-form';
 import throttle from 'throttle-debounce/throttle';
 import debounce from 'throttle-debounce/debounce';
-import request from 'request';
-import serialize from 'form-serialize';
-import bowser from 'bowser';
 
 const moduleRegistration = function(m, u, ui, win, doc){
 
@@ -118,6 +118,17 @@ const moduleRegistration = function(m, u, ui, win, doc){
 
     // Process forms into WP Admin Requests
     m.processForms = () => {
+
+        //Process response from AJAX requests
+        function handleResponse(form, message){
+            const thanks = doc.createElement('div');
+            u.addClass(thanks, 'response');
+            thanks.innerHTML = `<p class="response__thanks">${message}</p>`;
+
+            form.parentNode.replaceChild(thanks, form);
+        }
+
+        // Setup form processing
         for(const form of doc.getElementsByClassName('js-process-form')) {
             ValidForm(form, {errorPlacement: 'after'});
 
@@ -131,41 +142,48 @@ const moduleRegistration = function(m, u, ui, win, doc){
 
                 u.addClass(form, 'is-loading');
 
-                // Serialise the form data and append WP variables
-                const formData = serialize(form, { hash: true });
-                formData.action = form.getAttribute('action');
-                formData.security = WP.nonce;
+                // Format request data
+                const data = new FormData(form);
+                data.append('action', form.getAttribute('action'));
+                data.append('security', WP.nonce);
 
                 // Send the request
-                const start = new Date().getTime();
-                request.post({url:WP.ajax, form: formData}, (err, response, body) => {
-                    setTimeout(() => {
-                        let message;
-
-                        if(err){
-                            console.warn(err);
-                            message = WP.translate.error;
-                        } else if(u.isJsonString(body)){
-                            const info = JSON.parse(body);
-
-                            if(info.data.message){
-                                message = info.data.message
-                            } else {
-                                message = WP.translate.thanks;
-                            }
-                        } else {
-                            message = WP.translate.thanks;
+                let responseStatus,
+                    message;
+                fetch(WP.ajax, {
+                        method: 'POST',
+                        body: data
+                    })
+                    .then(response => {
+                        responseStatus = response.status;
+                        return response.json()
+                    })
+                    .then(response => {
+                        switch (responseStatus) {
+                            case 200:
+                            case 201:
+                            case 202:
+                                if(response.data.message){
+                                    message = response.data.message
+                                } else {
+                                    message = WP.translate.thanks;
+                                }
+                                break;
+                            case 418:
+                                message = 'What a regrettably large head you have. I would very much like to hat it. I used to hat The White Queen, you know. Her head was so small.';
+                                break;
+                            default:
+                                message = WP.translate.error;
+                                break
                         }
 
-                        console.log( message );
-
-                        const thanks = doc.createElement('div');
-                        u.addClass(thanks, 'response');
-                        thanks.innerHTML = `<p class="response__thanks">${message}</p>`;
-
-                        form.parentNode.replaceChild(thanks, form);
-                    }, 1000 - (new Date().getTime() - start));
-                });
+                        handleResponse(form, message);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        message = WP.translate.thanks;
+                        handleResponse(form, message);
+                    });
             });
         }
     };

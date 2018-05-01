@@ -7,8 +7,9 @@ var gulp         = require('gulp'),
     sourceMaps   = require('gulp-sourcemaps'),
     cssNano      = require('gulp-cssnano'),
     eslint       = require('gulp-eslint'),
-    browserify   = require('browserify'),
+    sourcemaps   = require('gulp-sourcemaps'),
     babelify     = require('babelify'),
+    browserify   = require('browserify'),
     uglify       = require('gulp-uglify'),
     autoPrefixer = require('gulp-autoprefixer'),
     browserSync  = require('browser-sync').create(),
@@ -68,17 +69,17 @@ gulp.task('js:lint', function () {
 
 gulp.task('js:compile', ['js:lint'], function () {
     return browserify({
-            entries: paths.js + '/main.js',
-            debug: true
-        })
-        .transform("babelify", {
-            //global: true,
-            presets: [ 'env' ]
-        })
-        .bundle()
-        .pipe(source('main.js'))
-        .pipe(buffer())
-        .pipe(gulp.dest(paths.buildJs));
+        entries: paths.js + '/main.js',
+        debug: true
+    })
+    .transform(babelify)
+    .bundle()
+    .on('error', function (err) { console.error(err); })
+    .pipe(source('main.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest(paths.buildJs));
 });
 
 // Optimisation tasks
@@ -90,6 +91,7 @@ gulp.task('optimise:css', function () {
 });
 
 gulp.task('optimise:js', function() {
+    del(paths.buildJs + '/*.map');
     return gulp.src(paths.buildJs + '/*.js')
         .pipe(uglify())
         .pipe(gulp.dest(paths.buildJs));
