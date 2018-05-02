@@ -154,7 +154,7 @@ add_action('after_setup_theme','remove_core_updates');
  * Customises the wordpress admin footer
  */
 function modify_footer_admin () {
-    echo 'Created by <a target="_blank" href="http://ahoy.co.uk" title="Visit Ahoy">Ahoy</a>. Powered by <a target="_blank" href="http://www.wordpress.org" title="Visit WordPress">WordPress</a>';
+    echo 'Created by <a target="_blank" href="https://ahoy.co.uk" title="Visit Ahoy">Ahoy</a>. Powered by <a target="_blank" href="http://www.wordpress.org" title="Visit WordPress">WordPress</a>';
 }
 add_filter('admin_footer_text', 'modify_footer_admin');
 
