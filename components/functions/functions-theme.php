@@ -19,6 +19,7 @@ function theme_enqueue()
 		'site' 		=> get_site_url(),
 		'ajax'		=> admin_url('admin-ajax.php'),
 		'nonce'		=> wp_create_nonce('ajax-nonce'),
+        'gmap_key'  => get_field('google_maps_api_key', 'options'),
         'translate' => array(
             'error'     => __('There appears to have been a problem please try again later', 'tmp'),
             'thanks'    => __('Thank you', 'tmp')

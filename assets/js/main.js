@@ -105,7 +105,7 @@ const moduleRegistration = function(m, u, ui, win, doc){
             }
         };
 
-        const src = '//maps.googleapis.com/maps/api/js?v=3&callback=initMap',
+        const src = `//maps.googleapis.com/maps/api/js?v=3&callback=initMap&key=${WP.gmap_key}`,
             protocol = ('https:' === doc.location.protocol ? 'https:' : 'http:'),
             script = doc.createElement('script');
 
