@@ -112,6 +112,11 @@ Added helper functions and structured readme.
 Swapped from LESS to SCSS.
 Added auto initialising ACF fields for setting up backend options page.
 
+###2.1.0
+Full update to gulp task managing
+Swap over to ES6 and NPM module includes for JavaScript
+Move from hardcoded to ACF local folders
+
 ## Credits
 
 Chris morris [http://codecomposer.co.uk]
