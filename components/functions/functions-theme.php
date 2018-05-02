@@ -10,7 +10,7 @@
  */
 function theme_enqueue()
 {
-	wp_enqueue_style('site-styles', get_template_directory_uri() . '/dist/js/main.js', array(), filemtime(get_template_directory() . '/dist/css/main.css'));
+	wp_enqueue_style('site-styles', get_template_directory_uri() . '/dist/css/main.css', array(), filemtime(get_template_directory() . '/dist/css/main.css'));
 	wp_enqueue_script('site-scripts', get_template_directory_uri() . '/dist/js/main.js', array(), filemtime(get_template_directory() . '/dist/js/main.js'), true);
 
 	$localisation = array(
