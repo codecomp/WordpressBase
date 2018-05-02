@@ -20,6 +20,16 @@ Base WordPress theme
 8. (optional) If manually updating favicons update Site name and icon colours in assets/favicons/bowserconfig.xml, assets/favicons/manifest.json and header.php
 9. Update screnshot.png to reflect theme design at 880x660 or 387x290
 
+## Gulp commands
+Command  | Usage
+------------- | -------------
+gulp watch | Activates browserSync, Watch for changes to JS, PHP and SCSS files then lint and recompile JS & CSS and refresh browser.
+gulp deploy | Recompile JS and CSS, optimise JS, CSS and Images, Refresh browsers via browserSync, Remove unnecessary map files 
+gulp js:lint | Force lint of JS files
+gulp js:compile | Force compilation of JS files
+gulp css:lint | Force lint of CSS files
+gulp css:compile | Force compilation of CSS files
+
 ## Folder structure
 
 Directory  | Usage
@@ -30,7 +40,6 @@ assets/scss | Theme SCSS files
 assets/favicons | Website favicons
 assets/images | Theme specific images
 assets/js | Theme specific javaScript
-assets/libs | External libraries for use in front end manipulation (javaScript)
 assets/webfonts | Theme specific webfonts
 components/ | Folders to contain content for the website backend
 components/functions | Separate Function files for utility and plugin
@@ -69,6 +78,9 @@ file_get_contents_curl | cURL replacement for file_get_contents
 respond_and_close | Dumps formatted json response to user and ends processing
 is_json | Check to see if a string is JSON formatted
 is_plugin_activated | Special check to see if certain plugins are activated (WooCommerce, ACF) in a way that can be easily maintained
+repeater_walker | Walks over a ACF repeater array and calls function on the rows
+get_attachment_svg | Gets a child uploaded attachment SVG from attachment ID
+get_attachment_image_src | Get the source for an attachment image without needing to store to a variable each time
 
 ## Further Reading
 
@@ -77,15 +89,10 @@ While all content of theme theme is commented these 3 files contain the bulk of 
 
 ## Roadmap
 
-* Rewrite JS to run vis ES6 modules, NPM packages with babel transpilation
-* Remove assets/libs once javaScript updates are complete and include dependencies via NPM
-* Test Twig and Timber integration
-* Setup gulp to compile CSS, JS, Images and Fonts to separate dist directory
 * Update favicon handling
 * Move WordPress templates out of root directory to avoid clutter (somehow)
 * Source packages to handle social integration
-* Experiment with sourcing packages for Newsletter integration
-* Check current ecosystem for WordPress form plugins to see if we've moved path the terrible contact forms 7 era t determine if we need to do this manually
+* Check current ecosystem for WordPress form plugins to see if we've moved path the terrible contact forms 7 era to determine if we need to do this manually
 
 ## History
 
