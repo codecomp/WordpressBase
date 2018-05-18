@@ -223,6 +223,6 @@ add_filter('mce_buttons_2','remove_tinymce_buttons_2');
  * Add admin theme CSS to admin UI
  */
 function theme_editor_styles() {
-    add_editor_style( get_template_directory_uri() . '/assets/css/admin-editor-styles.css' );
+    add_editor_style( get_template_directory_uri() . '/dist/css/admin-editor-styles.css' );
 }
 add_action( 'admin_init', 'theme_editor_styles' );

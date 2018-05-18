@@ -15,7 +15,7 @@ function theme_enqueue()
 
 	$localisation = array(
 		'template' 	=> get_template_directory_uri(),
-		'assets' 	=> get_template_directory_uri() . '/assets/',
+		'assets' 	=> get_template_directory_uri() . '/dist/',
 		'site' 		=> get_site_url(),
 		'ajax'		=> admin_url('admin-ajax.php'),
 		'nonce'		=> wp_create_nonce('ajax-nonce'),
