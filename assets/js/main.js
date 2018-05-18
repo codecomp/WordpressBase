@@ -18,16 +18,18 @@ const moduleRegistration = function(m, u, ui, win, doc){
     // Open share links in popup window
     m.sharePopup = () => {
         doc.addEventListener('click', (e) => {
-            const url = e.target.getAttribute('href');
+            if( u.hasClass(e.target, 'js-share') ) {
+                const url = e.target.getAttribute('href');
 
-            if (url && url.indexOf('http') === 0) {
-                const newWindow = window.open(url, '', 'height=450, width=700');
+                if (url && url.indexOf('http') === 0) {
+                    const newWindow = window.open(url, '', 'height=450, width=700');
 
-                if (window.focus) {
-                    newWindow.focus();
+                    if (window.focus) {
+                        newWindow.focus();
+                    }
+
+                    e.preventDefault();
                 }
-
-                e.preventDefault();
             }
         });
     };
