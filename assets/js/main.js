@@ -3,8 +3,8 @@ import 'core-js/fn/symbol/iterator';
 import 'whatwg-fetch';
 import bowser from 'bowser';
 import ValidForm from '@pageclip/valid-form';
-import throttle from 'throttle-debounce/throttle';
-import debounce from 'throttle-debounce/debounce';
+//import throttle from 'throttle-debounce/throttle';
+//import debounce from 'throttle-debounce/debounce';
 
 const moduleRegistration = function(m, u, ui, win, doc){
 
@@ -12,7 +12,7 @@ const moduleRegistration = function(m, u, ui, win, doc){
     m.docLoad = () => {
         u.addClass(document.body, 'is-loaded');
         u.addClass(document.body, bowser.name.replace(/\s+/g, '-').toLowerCase());
-        u.addClass(document.body, bowser.name.replace(/\s+/g, '-').toLowerCase() + '-' + bowser.version.replace(/\s+/g, '-').toLowerCase());
+        u.addClass(document.body, bowser.name.replace(/\s+/g, '-').toLowerCase() + '-' + bowser.version.replace(/\s+/g, '-').toLowerCase()); // eslint-disable-line max-len
     };
 
     // Open share links in popup window
@@ -36,9 +36,6 @@ const moduleRegistration = function(m, u, ui, win, doc){
 
     // Set form label active classes to assist styling
     m.formLabels = () => {
-        const fields = doc.querySelectorAll('input, textarea'),
-            selects = doc.querySelectorAll('select');
-
         function check (el, force = false){
             const label = u.getSiblings(el, (subject) => { return subject.nodeName.toLocaleLowerCase() === 'label'; });
 
@@ -53,19 +50,15 @@ const moduleRegistration = function(m, u, ui, win, doc){
             check(e.target, e.type === 'focus');
         }
 
-        if(fields.length !== 0){
-            fields.forEach( (el) => {
-                el.addEventListener('focus', checkEvent);
-                el.addEventListener('blur', checkEvent);
-                check(el);
-            });
+        for(const field of doc.querySelectorAll('input, textarea')) {
+            field.addEventListener('focus', checkEvent);
+            field.addEventListener('blur', checkEvent);
+            check(field);
         }
 
-        if( selects.length !== 0 ){
-            selects.forEach( (el) => {
-                el.addEventListener('change', checkEvent);
-                check(el);
-            });
+        for(const select of doc.querySelectorAll('select')) {
+            select.addEventListener('change', checkEvent);
+            check(select);
         }
     };
 
@@ -130,63 +123,67 @@ const moduleRegistration = function(m, u, ui, win, doc){
             form.parentNode.replaceChild(thanks, form);
         }
 
+        // Handle form submission
+        function handleSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+
+            // Stop repeated submissions
+            if( u.hasClass(form, 'is-loading') ) {
+                return false;
+            }
+
+            u.addClass(form, 'is-loading');
+
+            // Format request data
+            const data = new FormData(form);
+            data.append('action', form.getAttribute('action'));
+            data.append('security', WP.nonce);
+
+            // Send the request
+            let responseStatus,
+                message;
+
+            fetch(WP.ajax, {
+                method: 'POST',
+                body: data
+            })
+                .then(response => {
+                    responseStatus = response.status;
+                    return response.json()
+                })
+                .then(response => {
+                    switch (responseStatus) {
+                        case 200:
+                        case 201:
+                        case 202:
+                            if(response.data.message){
+                                message = response.data.message
+                            } else {
+                                message = WP.translate.thanks;
+                            }
+                            break;
+                        case 418:
+                            message = 'What a regrettably large head you have. I would very much like to hat it. I used to hat The White Queen, you know. Her head was so small.'; // eslint-disable-line max-len
+                            break;
+                        default:
+                            message = WP.translate.error;
+                            break
+                    }
+
+                    handleResponse(form, message);
+                })
+                .catch(() => {
+                    message = WP.translate.thanks;
+                    handleResponse(form, message);
+                });
+        }
+
         // Setup form processing
         for(const form of doc.getElementsByClassName('js-process-form')) {
             ValidForm(form, {errorPlacement: 'after'});
 
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-
-                // Stop repeated submissions
-                if( u.hasClass(form, 'is-loading') ) {
-                    return false;
-                }
-
-                u.addClass(form, 'is-loading');
-
-                // Format request data
-                const data = new FormData(form);
-                data.append('action', form.getAttribute('action'));
-                data.append('security', WP.nonce);
-
-                // Send the request
-                let responseStatus,
-                    message;
-                fetch(WP.ajax, {
-                        method: 'POST',
-                        body: data
-                    })
-                    .then(response => {
-                        responseStatus = response.status;
-                        return response.json()
-                    })
-                    .then(response => {
-                        switch (responseStatus) {
-                            case 200:
-                            case 201:
-                            case 202:
-                                if(response.data.message){
-                                    message = response.data.message
-                                } else {
-                                    message = WP.translate.thanks;
-                                }
-                                break;
-                            case 418:
-                                message = 'What a regrettably large head you have. I would very much like to hat it. I used to hat The White Queen, you know. Her head was so small.';
-                                break;
-                            default:
-                                message = WP.translate.error;
-                                break
-                        }
-
-                        handleResponse(form, message);
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        message = WP.translate.thanks;
-                        handleResponse(form, message);
-                    });
-            });
+            form.addEventListener('submit', handleSubmit);
         }
     };
 
