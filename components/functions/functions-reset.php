@@ -1,9 +1,5 @@
 <?php
 
-/*********************************************************************
- * Resets to default WordPress functionality
- *********************************************************************/
-
 /**
  * Update WordPress settings, declare heme support and remove
  * global hook events for security and theme consistency

@@ -1,9 +1,5 @@
 <?php
 
-/*********************************************************************
- * General front end settings and functions
- *********************************************************************/
-
 /**
  * Include theme required css and javascript files and localise
  * php variables for JavaScript use
