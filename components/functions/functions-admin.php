@@ -4,6 +4,9 @@
  * Setup backend related actions and filters
  *********************************************************************/
 
+/**
+ * Remove hooked functionality
+ */
 function functions_admin_setup(){
     //Remove word press version number from theme
     remove_action('wp_head', 'wp_generator');
