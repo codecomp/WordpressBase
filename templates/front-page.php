@@ -1,7 +1,5 @@
 <?php get_header(); ?>
 
-<?php get_template_part('test'); ?>
-
 <main role="main">
 
     <h1>Lorem ipsum</h1>
