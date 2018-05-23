@@ -123,15 +123,21 @@ gulp.task('optimise:images', function() {
 
 // Misc tasks
 gulp.task('move:favicons', function(){
-    del(paths.buildFavicons);
-    return gulp.src([paths.favicons + '/**/*'])
-        .pipe(gulp.dest(paths.buildFavicons));
+    del(paths.buildFavicons).then(function(){
+        return gulp.src([paths.favicons + '/**/*'])
+            .pipe(gulp.dest(paths.buildFavicons));
+    }).catch(function(error){
+        console.log(error.message);
+    });
 });
 
 gulp.task('move:fonts', function(){
-    del(paths.buildFonts);
-    return gulp.src([paths.fonts + '/**/*'])
-        .pipe(gulp.dest(paths.buildFonts));
+    del(paths.buildFonts).then(function(){
+        return gulp.src([paths.fonts + '/**/*'])
+            .pipe(gulp.dest(paths.buildFonts));
+    }).catch(function(error){
+        console.log(error.message);
+    });
 });
 
 gulp.task('fix', function(done){
@@ -170,22 +176,21 @@ gulp.task('watch', ['browser:sync'], function () {
 });
 
 gulp.task('deploy', function(done){
-    gulpSequence(
-        'browser:sync',
-        [
-            'css:compile',
-            'js:compile'
-        ],
-        [
-            'optimise:css',
-            'optimise:js',
-            'optimise:images'
-        ],
-        [
-            'move:favicons',
-            'move:fonts'
-        ],
-        'browser:reload',
-        done
-    );
+    del(paths.build).then(function(){
+        gulpSequence(
+            [
+                'css:compile',
+                'js:compile'
+            ],
+            [
+                'optimise:css',
+                'optimise:js',
+                'optimise:images'
+            ],
+            done
+        );
+    }).catch(function(error){
+        console.log(error.message);
+        done();
+    });
 });
