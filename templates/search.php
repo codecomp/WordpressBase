@@ -3,7 +3,7 @@
 <main role="main" class="<?php echo get_post_type(); ?>-archive">
     <div class="wrap">
         <?php if (have_posts()) : ?>
-            <h2><?php printf(__('Search results for %s', 'tmp'), get_search_query()); ?></h2>
+            <h1><?php printf(__('Search results for %s', 'tmp'), get_search_query()); ?></h1>
             <?php while (have_posts()) : the_post(); ?>
 
                 <article>
@@ -16,7 +16,7 @@
 
             <?php endwhile; ?>
         <?php else: ?>
-            <h2><?php printf(__('Sorry, no results for %s', 'tmp'), get_search_query()); ?></h2>
+            <h1><?php printf(__('Sorry, no results for %s', 'tmp'), get_search_query()); ?></h1>
         <?php endif; ?>
     </div>
 </main>
