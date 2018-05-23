@@ -2,6 +2,7 @@ import * as utils from './modules/utils';
 import 'core-js/fn/symbol/iterator';
 import 'whatwg-fetch';
 import bowser from 'bowser';
+import Cookies from 'js-cookie';
 import ValidForm from '@pageclip/valid-form';
 //import throttle from 'throttle-debounce/throttle';
 //import debounce from 'throttle-debounce/debounce';
@@ -185,6 +186,17 @@ const moduleRegistration = function(m, u, ui, win, doc){
 
             form.addEventListener('submit', handleSubmit);
         }
+    };
+
+    // Cookie notice display
+    m.cookieNotice = function(){
+        if( Cookies.get('cookie-notice') === undefined )
+            u.addClass(document.getElementsByClassName('cookie-notice')[0], 'is-visible');
+
+        document.getElementsByClassName('cookie-notice__close')[0].addEventListener('click', function () {
+            u.removeClass(document.getElementsByClassName('cookie-notice')[0], 'is-visible');
+            Cookies.set('cookie-notice', true, { expires: 30 });
+        });
     };
 
 };
