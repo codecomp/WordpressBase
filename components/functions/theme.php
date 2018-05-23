@@ -134,3 +134,104 @@ function custom_footer_scripts(){
     the_field('custom_footer_scripts', 'option');
 }
 add_action('wp_head', 'custom_footer_scripts');
+
+/**
+ * Add the query vars required for calling favicons directly
+ */
+function add_favicon_query_vars( $query_vars ){
+    $query_vars[] = 'fav_request';
+    return $query_vars;
+}
+add_filter( 'query_vars', 'add_favicon_query_vars', 10, 1 );
+
+/**
+ * Add query rules for favicon requests
+ */
+function add_favicon_rules() {
+    $files = array(
+        'android-chrome-192x192.png',
+        'android-chrome-512x512.png',
+        'apple-touch-icon.png',
+        'browserconfig.xml',
+        'favicon-16x16.png',
+        'favicon-32x32.png',
+        'favicon.ico',
+        'mstile-150x150.png',
+        'safari-pinned-tab.svg',
+        'site.webmanifest'
+    );
+
+    foreach($files as $file){
+        $url = locate_template('assets/favicons/' . $file, false, false);
+        if($url){
+            add_rewrite_rule('^'.preg_quote($file, '/').'?', 'index.php?fav_request=' . $file, 'top');
+        }
+    }
+    flush_rewrite_rules();
+}
+add_action('init', 'add_favicon_rules');
+
+/**
+ * Request the favicon instead of a page
+ */
+function check_favicon_request(){
+    global $wp;
+
+    if( $wp->query_vars && array_key_exists( 'fav_request', $wp->query_vars )  ) {
+        //echo $wp->query_vars['fav_request'];
+        $path = locate_template('assets/favicons/' . $wp->query_vars['fav_request'], false, false);
+        if( function_exists('finfo_file') ){
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime_type = finfo_file($finfo, $path);
+            if($mime_type === 'image/vnd.microsoft.icon')
+                $mime_type = 'image/x-icon';
+        } else {
+            switch(pathinfo($path, PATHINFO_EXTENSION)){
+                case 'png':
+                    $mime_type = 'image/png';
+                    break;
+                case 'svg':
+                    $mime_type = 'image/svg+xml';
+                    break;
+                case 'ico':
+                    $mime_type = 'image/x-icon';
+                    break;
+                case 'xml':
+                    $mime_type = 'application/xml';
+                    break;
+                case 'webmanifest':
+                    $mime_type = 'text/plain';
+                    break;
+                default:
+                    $mime_type = false;
+                    break;
+            }
+        }
+
+        if($mime_type)
+            header('Content-Type: ' . $mime_type);
+        header('filename:" '.basename($path).'"');
+        header('Content-Length: ' . filesize($path));
+        readfile($path);
+
+        exit;
+    }
+}
+add_action( 'parse_query', 'check_favicon_request');
+
+/**
+ * Disable default WordPress Site Icons
+ */
+function remove_site_icon(){
+    return array();
+}
+add_filter('site_icon_meta_tags', 'remove_site_icon');
+
+/**
+ * Removes control from site identity menu for setting the site favicon
+ */
+function remove_site_ico_control(){
+    global $wp_customize;
+    $wp_customize->remove_control('site_icon');
+}
+add_action('customize_register', 'remove_site_ico_control', 20);
