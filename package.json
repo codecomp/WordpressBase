@@ -4,7 +4,8 @@
   "description": "Streamlined WordPress base theme",
   "type": "wordpress-theme",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "gulp deploy && npm prune --production",
+    "package": "tar -zc --totals --exclude='*.tgz' --exclude='.*' --exclude='assets' --exclude='composer.json' --exclude='composer.lock' --exclude='gulpfile.js' --exclude='package.json' --exclude='package-lock.json' --exclude='README.md' --exclude='scss-lint.yml' -f theme.tgz *"
   },
   "repository": {
     "type": "git",
