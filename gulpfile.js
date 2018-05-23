@@ -16,9 +16,14 @@ var gulp         = require('gulp'),
     browserSync  = require('browser-sync').create(),
     del          = require('del'),
     paths        = {
+        favicons: 'assets/favicons',
+        fonts: 'assets/fonts',
         image: 'assets/images',
         sass: 'assets/sass',
         js: 'assets/js',
+        build: 'dist',
+        buildFavicons: 'dist/favicons',
+        buildFonts: 'dist/fonts',
         buildImage: 'dist/images',
         buildCss: 'dist/css',
         buildJs: 'dist/js'
@@ -116,6 +121,30 @@ gulp.task('optimise:images', function() {
         .pipe(gulp.dest(paths.buildImage));
 });
 
+// Misc tasks
+gulp.task('move:favicons', function(){
+    del(paths.buildFavicons);
+    return gulp.src([paths.favicons + '/**/*'])
+        .pipe(gulp.dest(paths.buildFavicons));
+});
+
+gulp.task('move:fonts', function(){
+    del(paths.buildFonts);
+    return gulp.src([paths.fonts + '/**/*'])
+        .pipe(gulp.dest(paths.buildFonts));
+});
+
+gulp.task('fix', function(done){
+    gulpSequence(
+        [
+            'move:favicons',
+            'move:fonts',
+            'optimise:images'
+        ],
+        done
+    );
+});
+
 // Environment tasks
 gulp.task('watch', ['browser:sync'], function () {
     gulp.watch(paths.sass + '/**/*.scss', ['css:compile']);
@@ -126,6 +155,12 @@ gulp.task('watch', ['browser:sync'], function () {
     });
 
     gulp.watch(paths.js + '/**/*.js', ['js:compile']);
+
+    gulp.watch(paths.image + '/*', ['optimise:images']);
+
+    gulp.watch(paths.favicons + '/*', ['move:favicons']);
+
+    gulp.watch(paths.fonts + '/*', ['move:fonts']);
 
     gulp.watch(paths.buildJs + '/*')
         .on('change', browserSync.reload);
@@ -145,6 +180,10 @@ gulp.task('deploy', function(done){
             'optimise:css',
             'optimise:js',
             'optimise:images'
+        ],
+        [
+            'move:favicons',
+            'move:fonts'
         ],
         'browser:reload',
         done

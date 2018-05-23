@@ -162,7 +162,7 @@ function add_favicon_rules() {
     );
 
     foreach($files as $file){
-        $url = locate_template('assets/favicons/' . $file, false, false);
+        $url = locate_template('dist/favicons/' . $file, false, false);
         if($url){
             add_rewrite_rule('^'.preg_quote($file, '/').'?', 'index.php?fav_request=' . $file, 'top');
         }
@@ -179,7 +179,7 @@ function check_favicon_request(){
 
     if( $wp->query_vars && array_key_exists( 'fav_request', $wp->query_vars )  ) {
         //echo $wp->query_vars['fav_request'];
-        $path = locate_template('assets/favicons/' . $wp->query_vars['fav_request'], false, false);
+        $path = locate_template('dist/favicons/' . $wp->query_vars['fav_request'], false, false);
         if( function_exists('finfo_file') ){
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
             $mime_type = finfo_file($finfo, $path);
