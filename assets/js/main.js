@@ -188,15 +188,25 @@ const moduleRegistration = function(m, u, ui, win, doc){
         }
     };
 
-    // Cookie notice display
-    m.cookieNotice = function(){
-        if( Cookies.get('cookie-notice') === undefined )
-            u.addClass(document.getElementsByClassName('cookie-notice')[0], 'is-visible');
+    // Handle notice visibility
+    m.Notices = function(){
 
-        document.getElementsByClassName('cookie-notice__close')[0].addEventListener('click', function () {
-            u.removeClass(document.getElementsByClassName('cookie-notice')[0], 'is-visible');
-            Cookies.set('cookie-notice', true, { expires: 30 });
-        });
+        function showNotice(notice){
+            u.addClass(notice, 'is-visible');
+        }
+
+        function hideNotice(notice){
+            u.removeClass(notice, 'is-visible');
+            Cookies.set(`notice-${notice.getAttribute('data-type')}`, true, { expires: 30 });
+        }
+
+        for(const notice of doc.getElementsByClassName('notice--closeable')) {
+            if( Cookies.get(`notice-${notice.getAttribute('data-type')}`) === undefined ){
+                showNotice(notice);
+            }
+
+            notice.querySelector('.notice__close').addEventListener('click', () => { hideNotice(notice); });
+        }
     };
 
 };
