@@ -37,6 +37,7 @@ add_action('after_switch_theme', function () {
 $function_includes = [
     'components/functions/helpers.php',
     'components/functions/reset.php',
+    'components/functions/setup.php',
     'components/functions/admin.php',
     'components/functions/theme.php',
     'components/functions/cpt.php',
