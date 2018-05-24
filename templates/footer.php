@@ -1,15 +1,15 @@
-		</div> <!--End #page-wrap-->
-		<footer class="footer" role="contentinfo">
+</div> <!--End #page-wrap-->
+<footer class="footer" role="contentinfo">
 
-		</footer>
+</footer>
 
-	</div><!--End #site-wrap-->
+</div><!--End #site-wrap-->
 
-    <?php template_part('notice', 'old-browser'); ?>
-    <?php template_part('notice', 'noscript'); ?>
-    <?php template_part('notice', 'cookie'); ?>
+<?php template_part('notice', 'old-browser'); ?>
+<?php template_part('notice', 'noscript'); ?>
+<?php template_part('notice', 'cookie'); ?>
 
-	<?php wp_footer(); ?>
+<?php wp_footer(); ?>
 
 </body>
 </html>

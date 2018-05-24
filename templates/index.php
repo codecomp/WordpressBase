@@ -14,7 +14,7 @@
 
         <?php endwhile; ?>
     <?php else: ?>
-        <?php if($post_type = get_post_type_object( get_query_var('post_type') )): ?>
+        <?php if ($post_type = get_post_type_object(get_query_var('post_type'))): ?>
             <h2><?php printf(__('Sorry, no %s found', 'tmp'), $post_type->labels->name); ?></h2>
         <?php endif; ?>
     <?php endif; ?>

@@ -6,17 +6,17 @@ Template Name: Template Name
 
 <?php get_header(); ?>
 
-<main role="main">
+    <main role="main">
 
-    <?php if (have_posts()) : ?>
-        <?php while (have_posts()) : the_post(); ?>
+        <?php if (have_posts()) : ?>
+            <?php while (have_posts()) : the_post(); ?>
 
-            <h2><?php the_title(); ?></h2>
-            <?php the_content(); ?>
+                <h2><?php the_title(); ?></h2>
+                <?php the_content(); ?>
 
-        <?php endwhile; ?>
-    <?php endif; ?>
+            <?php endwhile; ?>
+        <?php endif; ?>
 
-</main>
+    </main>
 
 <?php get_footer(); ?>
