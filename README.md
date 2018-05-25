@@ -8,43 +8,72 @@ Base WordPress theme
 * Ruby [https://www.ruby-lang.org/en/documentation/installation/]
 * Ruby scss_lint gem `gem install scss_lint`
 
-## Installation
+## Setup
 
-1. Download or clone to your machine
-2. Extract content to wp-content/themes directory of your WordPress installation
-3. Rename theme folder
-4. In theme directory on the command line run `composer install` to install package dependencies
-5. In theme directory on the command line run `npm install` to install NPM packages
-6. If using a local development environment not running on port 8888 update gulpfle.js to reflect this
-7. Update favicon to reflect website design, generate new favicon files at realfavicongenerator.net or manually update
-8. (optional) If manually updating favicons update Site name and icon colours in assets/favicons/bowserconfig.xml, assets/favicons/manifest.json and header.php
-9. Update screnshot.png to reflect theme design at 880x660 or 387x290
+1. Download or clone to your machine.
+2. Extract content to wp-content/themes directory of your WordPress installation.
+3. Rename theme folder.
+4. In theme directory on the command line run `composer install` to install package dependencies.
+5. In theme directory on the command line run `npm install` to install NPM packages.
+6. If using a local development environment update gulpfle.js proxy to reflect development server port or website address.
+7. (optional) Use realfavicongenerator.net to generate new favicons and export zip contents to /assets/favicons/.
+8. (optional) Update screenshot.png to reflect theme design at 880x660 or 387x290.
 
 ## Gulp commands
 Command  | Usage
 ------------- | -------------
-gulp watch | Activates browserSync, Watch for changes to JS, PHP and SCSS files then lint and recompile JS & CSS and refresh browser.
+gulp watch | Activates browserSync, Watch for changes to JS, PHP and SCSS files then lint and recompile JS & CSS and refresh browser
 gulp deploy | Recompile JS and CSS, optimise JS, CSS and Images, Refresh browsers via browserSync, Remove unnecessary map files 
 gulp js:lint | Force lint of JS files
 gulp js:compile | Force compilation of JS files
 gulp css:lint | Force lint of CSS files
 gulp css:compile | Force compilation of CSS files
+gulp fix | Manually move fonts, favicons and images to dist directory if watch task was not active when added
+
+## NPM commands
+Command  | Usage
+------------- | -------------
+npm run deploy | Recompile the CSS and JS, optimise images, move misc assets and prune development node libraries
+npm run package | Create a clean tarball of the theme without any development files
 
 ## Folder structure
 
-Directory  | Usage
-------------- | -------------
-assets/ | Folders to contain content for the website frontend
-assets/css | Rendered theme CSS and CSS maps
-assets/scss | Theme SCSS files
-assets/favicons | Website favicons
-assets/images | Theme specific images
-assets/js | Theme specific javaScript
-assets/webfonts | Theme specific webfonts
-components/ | Folders to contain content for the website backend
-components/functions | Separate Function files for utility and plugin
-components/languages | Theme translation files .po, .mo, .pot
-components/parts | Template parts accessed via template_part() function
+```shell
+themes/your-theme-name/     # → Root of your ahoy based theme
+├── assets                  # → Front-end assets
+│   ├── favicons/           # → Webpack and ESLint config
+│   ├── fonts/              # → Theme fonts
+│   ├── images/             # → Theme images
+│   ├── js/                 # → Theme JS
+│   └── scss/               # → Theme stylesheets
+├── components              # → Theme PHP
+│   │   ├── acf/php         # → Advanced custo fields functionalty
+│   │   ├── admin.php       # → Back end customisation
+│   │   ├── cpt.php         # → Custom Post type declarations
+│   │   ├── email.php       # → Email functioanlity
+│   │   ├── helpers.php     # → Helper functions
+│   │   ├── newletter.php   # → Newsletter functioanlity
+│   │   ├── reset.php       # → Theme reset 
+│   │   ├── setup.php       # → Theme initlisaiton
+│   │   ├── social.php      # → Social functionality
+│   │   ├── theme.php       # → Theme specific functioanlity
+│   │   └── woocommerce.php # → Woocommerce modifications and custom funcitoanltiy
+│   ├── functions/          # → Theme wrapper, asset manifest
+│   └── languages/          # → Theme translation files
+├── composer.json           # → Composer dependencies and scripts
+├── composer.lock           # → Composer lock file (never edit)
+├── dist/                   # → Built theme assets (never edit)
+├── functions.php           # → Composer autoloader, theme includes
+├── index.php               # → Links to index.php template (never edit)
+├── node_modules/           # → Node.js packages (never edit)
+├── package.json            # → Node.js dependencies and scripts
+├── screenshot.png          # → Theme screenshot for WP admin
+├── style.css               # → Theme meta information
+├── templates/              # → Theme templates
+│   ├── layouts/            # → Base templates
+│   └── partials/           # → Partial templates
+└── vendor/                 # → Composer packages (never edit)
+```
 
 ## Helper functions
 
@@ -82,17 +111,10 @@ repeater_walker | Walks over a ACF repeater array and calls function on the rows
 get_attachment_svg | Gets a child uploaded attachment SVG from attachment ID
 get_attachment_image_src | Get the source for an attachment image without needing to store to a variable each time
 
-## Further Reading
-
-To get a feel for the customisation the theme makes you should have a read of the functions.php, components/functions/functions-admin.php and components/functions/functions-theme.php files.
-While all content of theme theme is commented these 3 files contain the bulk of the key updates to the theme.
-
 ## Roadmap
 
-* Update favicon handling
-* Move WordPress templates out of root directory to avoid clutter (somehow)
-* Source packages to handle social integration
-* Check current ecosystem for WordPress form plugins to see if we've moved path the terrible contact forms 7 era to determine if we need to do this manually
+* Source packages to handle social integration.
+* Check current ecosystem for WordPress form plugins to see if we've moved path the terrible contact forms 7 era to determine if we need to do this manually.
 
 ## History
 
@@ -113,9 +135,23 @@ Swapped from LESS to SCSS.
 Added auto initialising ACF fields for setting up backend options page.
 
 ###2.1.0
-Full update to gulp task managing
-Swap over to ES6 and NPM module includes for JavaScript
-Move from hardcoded to ACF local folders
+Full update to gulp task managing.
+Swap over to ES6 and NPM module includes for JavaScript.
+Move from hardcoded to ACF local folders.
+
+###2.2.0
+Cleaned up function file names.
+Fixed external hyperlink issues in JS.
+Removed newsletter and social functionality to be replaces with site specific packages.
+General typo and doc block fixes.
+Added missing Utility ACF group.
+Moved WordPress template hierarchy files into templates directly.
+move partials from components/parts/ to templates/parts/.
+Updated handling of favicons to render content from theme on website root URLs.
+Setup deployment NPM scripts.
+Setup PSR-2 code formatting for PHP and refactored code to consistent style.
+Moved admin dashboard and admin bar removal content into reset.
+Created setup file for theme setup functions.
 
 ## Credits
 
