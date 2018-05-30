@@ -1,11 +1,6 @@
-<?php get_header(); ?>
+<?php
 
-    <main role="main" class="four-oh-four">
+$context = Timber::get_context();
 
-        <h1><?php _e('This is somewhat embarrassing, isn\'t it?', 'tmp'); ?></h1>
+Timber::render( '404.twig', $context );
 
-        <p><?php _e('It seems we can\'t find what you\'re looking for.', 'tmp'); ?></p>
-
-    </main>
-
-<?php get_footer(); ?>

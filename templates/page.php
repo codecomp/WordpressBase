@@ -1,14 +1,8 @@
-<?php get_header(); ?>
+<?php
 
-    <main role="main" class="<?php echo get_post_type(); ?>-single">
-        <?php if (have_posts()) : ?>
-            <?php while (have_posts()) : the_post(); ?>
+$context = Timber::get_context();
+$post = new TimberPost();
+$context['post'] = $post;
 
-                <h1><?php the_title(); ?></h1>
-                <?php the_content(); ?>
+Timber::render( array( 'page-' . $post->post_name . '.twig', 'page.twig' ), $context );
 
-            <?php endwhile; ?>
-        <?php endif; ?>
-    </main>
-
-<?php get_footer(); ?>

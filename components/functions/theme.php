@@ -195,3 +195,42 @@ function remove_site_ico_control()
 }
 
 add_action('customize_register', 'remove_site_ico_control', 20);
+
+/**
+ * Add custom site content to Timber context
+ */
+function extend_site_context($context)
+{
+    // Setup global social settings
+     $context['settings']['social_link']['facebook'] = get_field('facebook_id', 'option');
+     $context['settings']['social_link']['twitter'] = get_field('twitter_id', 'option');
+     $context['settings']['social_link']['google_plus'] = get_field('google_plus_id', 'option');
+     $context['settings']['social_link']['pinterest'] = get_field('pinterest_id', 'option');
+     $context['settings']['social_link']['linkedin'] = get_field('linkedin_id', 'option');
+     $context['settings']['social_link']['instagram'] = get_field('instagram_id', 'option');
+     $context['settings']['social_link']['youtube'] = get_field('youtube_id', 'option');
+     $context['settings']['social_link']['tumblr'] = get_field('tumblr_id', 'option');
+
+    $context['settings']['social_share']['url'] = preg_replace('/\?.*/', '', current_page_url());
+    if (is_home()) {
+        $context['settings']['social_share']['title'] = get_bloginfo('name');
+    } elseif (is_404()) {
+        $context['settings']['social_share']['title'] = __('Page not found', 'tmp');
+    } elseif (is_archive()) {
+        $context['settings']['social_share']['title'] = single_cat_title('', false);
+    } elseif (is_single()) {
+        $context['settings']['social_share']['title'] = single_post_title('', false);
+    } else {
+        $context['settings']['social_share']['title'] = get_the_title();
+    }
+
+    // Add menu objects
+    $menus = get_registered_nav_menus();
+    foreach ( $menus as $location => $description ) {
+        $context['menus'][preg_replace("/[^A-Za-z0-9]_/", "_", $location )] = new \Timber\Menu($location);
+    }
+
+    return $context;
+}
+
+add_filter('timber/context', 'extend_site_context');

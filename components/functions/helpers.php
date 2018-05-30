@@ -133,36 +133,6 @@ function get_attachment_id_from_src($image_src)
 }
 
 /**
- * Runs get_template_part from the components/parts directory with optional passing of variables
- *
- * @param $first
- * @param null $second
- * @param array $vars
- */
-function template_part($first, $second = null, $vars = array())
-{
-
-    //If we don't need to access variables return a standard get template part
-    if (empty($vars)) {
-        get_template_part('partials/' . $first, $second);
-        return;
-    }
-
-    //Run WordPress template part hooks
-    do_action("get_template_part_{$first}", $first, $second);
-
-    //Make variables accessible in include scope
-    extract($vars);
-
-    //Check for files existing and hard include them
-    if (locate_template('partials/' . $first . '-' . $second . '.php') != '') {
-        include(locate_template('partials/' . $first . '-' . $second . '.php'));
-    } elseif (locate_template('partials/' . $first . '.php') != '') {
-        include(locate_template('partials/' . $first . '.php'));
-    }
-}
-
-/**
  * Returns a child theme overwritable image path
  *
  * @param $file

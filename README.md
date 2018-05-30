@@ -69,9 +69,11 @@ themes/your-theme-name/     # → Root of your ahoy based theme
 ├── package.json            # → Node.js dependencies and scripts
 ├── screenshot.png          # → Theme screenshot for WP admin
 ├── style.css               # → Theme meta information
+├── layouts/                # → Twig templates
+│   ├── blocks/             # → Cross site block level items
+│   └── partials/           # → Site specific layour parts
 ├── templates/              # → Theme templates
-│   ├── layouts/            # → Base templates
-│   └── partials/           # → Partial templates
+│   └── layouts/            # → Base templates
 └── vendor/                 # → Composer packages (never edit)
 ```
 
@@ -85,7 +87,6 @@ get_bh | Check specified date against UK bank holiday
 escape_id | Convert string into non spaced alphanumeric only format fr use in unique ID's
 current_page_url | Get the current page url
 get_attachment_id_from_src | Return the attachment ID of a attachment from the URL (Avoid use if possible)
-template_part | Runs get_template_part from the components/parts directory with optional passing of variables
 get_theme_image | Returns a child theme overwritable image path
 the_theme_svg | Echos a child theme overwritable SVG
 get_theme_svg | Returns a child theme overwritable SVG

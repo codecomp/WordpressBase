@@ -5,6 +5,10 @@ if (file_exists($composer = __DIR__ . '/vendor/autoload.php')) {
     require_once($composer);
 }
 
+// Initialise Timber
+$timber = new Timber\Timber();
+Timber::$dirname = 'layouts';
+
 /**
  * Here's what's happening with these hooks:
  * 1. WordPress detects theme in themes/ahoy
