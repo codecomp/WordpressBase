@@ -49,7 +49,7 @@ gulp.task('css:lint', function () {
 });
 
 gulp.task('css:compile', ['css:lint'], function () {
-    return gulp.src([paths.sass + '/main.scss', paths.sass + '/admin-editor-styles.scss'])
+    return gulp.src([paths.sass + '/main.scss', paths.sass + '/admin-styles.scss', paths.sass + '/admin-editor-styles.scss'])
         .pipe(sourceMaps.init())
         .pipe(sass({
             includePaths: require('node-normalize-scss').includePaths

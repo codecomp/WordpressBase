@@ -576,3 +576,22 @@ function get_attachment_image_src($id, $size)
 
     return false;
 }
+
+/**
+ * Check if the provided term has child terms
+ *
+ * @param $term
+ * @return bool
+ */
+function term_has_children($term){
+    $children = get_terms( $term->taxonomy, array(
+        'parent'    => $term->term_id,
+        'hide_empty' => false
+    ) );
+
+    if($children){
+        return true;
+    }
+
+    return false;
+}
