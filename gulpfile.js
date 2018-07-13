@@ -171,7 +171,7 @@ gulp.task('watch', ['browser:sync'], function () {
     gulp.watch(paths.buildJs + '/*')
         .on('change', browserSync.reload);
 
-    gulp.watch(['*.php', 'templates/**/*.twig'])
+    gulp.watch(['**/*.php', 'templates/**/*.twig'])
         .on('change', browserSync.reload);
 });
 
