@@ -60,7 +60,7 @@ gulp.task('css:compile', ['css:lint'], function () {
             this.emit('end');
         })
         .pipe(autoPrefixer({
-            browsers: ['last 2 versions'],
+            browsers: ['last 5 versions', "safari >= 7"],
             cascade: false
         }))
         .pipe(sourceMaps.write('.'))
