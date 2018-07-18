@@ -1,71 +1,71 @@
 <ul class="social-links">
-    {%  if settings.social_links.facebook %}
-    <li class="social-links__item social-links__item--facebook">
-        <a class="social-links_link" target="_blank" href="http://facebook.com/{{ settings.social_links.facebook }}/"
-           title="Find us on Facebook">
-            {{ __('Find us on Facebook', 'tmp') }}
-        </a>
-    </li>
+    {%  if settings.social.facebook %}
+        <li class="social-links__item social-links__item--facebook">
+            <a class="social-links__link" target="_blank" href="http://facebook.com/{{ settings.social.facebook.link }}/"
+               title="Find us on Facebook">
+                {{ settings.social.facebook.icon }}
+            </a>
+        </li>
     {% endif %}
-    {%  if settings.social_links.twitter %}
-    <li class="social-links__item social-links__item--twitter">
-        <a class="social-links_link" target="_blank" href="http://twitter.com/{{ settings.social_links.twitter }}/"
-           title="Find us on Twitter">
-            {{ __('Find us on Twitter', 'tmp') }}
-        </a>
-    </li>
+    {%  if settings.social.twitter %}
+        <li class="social-links__item social-links__item--twitter">
+            <a class="social-links__link" target="_blank" href="http://twitter.com/{{ settings.social.twitter.link }}/"
+               title="Find us on Twitter">
+                {{ settings.social.twitter.icon }}
+            </a>
+        </li>
     {% endif %}
-    {%  if settings.social_links.google_plus %}
-    <li class="social-links__item social-links__item--google">
-        <a class="social-links_link" target="_blank" href="https://plus.google.com/{{ settings.social_links.google_plus }}/posts/"
-           title="Find us on Google+">
-            {{ __('Find us on Google+', 'tmp') }}
-        </a>
-    </li>
+    {%  if settings.social.google_plus %}
+        <li class="social-links__item social-links__item--google">
+            <a class="social-links__link" target="_blank" href="https://plus.google.com/{{ settings.social.google_plus.link }}/posts/"
+               title="Find us on Google+">
+                {{ settings.social.google_plus.icon }}
+            </a>
+        </li>
     {% endif %}
-    {%  if settings.social_links.pinterest %}
-    <li class="social-links__item social-links__item--pinterest">
-        <a class="social-links_link" target="_blank" href="https://www.pinterest.com/{{ settings.social_links.pinterest }}/"
-           title="Find us on Pinterest">
-            {{ __('Find us on Pinterest', 'tmp') }}
-        </a>
-    </li>
+    {%  if settings.social.pinterest %}
+        <li class="social-links__item social-links__item--pinterest">
+            <a class="social-links__link" target="_blank" href="https://www.pinterest.com/{{ settings.social.pinterest.link }}/"
+               title="Find us on Pinterest">
+                {{ settings.social.pinterest.icon }}
+            </a>
+        </li>
     {% endif %}
-    {%  if settings.social_links.linkedin %}
-    <li class="social-links__item social-links__item--linkedin">
-        <a class="social-links_link" target="_blank" href="https://www.linkedin.com/company/{{ settings.social_links.linkedin }}/"
-           title="Find us on LinkedIn">
-            {{ __('Find us on LinkedIn', 'tmp') }}
-        </a>
-    </li>
+    {%  if settings.social.linkedin %}
+        <li class="social-links__item social-links__item--linkedin">
+            <a class="social-links__link" target="_blank" href="https://www.linkedin.com/company/{{ settings.social.linkedin.link }}/"
+               title="Find us on LinkedIn">
+                {{ settings.social.linkedin.icon }}
+            </a>
+        </li>
     {% endif %}
-    {%  if settings.social_links.instagram %}
-    <li class="social-links__item social-links__item--instagram">
-        <a class="social-links_link" target="_blank" href="https://instagram.com/{{ settings.social_links.instagram }}/"
-           title="Find us on Instagram">
-            {{ __('Find us on Instagram', 'tmp') }}
-        </a>
-    </li>
+    {%  if settings.social.instagram %}
+        <li class="social-links__item social-links__item--instagram">
+            <a class="social-links__link" target="_blank" href="https://instagram.com/{{ settings.social.instagram.link }}/"
+               title="Find us on Instagram">
+                {{ settings.social.instagram.icon }}
+            </a>
+        </li>
     {% endif %}
-    {%  if settings.social_links.youtube %}
-    <li class="social-links__item social-links__item--youtube">
-        <a class="social-links_link" target="_blank" href="https://www.youtube.com/user/{{ settings.social_links.youtube }}/"
-           title="Find us on Youtube">
-            {{ __('Find us on Youtube', 'tmp') }}
-        </a>
-    </li>
+    {%  if settings.social.youtube %}
+        <li class="social-links__item social-links__item--youtube">
+            <a class="social-links__link" target="_blank" href="https://www.youtube.com/user/{{ settings.social.youtube.link }}/"
+               title="Find us on Youtube">
+                {{ settings.social.youtube.icon }}
+            </a>
+        </li>
     {% endif %}
-    {%  if settings.social_links.tumblr %}
-    <li class="social-links__item social-links__item--tumblr">
-        <a class="social-links_link" target="_blank" href="http://{{ settings.social_links.tumblr }}.tumblr.com/"
-           title="Find us on Tumblr">
-            {{ __('Find us on Tumblr', 'tmp') }}
-        </a>
-    </li>
+    {%  if settings.social.tumblr %}
+        <li class="social-links__item social-links__item--tumblr">
+            <a class="social-links__link" target="_blank" href="http://{{ settings.social.tumblr.link }}.tumblr.com/"
+               title="Find us on Tumblr">
+                {{ settings.social.tumblr.icon }}
+            </a>
+        </li>
     {% endif %}
     <li class="social-links__item social-links__item--rss">
-        <a class="social-links_link" target="_blank" href="/feed/" title="View our feed">
-            {{ __('View our RSS feed', 'tmp') }}
+        <a class="social-links__link" target="_blank" href="/feed/" title="View our feed">
+            {{ settings.social.rss.icon }}
         </a>
     </li>
 </ul>
