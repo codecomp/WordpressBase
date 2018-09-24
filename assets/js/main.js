@@ -1,4 +1,5 @@
 import * as utils from './modules/utils';
+import 'core-js/fn/symbol/for';
 import 'core-js/fn/symbol/iterator';
 import 'whatwg-fetch';
 import bowser from 'bowser';
