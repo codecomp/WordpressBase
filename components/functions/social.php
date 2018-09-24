@@ -22,6 +22,19 @@ add_action('wp_ajax_nopriv_load_social', 'load_social'); // if user not logged i
 function extend_social_context($context){
     $context['settings']['social'] = array();
 
+    $context['settings']['social']['share']['url'] = preg_replace('/\?.*/', '', current_page_url());
+    if (is_home()) {
+        $context['settings']['social']['share']['title'] = get_bloginfo('name');
+    } elseif (is_404()) {
+        $context['settings']['social']['share']['title'] = __('Page not found', 'tmp');
+    } elseif (is_archive()) {
+        $context['settings']['social']['share']['title'] = single_cat_title('', false);
+    } elseif (is_single()) {
+        $context['settings']['social']['share']['title'] = single_post_title('', false);
+    } else {
+        $context['settings']['social']['share']['title'] = get_the_title();
+    }
+
     if( $id = get_field('twitter_id', 'option') ) {
         $context['settings']['social']['twitter'] = array(
             'link' => 'http://twitter.com/' . $id . '/',
