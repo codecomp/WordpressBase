@@ -35,57 +35,74 @@ function extend_social_context($context){
         $context['settings']['social']['share']['title'] = get_the_title();
     }
 
+    $context['settings']['social']['twitter'] = array(
+        'icon' => get_theme_svg('logo--twitter.svg'),
+        'text' => __('Twitter', 'tmp')
+    );
     if( $id = get_field('twitter_id', 'option') ) {
-        $context['settings']['social']['twitter'] = array(
-            'link' => 'http://twitter.com/' . $id . '/',
-            'icon' => get_theme_svg('logo--twitter.svg')
-        );
+        $context['settings']['social']['twitter']['link'] = 'https://twitter.com/' . $id . '/';
     }
+
+    $context['settings']['social']['facebook'] = array(
+        'icon' => get_theme_svg('logo--facebook.svg'),
+        'text' => __('Facebook', 'tmp')
+    );
     if( $id = get_field('facebook_id', 'option') ) {
-        $context['settings']['social']['facebook'] = array(
-            'link' => 'http://facebook.com/' . $id . '/',
-            'icon' => get_theme_svg('logo--facebook.svg')
-        );
+        $context['settings']['social']['facebook']['link'] = 'https://facebook.com/' . $id . '/';
     }
+
+    $context['settings']['social']['google'] = array(
+        'icon' => get_theme_svg('logo--google-plus.svg'),
+        'text' => __('Google+', 'tmp')
+    );
     if( $id = get_field('google_plus_id', 'option') ) {
-        $context['settings']['social']['google'] = array(
-            'link' => 'https://plus.google.com/' . $id . '/posts/',
-            'icon' => get_theme_svg('logo--google.scg')
-        );
+        $context['settings']['social']['google']['link'] = 'https://plus.google.com/' . $id . '/posts/';
     }
+
+    $context['settings']['social']['pinterest'] = array(
+        'icon' => get_theme_svg('logo--pinterest.svg'),
+        'text' => __('Pinterest', 'tmp')
+    );
     if( $id = get_field('pinterest_id', 'option') ) {
-        $context['settings']['social']['pinterest'] = array(
-            'link' => 'https://www.pinterest.com/' . $id . '/',
-            'icon' => get_theme_svg('logo--pinterest.svg')
-        );
+        $context['settings']['social']['pinterest']['link'] = 'https://www.pinterest.com/' . $id . '/';
     }
+
+    $context['settings']['social']['linkedin'] = array(
+        'icon' => get_theme_svg('logo--linkedin.svg'),
+        'text' => __('LinkedIn', 'tmp')
+    );
     if( $id = get_field('linkedin_id', 'option') ) {
-        $context['settings']['social']['linkedin'] = array(
-            'link' => 'https://www.linkedin.com/company/' . $id . '/',
-            'icon' => get_theme_svg('logo--linkedin.svg')
-        );
+        $context['settings']['social']['linkedin']['link'] = 'https://www.linkedin.com/company/' . $id . '/';
     }
+
+    $context['settings']['social']['instagram'] = array(
+        'icon' => get_theme_svg('logo--instagram.svg'),
+        'text' => __('Instagram', 'tmp')
+    );
     if( $id = get_field('instagram_id', 'option') ) {
-        $context['settings']['social']['instagram'] = array(
-            'link' => 'https://instagram.com/' . $id . '/',
-            'icon' => get_theme_svg('logo--instagram.svg')
-        );
+        $context['settings']['social']['instagram']['link'] = 'https://instagram.com/' . $id . '/';
     }
+
+    $context['settings']['social']['youtube'] = array(
+        'icon' => get_theme_svg('logo--youtube.svg'),
+        'text' => __('Youtube', 'tmp')
+    );
     if( $id = get_field('youtube_id', 'option') ) {
-        $context['settings']['social']['youtube'] = array(
-            'link' => 'https://www.youtube.com/user/' . $id . '/',
-            'icon' => get_theme_svg('logo--youtube.svg')
-        );
+        $context['settings']['social']['youtube']['link'] = 'https://www.youtube.com/user/' . $id . '/';
     }
+
+    $context['settings']['social']['tumblr'] = array(
+        'icon' => get_theme_svg('logo--tumblr.svg'),
+        'text' => __('Tumblr', 'tmp')
+    );
     if( $id = get_field('tumblr_id', 'option') ) {
-        $context['settings']['social']['tumblr'] = array(
-            'link' => 'http://' . $id . '.tumblr.com/',
-            'icon' => get_theme_svg('logo--tumblr.svg')
-        );
+        $context['settings']['social']['tumblr']['link'] = 'https://' . $id . '.tumblr.com/';
     }
+
     $context['settings']['social']['rss'] = array(
         'link' => '/feed/',
-        'icon' => get_theme_svg('logo--rss.svg')
+        'icon' => get_theme_svg('logo--rss.svg'),
+        'text' => __('RSS', 'tmp')
     );
 
     return $context;
