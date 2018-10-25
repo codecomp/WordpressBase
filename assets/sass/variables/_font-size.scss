@@ -1,7 +1,7 @@
 // @desc Helper to make it easier to print font sizes
 // @param  $fontsize {string}  The desired size from the map.
 // @return string              The requested fontsize index
-@function font-size($index: base) {
+@function fs($index: base) {
 
     $map-font-size: (
         heading-large: 4rem,

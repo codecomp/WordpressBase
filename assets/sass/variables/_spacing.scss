@@ -2,27 +2,19 @@
 // @param  $size {string}   The desired size from the map.
 // @param  $device {string} The desired device (Default value: desktop).
 // @return string           The value of requested index.
-@function spacing($size, $device: 'desktop') {
+@function spacing($size: 1) {
 
     $map-spacing: (
-        desktop: (
-            1: 1rem,
-            2: 3rem,
-            3: 6rem,
-            4: 12rem
-        ),
-        mobile: (
-            1: 0.7rem,
-            2: 2rem,
-            3: 4rem,
-            4: 8rem
-        )
+        1: 1rem,
+        2: 3rem,
+        3: 6rem,
+        4: 12rem
     );
 
 
-    @if map-has-key($map-spacing, $device) {
+    @if map-has-key($map-spacing, $size) {
 
-        @return map-get(map-get($map-spacing, $device), $size);
+        @return map-get($map-spacing, $size);
 
     } @else {
 

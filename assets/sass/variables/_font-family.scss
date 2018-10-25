@@ -1,7 +1,7 @@
 // @desc Helper to make it easier to print font families
 // @param  $fontfamily {string}  The desired family from the map.
 // @return string                The requested fontsize index
-@function font-family($index: base) {
+@function ff($index: base) {
 
     $map-font-family: (
         base: 'sans-serif'

@@ -1,5 +1,0 @@
-@function image-url($filename) {
-
-    @return url('../../#{$filename}');
-
-}
