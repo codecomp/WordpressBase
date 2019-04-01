@@ -81,7 +81,7 @@ function custom_footer_scripts()
     the_field('custom_footer_scripts', 'option');
 }
 
-add_action('wp_head', 'custom_footer_scripts');
+add_action('wp_footer', 'custom_footer_scripts');
 
 /**
  * Add the query vars required for calling favicons directly
