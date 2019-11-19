@@ -13,8 +13,14 @@ const moduleRegistration = function(m, u, ui, win, doc){
     // Document loaded class
     m.docLoad = () => {
         u.addClass(document.body, 'is-loaded');
-        u.addClass(document.body, bowser.name.replace(/\s+/g, '-').toLowerCase());
-        u.addClass(document.body, bowser.name.replace(/\s+/g, '-').toLowerCase() + '-' + bowser.version.replace(/\s+/g, '-').toLowerCase()); // eslint-disable-line max-len
+        if(typeof browser !== 'undefined'){
+            if(browser.name){
+                u.addClass(document.body, bowser.name.replace(/\s+/g, '-').toLowerCase());
+            }
+            if(bowser.version){
+                u.addClass(document.body, bowser.name.replace(/\s+/g, '-').toLowerCase() + '-' + bowser.version.replace(/\s+/g, '-').toLowerCase());
+            }
+        }
     };
 
     // Open share links in popup window
