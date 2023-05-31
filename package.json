@@ -2,7 +2,7 @@
   "name": "wordpress-base",
   "version": "1.0.0",
   "description": "Streamlined WordPress base theme",
-  "type": "wordpress-theme",
+  "type": "commonjs",
   "scripts": {
     "deploy": "gulp deploy && npm prune --production",
     "package": "tar -zc --totals --exclude='*.tgz' --exclude='.*' --exclude='assets' --exclude='composer.json' --exclude='composer.lock' --exclude='gulpfile.js' --exclude='package.json' --exclude='package-lock.json' --exclude='README.md' --exclude='scss-lint.yml' -f theme.tgz *"
