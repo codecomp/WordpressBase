@@ -3,7 +3,10 @@ var gulp         = require('gulp'),
     source       = require('vinyl-source-stream'),
     buffer       = require('vinyl-buffer'),
     sass         = require('gulp-sass'),
-    scssLint     = require('gulp-scss-lint'),
+    postcss      = require('gulp-postcss'),
+    gapProperties = require('postcss-gap-properties'),
+    postcssLogical = require('postcss-logical'),
+    transformShortcut = require('postcss-transform-shortcut'),
     sourceMaps   = require('gulp-sourcemaps'),
     cssNano      = require('gulp-cssnano'),
     eslint       = require('gulp-eslint'),
@@ -32,7 +35,7 @@ var gulp         = require('gulp'),
 // Browser sync tasks
 gulp.task('browser:sync', function(done) {
     browserSync.init({
-        proxy: "wordpress-base.local",
+        proxy: "wordpress.local",
         open: false
     }, done);
 });
@@ -48,12 +51,18 @@ gulp.task('css:lint', function () {
         .pipe(scssLint({'config': 'scss-lint.yml'}));
 });
 
-gulp.task('css:compile', ['css:lint'], function () {
+gulp.task('css:compile', [/*'css:lint'*/], function () {
     return gulp.src([paths.sass + '/main.scss', paths.sass + '/admin-styles.scss', paths.sass + '/admin-editor-styles.scss'])
         .pipe(sourceMaps.init())
         .pipe(sass({
             includePaths: require('node-normalize-scss').includePaths
         }))
+        .on('error', function (err) {
+            console.log(err.toString());
+
+            this.emit('end');
+        })
+        .pipe(postcss([gapProperties(), postcssLogical(), transformShortcut()]))
         .on('error', function (err) {
             console.log(err.toString());
 
@@ -80,7 +89,10 @@ gulp.task('js:compile', ['js:lint'], function () {
         entries: paths.js + '/main.js',
         debug: true
     })
-    .transform(babelify)
+    .transform(babelify, {
+        global: true,
+        ignore: /\/node_modules\/(?!@pageclip\/valid-form\/)/
+    })
     .bundle()
     .on('error', function (err) { console.error(err); })
     .pipe(source('main.js'))
@@ -114,7 +126,9 @@ gulp.task('optimise:images', function() {
             imagemin.svgo({
                 plugins: [
                     {removeViewBox: true},
-                    {cleanupIDs: false}
+                    {removeUnknownsAndDefaults: true},
+                    {cleanupIDs: true},
+                    {mergePaths: false}
                 ]
             })
         ]))
