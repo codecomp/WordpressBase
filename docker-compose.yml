@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    extra_hosts:
+      - "wordpress.local:192.168.1.1"
+    command: gulp watch
