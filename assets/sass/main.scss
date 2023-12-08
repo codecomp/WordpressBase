@@ -2,6 +2,7 @@
 @import 'normalize';
 
 // Helper mixins
+@import 'helpers/calculations';
 @import 'helpers/cascase';
 @import 'helpers/clearfix';
 @import 'helpers/cover';
@@ -14,14 +15,12 @@
 
 // Variables
 @import 'variables/media-queries';
-@import 'variables/variables';
 @import 'variables/color';
 @import 'variables/easing';
 @import 'variables/font-family';
 @import 'variables/font-size';
 @import 'variables/image-url';
 @import 'variables/spacing';
-@import 'variables/z-index';
 
 // Placeholders
 @import 'placeholders/typography';
@@ -34,4 +33,3 @@
 
 // Misc
 @import 'misc/plugins';
-@import 'misc/wordpress';

@@ -1,4 +1,11 @@
+#tinymce,
+.mce-content-body,
 .wysiwyg {
+
+    > * {
+        margin: 0;
+        margin-bottom: var(--sp-m);
+    }
 
     h1 {
 
@@ -46,5 +53,26 @@
 
     blockquote {
 
+    }
+
+    .alignleft {
+        float: left;
+    
+        &img {
+            margin-right: var(--sp-m);
+        }
+    }
+    
+    .alignright {
+        float: right;
+    
+        &img {
+            margin-left: var(--sp-m);
+        }
+    }
+    
+    .aligncenter {
+        display: block;
+        margin: 0 auto;
     }
 }

@@ -1,33 +1,17 @@
-// @desc Get a value from the $map-color-palette map.
-// @param  $color {string}  The desired color from the map.
-// @param  $tone {string}   The desired tone of the color (Default value: base).
-// @return string           The value of requested index.
-@function palette($color, $tone: 'base') {
+:root, [data-theme="default"] {
+    --color-black: #000000;
+    --color-white: #FFFFFF;
 
-    $map-color-palette: (
-        background: (
-            base: #ffffff
-        ),
-        brand: (
-            base: #000000
-        ),
-        type: (
-            base: #000000
-        ),
-        attention: (
-          base: #ff1100
-        )
-    );
+    --color-bg: var(--color-white);
+    --color-type: var(--color-black);
+}
 
-    @if map-has-key($map-color-palette, $color) {
+[data-theme] {
+    background-color: var(--color-bg);
+    color: var(--color-type);
+}
 
-        @return map-get(map-get($map-color-palette, $color), $tone);
-
-    } @else {
-
-        @warn '`#{index}` is not a valid index in Map: $map-color-palette.';
-        @return null;
-
-    }
-
+[data-theme="dark"] {
+    --color-bg: var(--color-black);
+    --color-type: var(--color-white);
 }

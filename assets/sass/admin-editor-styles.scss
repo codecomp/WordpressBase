@@ -1,4 +1,5 @@
-// Helper mixins
+// Helpers
+@import 'helpers/calculations';
 @import 'helpers/cascase';
 @import 'helpers/clearfix';
 @import 'helpers/cover';
@@ -9,13 +10,30 @@
 @import 'helpers/responsive-ratio';
 @import 'helpers/visually-hidden';
 
-// Modules
-@import 'modules/media-queries';
-@import 'modules/variables';
-@import 'modules/color';
-@import 'modules/easing';
-@import 'modules/font-family';
-@import 'modules/font-size';
-@import 'modules/spacing';
-@import 'modules/z-index';
-@import 'modules/typography';
+// Variables
+@import 'variables/media-queries';
+@import 'variables/color';
+@import 'variables/easing';
+@import 'variables/font-family';
+@import 'variables/font-size';
+@import 'variables/image-url';
+@import 'variables/spacing';
+
+// Objects
+@import 'objects/wysiwyg';
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    color: var(--color-type);
+    font-size: var(--fs-body-m);
+    font-family: var(--ff-base);
+}
+
+a {
+    color: inherit;
+}

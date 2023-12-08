@@ -11,7 +11,11 @@ html {
 }
 
 body {
-    font-size: font-size(base);
+    background-color: var(--color-bg);
+    color: var(--color-type);
+    font-size: var(--fs-body-m);
+    font-family: var(--ff-base);
+    line-height: 1;
 }
 
 .site-wrap {
@@ -19,7 +23,38 @@ body {
 }
 
 ::selection {
-    background: palette(brand);
-    color: palette(background);
+    background: var(--color-type);
+    color: var(--color-bg);
     text-shadow: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 500;
+    margin: 0;
+}
+
+img,
+svg {
+    max-width: 100%;
+    height: auto;
+}
+
+ul {
+    list-style: none;
+}
+
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+}
+
+cite,
+address {
+    font-style: normal;
 }
