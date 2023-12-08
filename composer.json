@@ -16,7 +16,7 @@
         }
     ],
     "require-dev": {
-        "kint-php/kint": "^2.2"
+        "kint-php/kint": "^3.3"
     },
     "require": {
         "timber/timber": "^1.7"
