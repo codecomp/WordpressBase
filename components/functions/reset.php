@@ -72,22 +72,13 @@ add_action('after_setup_theme', function () {
     remove_action('wp_head', 'wp_generator');
 
     //Return no error upon failed login attempt
-    add_filter('login_errors', create_function('$a', 'return null;'));
+    function no_wordpress_errors(){
+        return __('Incorrect login detials, Please try again.');
+    }
+    add_filter( 'login_errors', 'no_wordpress_errors' );
 
     //Remove Welcome panel from dashboard
     remove_action('welcome_panel', 'wp_welcome_panel');
-
-    // Remove plugin update notifications
-    remove_action('load-update-core.php', 'wp_update_plugins');
-    add_filter('pre_site_transient_update_plugins', '__return_null');
-
-    // Remove update notification
-    if (!current_user_can('update_core')) {
-        return;
-    }
-    add_action('init', create_function('$a', "remove_action( 'init', 'wp_version_check' );"), 2);
-    add_filter('pre_option_update_core', '__return_null');
-    add_filter('pre_site_transient_update_core', '__return_null');
 });
 
 
@@ -118,7 +109,7 @@ add_action('admin_menu', function () {
     //remove_menu_page( 'edit.php' );					//Posts
     //remove_menu_page( 'upload.php' );					//Media
     //remove_menu_page( 'edit.php?post_type=page' );	//Pages
-    //remove_menu_page( 'edit-comments.php' );			//Comments
+    remove_menu_page( 'edit-comments.php' );			//Comments
     //remove_menu_page( 'themes.php' );					//Appearance
     //remove_menu_page( 'plugins.php' );				//Plugins
     //remove_menu_page( 'users.php' );					//Users
@@ -129,7 +120,7 @@ add_action('admin_menu', function () {
 
     //Add all super admins to this array
     $admins = array(
-        'ahoycreative'
+        'ahoy'
     );
     $current_user = wp_get_current_user();
 
@@ -186,17 +177,3 @@ add_action('admin_bar_menu', function () {
     // $new_content_node->href = admin_url( 'post-new.php?post_type=page');
     // $wp_admin_bar->add_node($new_content_node);
 }, 999);
-
-/**
- * Remove the Screen options tab from admin pages
- *
- * @param $old_help
- * @param $screen_id
- * @param $screen
- * @return mixed
- */
-add_filter('screen_options_show_screen', '__return_false');
-add_filter('contextual_help', function ($old_help, $screen_id, $screen) {
-    $screen->remove_help_tabs();
-    return $old_help;
-}, 999, 3);
