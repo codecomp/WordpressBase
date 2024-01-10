@@ -8,7 +8,7 @@
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development",
     "watch": "webpack --mode development --watch",
-    "package": "tar -zc --totals --exclude='*.tgz' --exclude='.*' --exclude='assets' --exclude='composer.json' --exclude='composer.lock' --exclude='package.json' --exclude='package-lock.json' --exclude='node_modules' --exclude='README.md' --exclude='scss-lint.yml' -f theme.tgz *"
+    "package": "tar -zc --totals --exclude='*.tgz' --exclude='.*' --exclude='assets' --exclude='composer.json' --exclude='composer.lock' --exclude='package.json' --exclude='package-lock.json' --exclude='node_modules' --exclude='README.md' --exclude='scss-lint.yml' --exclude='webpack.config.js' -f theme.tgz *"
   },
   "repository": {
     "type": "git",
