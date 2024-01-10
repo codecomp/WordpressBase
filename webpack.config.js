@@ -84,7 +84,11 @@ module.exports = (env, argv) => {
           proxy: {
             target: 'http://wordpress.local/'
           },
-          files: [ 'dist/css/main.scss',  ],
+          files: [
+            '**/*.php',
+            '**/*.twig',
+            'dist/css/main.scss',
+          ],
           injectCss: true,
           open: false,
           notify: false
