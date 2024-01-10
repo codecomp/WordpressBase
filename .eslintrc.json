@@ -114,7 +114,6 @@
     "no-undef-init": 0,               // disallow use of undefined when initializing variables
     "no-undefined": 0,                // disallow use of undefined variable (off by default)
     "no-unused-vars": 1,              // disallow declaration of variables that are not used in the code
-    "no-use-before-define": 2,        // disallow use of variables before they are defined
 
 
     ////////// Stylistic Issues //////////

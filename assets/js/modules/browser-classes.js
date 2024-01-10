@@ -10,7 +10,7 @@ const initialize = () => {
             document.body.classList.add(bowser.name.replace(/\s+/g, '-').toLowerCase());
         }
         if(bowser.name && bowser.version){
-            document.body.classList.add(bowser.name.replace(/\s+/g, '-').toLowerCase() + '-' + bowser.version.replace(/\s+/g, '-').toLowerCase());
+            document.body.classList.add(bowser.name.replace(/\s+/g, '-').toLowerCase() + '-' + bowser.version.replace(/\s+/g, '-').toLowerCase()); // eslint-disable-line max-len
         }
     }
 }
