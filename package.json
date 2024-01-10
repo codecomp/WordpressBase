@@ -2,7 +2,6 @@
   "name": "wordpress-base",
   "version": "1.0.0",
   "description": "Streamlined WordPress base theme",
-  "type": "commonjs",
   "scripts": {
     "build": "webpack --mode production",
     "build-dev": "webpack --mode development",
@@ -25,6 +24,7 @@
   "devDependencies": {
     "@babel/core": "^7.23.5",
     "@babel/preset-env": "^7.23.5",
+    "@babel/preset-modules": "^0.1.6",
     "babel-loader": "^9.1.3",
     "browser-sync": "^2.29.3",
     "browser-sync-webpack-plugin": "^2.3.0",
