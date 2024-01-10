@@ -195,6 +195,21 @@ function the_icon($icon, $class = null)
 }
 
 /**
+ * Function to check if the current user is an admin
+ *
+ * @return boolean
+ */
+function is_current_user_admin() {
+    if (is_user_logged_in()) {
+        $current_user = wp_get_current_user();
+        if (in_array('administrator', $current_user->roles, true)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
  * Check if a user has a specific role.
  *
  * @param int $user_id
@@ -594,4 +609,163 @@ function term_has_children($term){
     }
 
     return false;
+}
+
+/**
+ * A WordPress helper function that takes the ID of the current post
+ * and returns the top three related posts ranked by highest number of taxonomy
+ * terms in common with the current post. Alternately, you can modify lines 26-33
+ * to exclude certain taxonomies so that we only check for terms in specific taxonomies 
+ * to determine the related posts. To include up to the top X related posts instead of
+ * up to three, you can modify lines 149-150.
+ *
+ * In your template to make use of this function you would do something like...
+ *
+ * $current_post_id = get_the_id();
+ * $related_post_ids = get_related_posts($current_post_id);
+ * 
+ */
+function get_related_posts($current_post_id, $count = 3) {   
+    // Get the post type we're dealing with based on the current post ID.
+    $post_type = get_post_type($current_post_id);
+
+    // Get all taxonomies of the specified post type of the current post.
+    $taxonomies = [];
+    $taxonomy_objects = get_object_taxonomies( $post_type, 'objects' );
+    foreach($taxonomy_objects as $taxonomy) {
+        // If you want to only check against certain taxonomies, modify this section as needed
+        // to set conditions for which taxonomies should be excluded or included. Below is just an example.
+        // if ($taxonomy->name !== 'post_format' && $taxonomy->name !== 'post_tag') {
+        //     array_push($taxonomies, $taxonomy);
+        // }
+       
+        // By default, we will check against all taxonomies.
+        array_push($taxonomies, $taxonomy);
+    }
+
+    // Get all the posts of the specified post type,
+    // excluding the current post, so that we can compare these
+    // against the current post.
+    $other_posts_args = array(
+        'posts_per_page'   => -1,
+        'post_type'      => $post_type,
+        'post__not_in'   => array($current_post_id),
+    );
+    $other_posts = new WP_Query( $other_posts_args );
+
+    wp_reset_postdata();
+
+    // We will create an object for each matching post that will include
+    // the ID and count of the number of times it matches any taxonomy term with the current post.
+    // Later, when we create those, they will get pushed to this $matching_posts array.
+    $matching_posts = array();
+
+    // If we have other posts, loop through them and
+    // count matches for any taxonomy terms in common.
+    if($other_posts->have_posts()) {
+
+        foreach($taxonomies as $taxonomy) {
+
+            // Get the term IDs of terms for the current post
+            // (the post presumably displaying as a single post
+            // back in our template, for which were finding related posts).
+            $current_post_terms = get_the_terms($current_post_id, $taxonomy->name);
+
+
+            // Only continue if the current post actually has some terms for this taxonomy.
+            if($current_post_terms !== false) {
+
+                foreach($other_posts->posts as $post) {
+
+                    // Get the term IDs of terms for this taxonomy
+                    // for the other post we are currently looping over.
+                    $other_post_terms = get_the_terms($post->ID, $taxonomy->name);
+
+                    // Check that other post has terms and only continue if there
+                    // are terms to compare.
+                    if($other_post_terms !== false) {
+
+                        $other_post_term_IDs = array();
+                        $current_post_term_IDs = array();
+
+                        // Get term IDs from each term in the current post.
+                        foreach($current_post_terms as $term) {
+                            array_push($current_post_term_IDs, $term->term_id);
+                        }
+
+                        // Get term IDs from each term in the other post.
+                        foreach($other_post_terms as $term) {
+                            array_push($other_post_term_IDs, $term->term_id);
+                        }
+
+                        if( !empty($other_post_term_IDs) && !empty($current_post_term_IDs) ) {
+                             
+                            // Collect the matching term IDs for the terms the posts have in common.
+                            $match_count = sizeof(array_intersect($other_post_term_IDs, $current_post_term_IDs));
+                             
+                            // Get the ID of the other post to use to identify and store this post
+                            // in our results.
+                            $post_ID = $post->ID;
+
+                            if ($match_count > 0) {
+
+                                // Assume post not added previously.
+                                $post_already_added = false;
+
+                                // If posts have already been added to our matches
+                                // then check to see if we already added this post.
+                                if(!empty($matching_posts)) {
+     
+                                    foreach($matching_posts as $post) {
+                                        // If this post was added previously then let's increment the count
+                                        // for our new matching terms.
+                                        if (isset($post->ID) && $post->ID == $post_ID) {
+                                            $post->count += $match_count;
+                                            // Switch this to true for the check we perform below.
+                                            $post_already_added = true;
+                                        }
+                                    }
+                                     
+                                    // If never found a post with same ID in our $matching_posts
+                                    // list then create a new entry associated with this post and add it.
+                                    if ($post_already_added === false) {
+                                        $new_matching_post = new stdClass();
+                                        $new_matching_post->ID = $post_ID;
+                                        $new_matching_post->count = $match_count;
+                                        array_push($matching_posts, $new_matching_post);
+                                    }
+                                } else {
+                                    // If no posts have been added yet to $matching_posts then this will be the first.
+                                    $new_matching_post = new stdClass();
+                                    $new_matching_post->ID = $post_ID;
+                                    $new_matching_post->count = $match_count;
+                                    array_push($matching_posts, $new_matching_post);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+         
+        if(!empty($matching_posts)) {
+            // Sort the array in order of highest count for total terms in common
+            // (most related to least).
+            usort($matching_posts, function($a, $b) {
+                return strcmp($b->count, $a->count);
+            });
+            // Just take the top 3 most related
+            $most_related = array_slice($matching_posts, 0, $count);
+            
+            // Get the IDs of most related posts.
+            $matching_posts = array_map(function($obj) {
+                return $obj->ID;
+            }, $most_related);
+        }
+
+    } 
+
+    return $matching_posts;
+
 }
