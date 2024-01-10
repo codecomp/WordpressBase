@@ -1,0 +1,12 @@
+vendor/**/*.css
+vendor/**/*.scss
+vendor/**/*.sass
+vendor/**/*.less
+node_modules/**/*.css
+node_modules/**/*.scss
+node_modules/**/*.sass
+node_modules/**/*.less
+dist/**/*.css
+dist/**/*.scss
+dist/**/*.sass
+dist/**/*.less

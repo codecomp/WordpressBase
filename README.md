@@ -20,8 +20,8 @@ Base WordPress theme
 ## NPM commands
 Command  | Usage
 ------------- | -------------
-npm run lint | Run lint of JS files
-npm run lint:fix | Run lint of JS files and attempt to fix issues
+npm run lint | Run lint of JS files and SCSS files
+npm run lint:fix | Run lint of JS and SCSS files and attempt to fix issues
 npm run build | Compile CSS and JS files without maps, minimize compiled files, move and compress assets
 npm run build:dev | Compile CSS and JS files with maps, move and compress assets
 npm run watch | Activates browserSync, Watch for changes to JS, PHP, TWIG and CSS files then lint and recompile JS & CSS and refresh browser

@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "Streamlined WordPress base theme",
   "scripts": {
-    "lint": "eslint assets/js",
-    "lint:fix": "eslint --fix assets/js",
+    "lint": "eslint assets/js && npx stylelint \"**/*.scss\"",
+    "lint:fix": "eslint --fix assets/js && npx stylelint \"**/*.scss\" --fix",
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development",
     "watch": "webpack --mode development --watch",
-    "package": "npm run build && tar -zc --totals --exclude='*.tgz' --exclude='.*' --exclude='assets' --exclude='composer.json' --exclude='composer.lock' --exclude='package.json' --exclude='package-lock.json' --exclude='node_modules' --exclude='README.md' --exclude='scss-lint.yml' --exclude='webpack.config.js' -f theme.tgz *"
+    "package": "npm run build && tar -zc --totals --exclude='*.tgz' --exclude='.*' --exclude='assets' --exclude='composer.json' --exclude='composer.lock' --exclude='package.json' --exclude='package-lock.json' --exclude='node_modules' --exclude='README.md' --exclude='.stylelintignore' --exclude='.stylelint.json' --exclude='webpack.config.js' -f theme.tgz *"
   },
   "repository": {
     "type": "git",
@@ -43,6 +43,9 @@
     "sass": "^1.69.5",
     "sass-loader": "^13.3.2",
     "style-loader": "^3.3.3",
+    "stylelint": "^15.11.0",
+    "stylelint-config-standard-scss": "^11.1.0",
+    "stylelint-webpack-plugin": "^4.1.1",
     "svgo-loader": "^4.0.0",
     "terser-webpack-plugin": "^5.3.9",
     "webpack": "^5.89.0",

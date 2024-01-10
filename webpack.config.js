@@ -6,6 +6,7 @@ const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const StylelintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = (env, argv) => {
   const isDevMode = argv.mode === 'development';
@@ -77,6 +78,10 @@ module.exports = (env, argv) => {
 
         new MiniCssExtractPlugin({
             filename: 'css/[name].css'
+        }),
+
+        isDevMode && new StylelintPlugin({
+          files: '**/*.scss',
         }),
 
         isDevMode && new BrowserSyncPlugin({
