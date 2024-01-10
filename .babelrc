@@ -1,9 +1,9 @@
 {
   "presets": [
-    ["env", {
-      "targets": {
-        "browsers": ["last 5 versions", "safari >= 7"]
-      }
+    ["@babel/preset-env", {
+      "useBuiltIns": "entry",
+      "corejs": 3,
+      "targets": "defaults"
     }]
   ]
 }
