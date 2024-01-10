@@ -1,86 +1,17 @@
 /**
- * Checks if a passed element has a passed class
- *
- * @param el
- * @param cls
- * @returns {boolean}
- */
-export function hasClass (el, cls) {
-    let result = false;
-
-    if (el.classList) {
-        result = el.classList.contains(cls);
-    } else {
-        result = new RegExp('(^| )' + cls + '( |$)', 'gi').test(el.cls);
-    }
-
-    return result;
-}
-
-/**
- * Adds passed class to passed element, array of elements or nodeList
+ * Adds or removes class on passed element, array of elements or nodeList based on passed boolean
  *
  * @param target
  * @param cls
  */
-export function addClass (target, cls) {
+export function boolClass (target, cls, bool) {
     function run(el){
-        if (!hasClass(el, cls)) {
-            if (el.classList) {
-                el.classList.add(cls);
-            } else {
-                el.className += ' ' + cls;
-            }
+        if(!el.classList.contains(cls) && bool) {
+            el.classList.add(cls);
         }
-    }
 
-    if( target.constructor === NodeList || target.constructor === Array ){
-        target.forEach((el) => {
-            run(el);
-        });
-    } else {
-        run(target);
-    }
-}
-
-/**
- * Removed passed class from passed element, array of elements or nodeList
- *
- * @param target
- * @param cls
- */
-export function removeClass (target, cls) {
-    function run(el){
-        if (hasClass(el, cls)) {
-            if (el.classList) {
-                el.classList.remove(cls);
-            } else {
-                el.cls = el.cls.replace(new RegExp('(^|\\b)' + cls.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-            }
-        }
-    }
-
-    if( target.constructor === NodeList || target.constructor === Array ){
-        target.forEach((el) => {
-            run(el);
-        });
-    } else {
-        run(target);
-    }
-}
-
-/**
- * Toggles passed class on passed element, array of elements or nodeList
- *
- * @param target
- * @param cls
- */
-export function toggleClass (target, cls) {
-    function run(el){
-        if (!hasClass(el, cls)) {
-            addClass(el, cls);
-        } else {
-            removeClass(el, cls);
+        if(el.classList.contains(cls) && !bool){
+            el.classList.remove(cls);
         }
     }
 
@@ -147,38 +78,6 @@ export function maxWidth (width) {
 }
 
 /**
- * Check on the browser to determine if the window is greater than the passed width
- *
- * @param width
- * @returns {boolean}
- */
-export function minWidth (width) {
-    let result = false;
-
-    if( Modernizr.mq ) {
-        result = Modernizr.mq('(min-width: '+width+'px)');
-    } else {
-        const w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-        result = w > width
-    }
-
-    return result;
-}
-
-/**
- * Calls passed function upon document being ready
- *
- * @param fn
- */
-export function documentReady (fn) {
-    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
-        fn();
-    } else {
-        document.addEventListener('DOMContentLoaded', fn);
-    }
-}
-
-/**
  * Determine if a passed event string is native or not
  *
  * @param name
@@ -193,6 +92,7 @@ export function isNativeEvent (name) {
  *
  * @param name
  * @param el
+ * @todo Update to use Event()
  */
 export function trigger (name, el) {
     let event;
@@ -259,7 +159,7 @@ export function isJsonString(str) {
  */
 export function closestByClass(el, clazz) {
     // Traverse the DOM up with a while loop
-    while ( !hasClass(el, clazz) ) {
+    while ( !el.classList.contains(clazz) ) {
         // Increment the loop to the parent node
         el = el.parentNode;
         if (!el) {
