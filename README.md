@@ -3,10 +3,8 @@ Base WordPress theme
 
 ## Prerequisites
 
-* Composer [https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx]
+* Composer [https://getcomposer.org/download/]
 * Node [https://nodejs.org/en/download/]
-* Ruby [https://www.ruby-lang.org/en/documentation/installation/]
-* Ruby scss_lint gem `gem install scss_lint`
 
 ## Setup
 
@@ -15,37 +13,31 @@ Base WordPress theme
 3. Rename theme folder.
 4. In theme directory on the command line run `composer install` to install package dependencies.
 5. In theme directory on the command line run `npm install` to install NPM packages.
-6. If using a local development environment update gulpfle.js proxy to reflect development server port or website address.
+6. If using a local development environment update webpack.config.js proxy to reflect development website address.
 7. (optional) Use realfavicongenerator.net to generate new favicons and export zip contents to /assets/favicons/.
 8. (optional) Update screenshot.png to reflect theme design at 880x660 or 387x290.
-
-## Gulp commands
-Command  | Usage
-------------- | -------------
-gulp watch | Activates browserSync, Watch for changes to JS, PHP and SCSS files then lint and recompile JS & CSS and refresh browser
-gulp deploy | Recompile JS and CSS, optimise JS, CSS and Images, Refresh browsers via browserSync, Remove unnecessary map files 
-gulp js:lint | Force lint of JS files
-gulp js:compile | Force compilation of JS files
-gulp css:lint | Force lint of CSS files
-gulp css:compile | Force compilation of CSS files
-gulp fix | Manually move fonts, favicons and images to dist directory if watch task was not active when added
 
 ## NPM commands
 Command  | Usage
 ------------- | -------------
-npm run deploy | Recompile the CSS and JS, optimise images, move misc assets and prune development node libraries
-npm run package | Create a clean tarball of the theme without any development files
+npm run lint | Run lint of JS files
+npm run lint:fix | Run lint of JS files and attempt to fix issues
+npm run build | Compile CSS and JS files without maps, minimize compiled files, move and compress assets
+npm run build:dev | Compile CSS and JS files with maps, move and compress assets
+npm run watch | Activates browserSync, Watch for changes to JS, PHP, TWIG and CSS files then lint and recompile JS & CSS and refresh browser
+npm run package | Build then package the theme into a tgz file
 
 ## Folder structure
 
 ```shell
-themes/your-theme-name/     # → Root of your ahoy based theme
+themes/your-theme-name/     # → Root of your base theme
 ├── assets                  # → Front-end assets
 │   ├── favicons/           # → Webpack and ESLint config
 │   ├── fonts/              # → Theme fonts
 │   ├── images/             # → Theme images
 │   ├── js/                 # → Theme JS
-│   └── scss/               # → Theme stylesheets
+│   │   └── modules         # → Individual modules for use in theme
+│   └── css/                # → Theme stylesheets
 ├── components              # → Theme PHP
 │   │   ├── acf/php         # → Advanced custo fields functionalty
 │   │   ├── admin.php       # → Back end customisation
@@ -70,10 +62,8 @@ themes/your-theme-name/     # → Root of your ahoy based theme
 ├── screenshot.png          # → Theme screenshot for WP admin
 ├── style.css               # → Theme meta information
 ├── layouts/                # → Twig templates
-│   ├── blocks/             # → Cross site block level items
-│   └── partials/           # → Site specific layour parts
-├── templates/              # → Theme templates
-│   └── layouts/            # → Base templates
+│   ├── blocks/             # → Block level items
+│   └── partials/           # → Reused cross site elements
 └── vendor/                 # → Composer packages (never edit)
 ```
 
@@ -91,6 +81,7 @@ get_theme_image | Returns a child theme overwritable image path
 the_theme_svg | Echos a child theme overwritable SVG
 get_theme_svg | Returns a child theme overwritable SVG
 the_icon | Echo a SVG sprite definition
+is_current_user_admin | Check if current user has admin role
 user_has_role | Check if a user has a specific role
 is_role | Check if current user has a specific role
 clean_site_url | Return clean site url without www. or http:// or https://
@@ -111,17 +102,10 @@ is_plugin_activated | Special check to see if certain plugins are activated (Woo
 repeater_walker | Walks over a ACF repeater array and calls function on the rows
 get_attachment_svg | Gets a child uploaded attachment SVG from attachment ID
 get_attachment_image_src | Get the source for an attachment image without needing to store to a variable each time
-
-## Roadmap
-
-* Source packages to handle social integration.
-* Check current ecosystem for WordPress form plugins to see if we've moved path the terrible contact forms 7 era to determine if we need to do this manually.
+term_has_children | Check if the provided term has child terms
+get_related_posts | Basic related posts function
 
 ## History
-
-###?.?.?
-This started off as a bunch of WordPress themes that were created using the twentythirteen theme.
-Over time of recreating the same functionality again and again I cobbled the bets bits of multiple sites into a basic theme.
 
 ###1.0.0
 Creation of basic theme.
@@ -153,6 +137,11 @@ Setup deployment NPM scripts.
 Setup PSR-2 code formatting for PHP and refactored code to consistent style.
 Moved admin dashboard and admin bar removal content into reset.
 Created setup file for theme setup functions.
+
+###3.0.0
+Swapped from gulp to webpack
+Updated javascript to a module methodology
+Updates CSS to use CSS variables instead of SCSS variables
 
 ## Credits
 
