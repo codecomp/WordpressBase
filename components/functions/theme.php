@@ -204,7 +204,7 @@ function extend_site_context($context)
     // Add menu objects
     $menus = get_registered_nav_menus();
     foreach ( $menus as $location => $description ) {
-        $context['menus'][preg_replace("/[^A-Za-z0-9]/", "_", $location )] = new \Timber\Menu($location);
+        $context['menus'][preg_replace("/[^A-Za-z0-9]/", "_", $location )] = Timber::get_menu($location);
     }
 
     return $context;

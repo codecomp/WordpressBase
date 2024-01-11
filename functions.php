@@ -5,8 +5,11 @@ if (file_exists($composer = __DIR__ . '/vendor/autoload.php')) {
     require_once($composer);
 }
 
+// Set knit to locked mode
+Kint\Renderer\RichRenderer::$folder = true;
+
 // Initialise Timber
-$timber = new Timber\Timber();
+$timber = Timber\Timber::init();;
 Timber::$dirname = 'layouts';
 
 /**

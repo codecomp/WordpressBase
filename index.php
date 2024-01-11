@@ -1,6 +1,7 @@
 <?php
 
-$context = Timber::get_context();
+$context = Timber::context();
+
 $templates = array( 'index.twig' );
 if ( is_home() ) {
     array_unshift( $templates, 'home.twig' );
