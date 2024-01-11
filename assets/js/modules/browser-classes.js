@@ -11,10 +11,9 @@ const initialize = () => {
         }
         if (bowser.name && bowser.version) {
             document.body.classList.add(
-                bowser.name.replace(/\s+/g, '-').toLowerCase() +
-                    '-' +
-                    bowser.version.replace(/\s+/g, '-').toLowerCase(),
-            ); // eslint-disable-line max-len
+                bowser.name.replace(/\s+/g, '-').toLowerCase() + '-' + 
+                bowser.version.replace(/\s+/g, '-').toLowerCase()
+            );
         }
     }
 };
