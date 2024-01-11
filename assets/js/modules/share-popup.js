@@ -1,12 +1,12 @@
 /**
  * Open share links in a new window
- * 
+ *
  * @todo Detemine share link off a data attribute not a class
  * @todo Enable height and width to be set by data attribute
  */
 const initialize = () => {
     document.addEventListener('click', (e) => {
-        if( e.target.classList.contains('js-share') ) {
+        if (e.target.classList.contains('js-share')) {
             const url = e.target.getAttribute('href');
 
             if (url && url.indexOf('http') === 0) {
@@ -20,6 +20,6 @@ const initialize = () => {
             }
         }
     });
-}
+};
 
 document.addEventListener('DOMContentLoaded', initialize);

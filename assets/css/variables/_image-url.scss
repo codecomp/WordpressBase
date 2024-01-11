@@ -1,5 +1,3 @@
 @function image-url($filename) {
-
     @return url('../../dist/images/#{$filename}');
-
 }

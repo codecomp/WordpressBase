@@ -4,18 +4,18 @@
  * @param target
  * @param cls
  */
-export function boolClass (target, cls, bool) {
-    function run(el){
-        if(!el.classList.contains(cls) && bool) {
+export function boolClass(target, cls, bool) {
+    function run(el) {
+        if (!el.classList.contains(cls) && bool) {
             el.classList.add(cls);
         }
 
-        if(el.classList.contains(cls) && !bool){
+        if (el.classList.contains(cls) && !bool) {
             el.classList.remove(cls);
         }
     }
 
-    if( target.constructor === NodeList || target.constructor === Array ){
+    if (target.constructor === NodeList || target.constructor === Array) {
         target.forEach((el) => {
             run(el);
         });
@@ -34,10 +34,10 @@ export function getSiblings(el, filter) {
     const siblings = [];
     el = el.parentNode.firstChild;
     do {
-        if (!filter || filter(el)){
+        if (!filter || filter(el)) {
             siblings.push(el);
         }
-    } while (el = el.nextSibling);
+    } while ((el = el.nextSibling));
     return siblings;
 }
 
@@ -46,10 +46,10 @@ export function getSiblings(el, filter) {
  *
  * @returns {boolean}
  */
-export function isTouch () {
+export function isTouch() {
     let result = false;
 
-    if( Modernizr.touchevents ) {
+    if (Modernizr.touchevents) {
         result = Modernizr.touchevents;
     } else {
         result = 'ontouchstart' in window || navigator.maxTouchPoints;
@@ -64,14 +64,14 @@ export function isTouch () {
  * @param width
  * @returns {boolean}
  */
-export function maxWidth (width) {
+export function maxWidth(width) {
     let result = false;
 
-    if( Modernizr.mq ) {
-        result = Modernizr.mq('(max-width: '+width+'px)');
+    if (Modernizr.mq) {
+        result = Modernizr.mq('(max-width: ' + width + 'px)');
     } else {
         const w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-        result = w < width
+        result = w < width;
     }
 
     return result;
@@ -83,8 +83,8 @@ export function maxWidth (width) {
  * @param name
  * @returns {boolean}
  */
-export function isNativeEvent (name) {
-    return typeof document.body["on" + name] !== "undefined";
+export function isNativeEvent(name) {
+    return typeof document.body['on' + name] !== 'undefined';
 }
 
 /**
@@ -94,18 +94,18 @@ export function isNativeEvent (name) {
  * @param el
  * @todo Update to use Event()
  */
-export function trigger (name, el) {
+export function trigger(name, el) {
     let event;
 
-    if(isNativeEvent(name)){
+    if (isNativeEvent(name)) {
         event = document.createEvent('HTMLEvents');
         event.initEvent(name, true, false);
     } else {
         if (window.CustomEvent) {
-            event = new CustomEvent(name, {detail: {some: 'data'}});
+            event = new CustomEvent(name, { detail: { some: 'data' } });
         } else {
             event = document.createEvent('CustomEvent');
-            event.initCustomEvent(name, true, true, {some: 'data'});
+            event.initCustomEvent(name, true, true, { some: 'data' });
         }
     }
 
@@ -118,14 +118,14 @@ export function trigger (name, el) {
  * @param el
  * @returns {{top: number, left: number}}
  */
-export function getPosition (el) {
+export function getPosition(el) {
     const box = el.getBoundingClientRect(),
         docEl = document.documentElement,
         scrollTop = window.pageYOffset,
         scrollLeft = window.pageXOffset,
         clientTop = docEl.clientTop || 0,
         clientLeft = docEl.clientLeft || 0,
-        top  = box.top + scrollTop - clientTop,
+        top = box.top + scrollTop - clientTop,
         left = box.left + scrollLeft - clientLeft;
 
     return { top: Math.round(top), left: Math.round(left) };
@@ -159,7 +159,7 @@ export function isJsonString(str) {
  */
 export function closestByClass(el, clazz) {
     // Traverse the DOM up with a while loop
-    while ( !el.classList.contains(clazz) ) {
+    while (!el.classList.contains(clazz)) {
         // Increment the loop to the parent node
         el = el.parentNode;
         if (!el) {

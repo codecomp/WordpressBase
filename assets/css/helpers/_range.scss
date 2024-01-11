@@ -4,11 +4,11 @@
     @content;
 
     &::-moz-range-track {
-        @content
+        @content;
     }
 
     &::-ms-track {
-        @content
+        @content;
     }
 
     &::-ms-fill-lower,

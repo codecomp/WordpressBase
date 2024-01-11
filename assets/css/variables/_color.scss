@@ -1,6 +1,7 @@
-:root, [data-theme="default"] {
+:root,
+[data-theme='default'] {
     --color-black: #000000;
-    --color-white: #FFFFFF;
+    --color-white: #ffffff;
 
     --color-bg: var(--color-white);
     --color-type: var(--color-black);
@@ -11,7 +12,7 @@
     color: var(--color-type);
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
     --color-bg: var(--color-black);
     --color-type: var(--color-white);
 }

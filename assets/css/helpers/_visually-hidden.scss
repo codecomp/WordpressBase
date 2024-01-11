@@ -32,7 +32,7 @@
     @if index($args, js) {
         .js & {
             @include clear-visually-hidden {
-                @content
+                @content;
             }
         }
     }
