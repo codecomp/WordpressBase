@@ -1,70 +1,70 @@
 {
-  "name": "wordpress-base",
-  "version": "1.0.0",
-  "description": "Streamlined WordPress base theme",
-  "scripts": {
-    "lint": "eslint assets/js && npx stylelint \"**/*.scss\"",
-    "lint:fix": "eslint --fix assets/js && npx stylelint \"**/*.scss\" --fix",
-    "prettier": "npx prettier assets/js/**/*.js --write && npx prettier assets/css/**/*.scss --write",
-    "build": "webpack --mode production",
-    "build:dev": "webpack --mode development",
-    "watch": "webpack --mode development --watch",
-    "package": "npm run build && tar -zc --totals --exclude='*.tgz' --exclude='.*' --exclude='assets' --exclude='composer.json' --exclude='composer.lock' --exclude='package.json' --exclude='package-lock.json' --exclude='node_modules' --exclude='README.md' --exclude='.stylelintignore' --exclude='.stylelint.json' --exclude='webpack.config.js' --exclude'.prettierrc.json' -f theme.tgz *"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://Codecomp@github.com/Codecomp/WordpressBase.git"
-  },
-  "keywords": [
-    "WordPress"
-  ],
-  "author": "Chris Morris",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Codecomp/WordpressBase/issues"
-  },
-  "homepage": "https://github.com/Codecomp/WordpressBase#readme",
-  "devDependencies": {
-    "@babel/core": "^7.23.5",
-    "@babel/preset-env": "^7.23.5",
-    "@babel/preset-modules": "^0.1.6",
-    "babel-loader": "^9.1.3",
-    "browser-sync": "^2.29.3",
-    "browser-sync-webpack-plugin": "^2.3.0",
-    "copy-webpack-plugin": "^12.0.1",
-    "css-loader": "^6.8.1",
-    "eslint": "^7.32.0",
-    "eslint-loader": "^4.0.2",
-    "express": "^4.18.2",
-    "file-loader": "^6.2.0",
-    "image-minimizer-webpack-plugin": "^3.8.3",
-    "imagemin-gifsicle": "^7.0.0",
-    "imagemin-mozjpeg": "^10.0.0",
-    "imagemin-optipng": "^8.0.0",
-    "imagemin-svgo": "^10.0.1",
-    "imagemin-webpack-plugin": "^2.4.2",
-    "mini-css-extract-plugin": "^2.7.6",
-    "postcss-loader": "^7.3.3",
-    "prettier": "^3.1.1",
-    "sass": "^1.69.5",
-    "sass-loader": "^13.3.2",
-    "style-loader": "^3.3.3",
-    "stylelint": "^15.11.0",
-    "stylelint-config-standard-scss": "^11.1.0",
-    "stylelint-webpack-plugin": "^4.1.1",
-    "svgo-loader": "^4.0.0",
-    "terser-webpack-plugin": "^5.3.9",
-    "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
-  },
-  "dependencies": {
-    "@pageclip/valid-form": "^1.0.2",
-    "bowser": "^1.9.3",
-    "core-js": "^2.5.5",
-    "image-webpack-loader": "^8.1.0",
-    "js-cookie": "^2.2.0",
-    "throttle-debounce": "^1.0.1",
-    "whatwg-fetch": "^2.0.4"
-  }
+    "name": "wordpress-base",
+    "version": "1.0.0",
+    "description": "Streamlined WordPress base theme",
+    "scripts": {
+        "lint": "eslint assets/js && npx stylelint \"**/*.scss\"",
+        "lint:fix": "eslint --fix assets/js && npx stylelint \"**/*.scss\" --fix",
+        "prettier": "npx prettier assets/js/**/*.js --write && npx prettier assets/css/**/*.scss --write",
+        "build": "webpack --mode production",
+        "build:dev": "webpack --mode development",
+        "watch": "webpack --mode development --watch",
+        "package": "npm run build && tar -zc --totals --exclude='*.tgz' --exclude='.*' --exclude='assets' --exclude='composer.json' --exclude='composer.lock' --exclude='package.json' --exclude='package-lock.json' --exclude='node_modules' --exclude='README.md' --exclude='.stylelintignore' --exclude='.stylelint.json' --exclude='webpack.config.js' --exclude'.prettierrc.json' -f theme.tgz *"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://Codecomp@github.com/Codecomp/WordpressBase.git"
+    },
+    "keywords": [
+        "WordPress"
+    ],
+    "author": "Chris Morris",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Codecomp/WordpressBase/issues"
+    },
+    "homepage": "https://github.com/Codecomp/WordpressBase#readme",
+    "devDependencies": {
+        "@babel/core": "^7.23.5",
+        "@babel/preset-env": "^7.23.5",
+        "@babel/preset-modules": "^0.1.6",
+        "babel-loader": "^9.1.3",
+        "browser-sync": "^2.29.3",
+        "browser-sync-webpack-plugin": "^2.3.0",
+        "copy-webpack-plugin": "^12.0.1",
+        "css-loader": "^6.8.1",
+        "eslint": "^7.32.0",
+        "eslint-loader": "^4.0.2",
+        "express": "^4.18.2",
+        "file-loader": "^6.2.0",
+        "image-minimizer-webpack-plugin": "^3.8.3",
+        "imagemin-gifsicle": "^7.0.0",
+        "imagemin-mozjpeg": "^10.0.0",
+        "imagemin-optipng": "^8.0.0",
+        "imagemin-svgo": "^10.0.1",
+        "imagemin-webpack-plugin": "^2.4.2",
+        "mini-css-extract-plugin": "^2.7.6",
+        "postcss-loader": "^7.3.3",
+        "prettier": "^3.1.1",
+        "sass": "^1.69.5",
+        "sass-loader": "^13.3.2",
+        "style-loader": "^3.3.3",
+        "stylelint": "^15.11.0",
+        "stylelint-config-standard-scss": "^11.1.0",
+        "stylelint-webpack-plugin": "^4.1.1",
+        "svgo-loader": "^4.0.0",
+        "terser-webpack-plugin": "^5.3.9",
+        "webpack": "^5.89.0",
+        "webpack-cli": "^5.1.4",
+        "webpack-dev-server": "^4.15.1"
+    },
+    "dependencies": {
+        "@pageclip/valid-form": "^1.0.2",
+        "bowser": "^1.9.3",
+        "core-js": "^2.5.5",
+        "image-webpack-loader": "^8.1.0",
+        "js-cookie": "^2.2.0",
+        "throttle-debounce": "^1.0.1",
+        "whatwg-fetch": "^2.0.4"
+    }
 }
