@@ -19,7 +19,7 @@
     {{ function('wp_head') }}
 
 </head>
-<body {{ function('body_class') }}>
+<body class="{{ fn('get_body_class')|join(' ') }}">
 
 <div class="site-wrap">
 
