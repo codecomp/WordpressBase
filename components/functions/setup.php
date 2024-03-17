@@ -62,7 +62,4 @@ add_action('after_setup_theme', function () {
 
     //Add image sizes (name, width, height, crop)
     add_image_size('email-banner', 600, null, true); // used for contact emails
-
-    // Register admin editor stylesheet
-    add_editor_style(get_template_directory_uri() . '/dist/css/admin-editor-styles.css');
 });
