@@ -69,13 +69,13 @@ add_filter('mce_buttons_2', function ($buttons) {
  * Add editor theme CSS to admin UI
  */
 add_action( 'admin_init', function (){
-    add_editor_style( get_template_directory_uri() . '/dist/css/admin-editor-styles.css' );
+    add_editor_style( get_template_directory_uri() . '/dist/css/admin-editor.css' );
 });
 
 /**
  * Add admin theme CSS to admin UI
  */
 add_action( 'admin_enqueue_scripts', function () {
-    wp_register_style( 'custom_wp_admin_css', get_template_directory_uri() . '/dist/css/admin-styles.css' );
+    wp_register_style( 'custom_wp_admin_css', get_template_directory_uri() . '/dist/css/admin.css' );
     wp_enqueue_style( 'custom_wp_admin_css' );
 });

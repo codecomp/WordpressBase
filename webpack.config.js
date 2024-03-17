@@ -14,7 +14,7 @@ module.exports = (env, argv) => {
         entry: {
             main: ['./assets/js/main.js', './assets/css/main.scss'],
             admin: ['./assets/css/admin-styles.scss'],
-            adminEditor: ['./assets/css/admin-editor-styles.scss'],
+            'admin-editor': ['./assets/css/admin-editor-styles.scss'],
         },
         output: {
             filename: 'js/[name].js',
