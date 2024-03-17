@@ -43,6 +43,7 @@
         "imagemin-optipng": "^8.0.0",
         "imagemin-svgo": "^10.0.1",
         "mini-css-extract-plugin": "^2.7.6",
+        "node-sass-magic-importer": "^5.3.3",
         "postcss-loader": "^7.3.3",
         "postcss-preset-env": "^9.5.0",
         "prettier": "^3.2.5",

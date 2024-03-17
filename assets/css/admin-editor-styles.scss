@@ -1,39 +1,20 @@
-// Helpers
-@import 'helpers/calculations';
-@import 'helpers/cascase';
-@import 'helpers/clearfix';
-@import 'helpers/cover';
-@import 'helpers/no-collapse';
-@import 'helpers/pseudo';
-@import 'helpers/range';
-@import 'helpers/reset';
-@import 'helpers/responsive-ratio';
-@import 'helpers/visually-hidden';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-// Variables
-@import 'variables/media-queries';
-@import 'variables/color';
-@import 'variables/easing';
-@import 'variables/font-family';
-@import 'variables/font-size';
-@import 'variables/image-url';
-@import 'variables/spacing';
+@import 'assets/css/helpers/*';
+@import 'components/wysiwyg';
 
-// Objects
-@import 'objects/wysiwyg';
+@layer base {
+    html {
+        //font-size: 62.5%;
+    }
 
-html {
-    box-sizing: border-box;
-    font-size: 62.5%;
-    -webkit-font-smoothing: antialiased;
+    body {
+        @apply theme-initial p-4;
+    }
 }
 
-body {
-    color: var(--color-type);
-    font-size: var(--fs-body-m);
-    font-family: var(--ff-base);
-}
-
-a {
-    color: inherit;
+.mce-content-body {
+    @apply wysiwyg;
 }

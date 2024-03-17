@@ -1,0 +1,27 @@
+@layer components {
+    .wysiwyg {
+        > * {
+            @apply mb-6;
+        }
+
+        .alignleft {
+            @apply float-left;
+
+            &img {
+                @apply mr-6;
+            }
+        }
+
+        .alignright {
+            @apply float-right;
+
+            &img {
+                @apply ml-6;
+            }
+        }
+
+        .aligncenter {
+            @apply block mx-auto;
+        }
+    }
+}

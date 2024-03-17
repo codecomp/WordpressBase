@@ -1,4 +1,5 @@
 const path = require('path');
+const magicImporter = require('node-sass-magic-importer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
@@ -43,6 +44,9 @@ module.exports = (env, argv) => {
                             options: {
                                 sourceMap: isDevMode,
                                 implementation: require('sass'),
+                                sassOptions: {
+                                    importer: magicImporter(),
+                                },
                             },
                         },
                     ],

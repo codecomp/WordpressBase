@@ -2,35 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-// Helper mixins
-@import 'helpers/calculations';
-@import 'helpers/cascase';
-@import 'helpers/clearfix';
-@import 'helpers/cover';
-@import 'helpers/no-collapse';
-@import 'helpers/pseudo';
-@import 'helpers/range';
-@import 'helpers/reset';
-@import 'helpers/responsive-ratio';
-@import 'helpers/visually-hidden';
+@import 'assets/css/helpers/*';
+@import 'assets/css/components/*';
 
-// Variables
-@import 'variables/media-queries';
-@import 'variables/color';
-@import 'variables/easing';
-@import 'variables/font-family';
-@import 'variables/font-size';
-@import 'variables/image-url';
-@import 'variables/spacing';
+@layer base {
+    html {
+        //font-size: 62.5%;
+    }
 
-// Placeholders
-@import 'placeholders/typography';
+    *,
+    *::before,
+    *::after {
+        @apply min-w-0;
+    }
 
-// Block level objects & distinct content chunks
-@import 'objects/wysiwyg';
+    ::selection {
+        text-shadow: none;
+        @apply text-background bg-content;
+    }
 
-// Page specific content & overrides
-@import 'pages/base';
+    img,
+    svg {
+        @apply max-w-full h-auto;
+    }
 
-// Misc
-@import 'misc/plugins';
+    cite,
+    address {
+        @apply not-italic;
+    }
+
+    pre {
+        @apply whitespace-pre-wrap;
+    }
+}

@@ -1,9 +1,0 @@
-:root {
-    --sp-xxl: CLAMP(5rem, #{vw-calc(180)}, 18rem);
-    --sp-xl: CLAMP(4.5rem, #{vw-calc(130)}, 13rem);
-    --sp-l: CLAMP(4.5rem, #{vw-calc(115)}, 11.5rem);
-    --sp-m: CLAMP(3rem, #{vw-calc(75)}, 7.5rem);
-    --sp-s: CLAMP(2.5rem, #{vw-calc(50)}, 5rem);
-    --sp-xs: CLAMP(2rem, #{vw-calc(40)}, 4rem);
-    --sp-xxs: CLAMP(1.5rem, #{vw-calc(24)}, 2.4rem);
-}
