@@ -211,3 +211,177 @@ function extend_site_context($context)
 }
 
 add_filter('timber/context', 'extend_site_context');
+
+/**
+ * Setup custom twig filters
+ *
+ * @param Twig $twig
+ * @return void
+ */
+function add_custom_twig_filter($twig) {
+    $twig->addFilter(new Twig\TwigFilter('svg_class', 'svg_insert_classes'));
+    $twig->addFilter(new Twig\TwigFilter('remove_fill', 'svg_remove_fill'));
+    $twig->addFilter(new Twig\TwigFilter('remove_stroke', 'svg_remove_stroke'));
+    $twig->addFilter(new Twig\TwigFilter('img_class', 'img_insert_classes'));
+    return $twig;
+}
+add_filter('timber/twig', 'add_custom_twig_filter');
+
+/**
+ * Inject classes into a string that contains a svg element
+ *
+ * @param string $svg
+ * @param string $classes
+ * @return void
+ */
+function svg_insert_classes($svg, $classes = '') {
+    // Ensure the input is a valid SVG string
+    if (strpos($svg, '<svg') !== false) {
+        // Create a new DOMDocument
+        $dom = new DOMDocument();
+
+        // Load SVG string using loadXML()
+        libxml_use_internal_errors(true);
+        $dom->loadXML($svg);
+        libxml_use_internal_errors(false);
+
+        // Get the <svg> element
+        $svgElement = $dom->getElementsByTagName('svg')->item(0);
+
+        // Add classes to the <svg> element
+        $existingClasses = $svgElement->getAttribute('class');
+        $newClasses = $existingClasses . ' ' . $classes;
+        $svgElement->setAttribute('class', trim($newClasses));
+
+        // Save the modified SVG string
+        $modifiedSvg = $dom->saveXML($svgElement);
+
+        return $modifiedSvg;
+    }
+
+    // Return the original string if it's not a valid SVG
+    return $svg;
+}
+
+/**
+ * Modify a string containing a SVG to remove fills
+ *
+ * @param string $svg
+ * @return void
+ */
+function svg_remove_fill($svg) {
+    // Ensure the input is a valid SVG string
+    if (strpos($svg, '<svg') !== false) {
+        // Create a new DOMDocument
+        $dom = new DOMDocument();
+
+        // Load SVG string using loadXML()
+        libxml_use_internal_errors(true);
+        $dom->loadXML($svg);
+        libxml_use_internal_errors(false);
+
+        // Get all elements with a fill attribute
+        $xpath = new DOMXPath($dom);
+        $elements = $xpath->query('//*[@fill]');
+
+        // Remove the fill attribute from each element
+        foreach ($elements as $element) {
+            $element->removeAttribute('fill');
+        }
+
+        // Save the modified SVG string
+        $modifiedSvg = $dom->saveXML();
+
+        // Use a regular expression to remove fill properties from CSS
+        $modifiedSvg = preg_replace('/fill\s*:\s*[^;]+;/', '', $modifiedSvg);
+        $modifiedSvg = preg_replace('/fill\s*:\s*[^"]+"/', '"', $modifiedSvg);
+
+        return $modifiedSvg;
+    }
+
+    // Return the original string if it's not a valid SVG
+    return $svg;
+}
+
+/**
+ * Modify a string containing a SVG to remove strokes
+ *
+ * @param string $svg
+ * @return void
+ */
+function svg_remove_stroke($svg) {
+    // Ensure the input is a valid SVG string
+    if (strpos($svg, '<svg') !== false) {
+        // Create a new DOMDocument
+        $dom = new DOMDocument();
+
+        // Load SVG string using loadXML()
+        libxml_use_internal_errors(true);
+        $dom->loadXML($svg);
+        libxml_use_internal_errors(false);
+
+        // Get all elements with a stroke attribute
+        $xpath = new DOMXPath($dom);
+        $elements = $xpath->query('//*[@stroke]');
+
+        // Remove the stroke attribute from each element
+        foreach ($elements as $element) {
+            $element->removeAttribute('stroke');
+        }
+
+        // Save the modified SVG string
+        $modifiedSvg = $dom->saveXML();
+
+        // Use a regular expression to remove stroke properties from CSS
+        $modifiedSvg = preg_replace('/stroke\s*:\s*[^;]+;/', '', $modifiedSvg);
+        $modifiedSvg = preg_replace('/stroke\s*:\s*[^"]+"/', '"', $modifiedSvg);
+
+        return $modifiedSvg;
+    }
+
+    // Return the original string if it's not a valid SVG
+    return $svg;
+}
+
+/**
+ * Modify a string containing an image to inject classes
+ *
+ * @param string $html
+ * @param string $classes
+ * @return void
+ */
+function img_insert_classes($html, $classes = '') {
+    // Ensure the input is a valid HTML string
+    if (strpos($html, '<img') !== false) {
+        // Create a new DOMDocument
+        $dom = new DOMDocument();
+
+        // Load HTML string using loadHTML()
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($html);
+        libxml_use_internal_errors(false);
+
+        // Get all image elements
+        $imageElements = $dom->getElementsByTagName('img');
+
+        // Add classes to each image element
+        foreach ($imageElements as $imageElement) {
+            $existingClasses = $imageElement->getAttribute('class');
+            $newClasses = $existingClasses . ' ' . $classes;
+            $imageElement->setAttribute('class', trim($newClasses));
+        }
+
+        // Save the modified HTML string
+        $modifiedHtml = $dom->saveHTML();
+
+        // Extract the body content to get rid of added doctype, html, and body tags
+        $startPos = strpos($modifiedHtml, '<body>') + 6;
+        $endPos = strpos($modifiedHtml, '</body>');
+        $modifiedHtml = substr($modifiedHtml, $startPos, $endPos - $startPos);
+
+        return $modifiedHtml;
+    }
+
+    // Return the original string if it doesn't contain an image tag
+    return $html;
+}
