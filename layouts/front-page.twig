@@ -25,6 +25,8 @@
             lacinia auctor. Integer congue neque a felis eleifend lacinia.
         </p>
 
+        <img src="https://picsum.photos/200/300" alt="Lorem picksum"/>
+
         <ul>
             <li>Suspendisse potenti. Proin hendrerit erat sed justo cursus viverra. Aenean ut nisl id ligula pretium
                 vestibulum nec nec nunc. Aliquam gravida dapibus ante, sed volutpat enim feugiat at.
@@ -114,6 +116,10 @@
                 sodales in eget massa. Proin tincidunt arcu at nisi ornare hendrerit. Nullam feugiat quis magna ac
                 tempor. Pellentesque tincidunt lacinia auctor. Integer congue neque a felis eleifend lacinia.
             </p>
+
+            {{ settings.social.twitter.icon|remove_fill|remove_stroke|svg_class('fill-content w-12') }}
+
+            <img src="https://picsum.photos/200/300" alt="Lorem picksum"/>
 
             <ul>
                 <li>Suspendisse potenti. Proin hendrerit erat sed justo cursus viverra. Aenean ut nisl id ligula pretium
