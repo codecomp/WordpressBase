@@ -47,15 +47,7 @@ export function getSiblings(el, filter) {
  * @returns {boolean}
  */
 export function isTouch() {
-    let result = false;
-
-    if (Modernizr.touchevents) {
-        result = Modernizr.touchevents;
-    } else {
-        result = 'ontouchstart' in window || navigator.maxTouchPoints;
-    }
-
-    return result;
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
 }
 
 /**
@@ -67,12 +59,8 @@ export function isTouch() {
 export function maxWidth(width) {
     let result = false;
 
-    if (Modernizr.mq) {
-        result = Modernizr.mq('(max-width: ' + width + 'px)');
-    } else {
-        const w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-        result = w < width;
-    }
+    const w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    result = w < width;
 
     return result;
 }
