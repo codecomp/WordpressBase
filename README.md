@@ -40,17 +40,17 @@ themes/your-theme-name/     # → Root of your base theme
 │   │   └── modules         # → Individual modules for use in theme
 │   └── css/                # → Theme stylesheets
 ├── components              # → Theme PHP
-│   │   ├── acf/php         # → Advanced custo fields functionalty
-│   │   ├── admin.php       # → Back end customisation
+│   │   ├── acf/php         # → Advanced custom fields functionality
+│   │   ├── admin.php       # → Back end customization
 │   │   ├── cpt.php         # → Custom Post type declarations
-│   │   ├── email.php       # → Email functioanlity
+│   │   ├── email.php       # → Email functionality
 │   │   ├── helpers.php     # → Helper functions
-│   │   ├── newletter.php   # → Newsletter functioanlity
+│   │   ├── newsletter.php   # → Newsletter functionality
 │   │   ├── reset.php       # → Theme reset 
-│   │   ├── setup.php       # → Theme initlisaiton
+│   │   ├── setup.php       # → Theme initialization
 │   │   ├── social.php      # → Social functionality
-│   │   ├── theme.php       # → Theme specific functioanlity
-│   │   └── woocommerce.php # → Woocommerce modifications and custom funcitoanltiy
+│   │   ├── theme.php       # → Theme specific functionality
+│   │   └── woocommerce.php # → WooCommerce modifications and custom functionality
 │   ├── functions/          # → Theme wrapper, asset manifest
 │   └── languages/          # → Theme translation files
 ├── composer.json           # → Composer dependencies and scripts
@@ -118,7 +118,7 @@ Creation of basic theme.
 Updated base theme, cleaned up and refactored directory structure.
 Added helper functions and structured readme.
 Swapped from LESS to SCSS.
-Added auto initialising ACF fields for setting up backend options page.
+Added auto initializing ACF fields for setting up backend options page.
 
 ###2.1.0
 Full update to gulp task managing.

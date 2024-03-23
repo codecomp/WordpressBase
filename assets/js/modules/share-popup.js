@@ -1,7 +1,7 @@
 /**
  * Open share links in a new window
  *
- * @todo Detemine share link off a data attribute not a class
+ * @todo Determine share link off a data attribute not a class
  * @todo Enable height and width to be set by data attribute
  */
 const initialize = () => {

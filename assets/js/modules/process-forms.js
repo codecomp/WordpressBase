@@ -5,7 +5,7 @@ import ValidForm from '@pageclip/valid-form';
 /**
  * Setup forms using js-process-form to fire a ajax request to WordPress for processing
  *
- * @todo Test full funcitoanlity after refactoring
+ * @todo Test full functionality after refactoring
  */
 const initialize = () => {
     for (const form of document.getElementsByClassName('js-process-form')) {
@@ -16,7 +16,7 @@ const initialize = () => {
 };
 
 /**
- * Event handler for submiting forms
+ * Event handler for submitting forms
  *
  * @param {Event} e
  */

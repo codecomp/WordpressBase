@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Customises the WordPress admin footer
+ * Customizes the WordPress admin footer
  */
 add_filter('admin_footer_text', function () {
     echo 'Created by <a target="_blank" href="https://ahoy.co.uk" title="Visit Ahoy">Ahoy</a>. Powered by <a target="_blank" href="http://www.wordpress.org" title="Visit WordPress">WordPress</a>';
