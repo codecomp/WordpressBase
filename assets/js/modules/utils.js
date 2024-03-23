@@ -82,19 +82,13 @@ export function isNativeEvent(name) {
  * @param el
  * @todo Update to use Event()
  */
-export function trigger(name, el) {
+export function trigger(name, el, data = {}) {
     let event;
 
     if (isNativeEvent(name)) {
-        event = document.createEvent('HTMLEvents');
-        event.initEvent(name, true, false);
+        event = new Event(name, { bubbles: true, cancelable: false });
     } else {
-        if (window.CustomEvent) {
-            event = new CustomEvent(name, { detail: { some: 'data' } });
-        } else {
-            event = document.createEvent('CustomEvent');
-            event.initCustomEvent(name, true, true, { some: 'data' });
-        }
+        event = new CustomEvent(name, { bubbles: true, cancelable: true, detail: data });
     }
 
     el.dispatchEvent(event);
