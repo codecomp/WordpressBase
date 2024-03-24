@@ -24,6 +24,13 @@ services:
         depends_on:
             - db
 
+    php:
+        image: composer:latest
+        volumes:
+            - .:/app
+        working_dir: /app
+        command: composer install --no-interaction --no-scripts --prefer-dist
+
     db:
         image: mysql:5.7
         environment:
