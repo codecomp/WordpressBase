@@ -84,7 +84,7 @@ module.exports = (env, argv) => {
                 new BrowserSyncPlugin({
                     host: 'localhost',
                     proxy: {
-                        target: 'http://wordpress.local/',
+                        target: 'localhost:8000',
                     },
                     files: ['**/*.php', '**/*.twig', 'dist/css/main.scss'],
                     injectCss: true,
