@@ -28,6 +28,27 @@ npm run build:dev | Compile CSS and JS files with maps, move and compress assets
 npm run watch | Activates browserSync, Watch for changes to JS, PHP, TWIG and CSS files then lint and recompile JS & CSS and refresh browser
 npm run package | Build then package the theme into a tgz file
 
+## Docker
+# Setup and start the container
+docker-compose up -d
+# start the container if previously setup
+docker-compose start
+# Stop the container if running
+docker-compose stop
+# Remove the WordPress installation volume
+docker volume rm your-project-name_wordpress
+# Completely remove the containers and volumes
+docker-compose down -v
+# Create a new image from the existing webpack container
+docker commit <container_id> my-webpack-image
+# Save the image as a tar file
+docker save my-webpack-image > webpack-backup.tar
+# Restore the image from the tar file
+docker load < webpack-backup.tar
+
+# Remove the database volume
+docker volume rm your-project-name_wordpress-data
+
 ## Folder structure
 
 ```shell

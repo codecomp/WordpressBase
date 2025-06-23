@@ -1,6 +1,45 @@
 <?php
 
 /**
+ * Render ACF Pro inactive warning
+ *
+ */
+function display_acf_pro_warning() {
+    ?>
+    <div class="notice notice-warning">
+        <p><?php _e( 'Please install and activate Advanced Custom Fields Pro.', 'text-domain' ); ?></p>
+    </div>
+    <?php
+}
+
+/**
+ * Render Composer uninstalled warning
+ *
+ */
+function display_composer_warning() {
+    ?>
+    <div class="notice notice-warning">
+        <p><?php _e( 'Please check theme installation, vendor directory missing.', 'text-domain' ); ?></p>
+    </div>
+    <?php
+}
+
+/**
+ * Assign notices if ACF or Composer are inactive or uninstalled
+ *
+ * @return void
+ */
+function check_theme_installation() {
+    if ( !is_plugin_active( 'advanced-custom-fields-pro/acf.php' ) ) {
+        add_action( 'admin_notices', 'display_acf_pro_warning' );
+    }
+    if ( !file_exists(get_template_directory() . '/vendor/autoload.php' ) ) {
+        add_action( 'admin_notices', 'display_composer_warning' );
+    }
+}
+add_action( 'admin_init', 'check_theme_installation' );
+
+/**
  * Customizes the WordPress admin footer
  */
 add_filter('admin_footer_text', function () {

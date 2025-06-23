@@ -6,7 +6,7 @@ services:
             - '8080:8080'
         volumes:
             - .:/app
-        command: npm run build
+        command: npm run webpack-dev-server -- --open
 
     wordpress:
         image: wordpress:latest

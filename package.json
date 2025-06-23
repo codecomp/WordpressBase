@@ -9,6 +9,7 @@
         "build": "webpack --mode production",
         "build:dev": "webpack --mode development",
         "watch": "webpack --mode development --watch",
+        "webpack-dev-server": "webpack-dev-server",
         "package": "npm run build && tar -zc --totals --exclude='*.tgz' --exclude='.*' --exclude='assets' --exclude='composer.json' --exclude='composer.lock' --exclude='package.json' --exclude='package-lock.json' --exclude='node_modules' --exclude='README.md' --exclude='.stylelintignore' --exclude='.stylelint.json' --exclude='webpack.config.js' --exclude'.prettierrc.json' -f theme.tgz *"
     },
     "repository": {
@@ -58,7 +59,7 @@
         "terser-webpack-plugin": "^5.3.9",
         "webpack": "^5.89.0",
         "webpack-cli": "^5.1.4",
-        "webpack-dev-server": "^4.15.1"
+        "webpack-dev-server": "^4.15.2"
     },
     "dependencies": {
         "@pageclip/valid-form": "^1.0.2",

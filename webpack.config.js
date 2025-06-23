@@ -70,6 +70,23 @@ module.exports = (env, argv) => {
                 },
             ],
         },
+        devServer: {
+            hot: true, // Enable Hot Module Replacement
+            port: 8080, // Webpack Dev Server port
+            proxy: {
+                '**': {
+                    target: 'http://localhost:8000', // WordPress container port
+                    changeOrigin: true,
+                    secure: false,
+                },
+            },
+            watchOptions: {
+                ignored: /node_modules/,
+            },
+            hotOnly: true, // Force full page reload for non-HMR updates
+            liveReload: true, // Enable live reloading for non-HMR updates
+            static: path.join(__dirname, 'dist'), // Serve static files from the 'dist' directory
+        },
         plugins: [
             new MiniCssExtractPlugin({
                 filename: 'css/[name].css',
@@ -81,15 +98,9 @@ module.exports = (env, argv) => {
                 }),
 
             isDevMode &&
-                new BrowserSyncPlugin({
-                    host: 'localhost',
-                    proxy: {
-                        target: 'localhost:8000',
-                    },
-                    files: ['**/*.php', '**/*.twig', 'dist/css/main.scss'],
-                    injectCss: true,
-                    open: false,
-                    notify: false,
+                new webpack.HotModuleReplacementPlugin({
+                    // Force full page reload for these file types
+                    reloadAll: [/\.php$/],
                 }),
 
             new CopyPlugin({
